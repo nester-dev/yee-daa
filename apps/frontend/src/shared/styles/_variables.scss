@@ -1,0 +1,23 @@
+:root {
+  /* Colors */
+  --c-black: #000;
+  --c-white: #FFF;
+  --c-green-primary: #2db100;
+  --c-green-light: #eaffc7;
+  --c-green-dark: #134b00;
+  --c-green-lime: #b1ff2e;
+  --c-cream: #ffffd3;
+
+  /* Font Family */
+  --ff-inter: 'Inter', sans-serif;
+  --ff-roboto: 'Roboto', sans-serif;
+
+  /* Font Sizes */
+  --fs-h1: 3rem; /* 48px */
+
+  /* Font Weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semi-bold: 600;
+  --fw-bold: 700;
+}
