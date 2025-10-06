@@ -1,8 +1,10 @@
+import { UiTypography } from "@/shared/ui/ui-typography";
+
 const HomePage = () => {
   return (
-    <div>
+    <UiTypography tag="h1" variant="title" fontWeight="bold">
       HomePage
-    </div>
+    </UiTypography>
   );
 };
 

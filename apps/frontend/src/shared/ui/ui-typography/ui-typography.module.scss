@@ -1,0 +1,29 @@
+.title {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  line-height: 100%;
+  text-align: center;
+  color: var(--c-black);
+}
+
+.text {
+  font-size: var(--fs-text);
+  font-weight: var(--fw-medium);
+  line-height: 150%;
+}
+
+.font-regular {
+  font-weight: var(--fw-regular);
+}
+
+.font-medium {
+  font-weight: var(--fw-medium);
+}
+
+.font-semibold {
+  font-weight: var(--fw-semi-bold);
+}
+
+.font-bold {
+  font-weight: var(--fw-bold);
+}
