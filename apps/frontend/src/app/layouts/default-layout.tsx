@@ -1,14 +1,16 @@
 import { Header } from "@/widgets/header";
 import { Outlet } from "react-router";
+import { Sidebar } from "@/widgets/sidebar";
 
 const DefaultLayout = () => {
   return (
-    <div>
+    <>
       <Header />
       <main>
+        <Sidebar />
         <Outlet />
       </main>
-    </div>
+    </>
   );
 };
 
