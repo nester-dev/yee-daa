@@ -10,6 +10,7 @@ export default defineConfig([
   globalIgnores(["dist"]),
   {
     files: ["**/*.{ts,tsx}"],
+
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
@@ -17,6 +18,14 @@ export default defineConfig([
       reactRefresh.configs.vite,
       prettierConfig,
     ],
+    rules: {
+      "prettier/prettier": [
+        "error",
+        {
+          endOfLine: "auto",
+        },
+      ],
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

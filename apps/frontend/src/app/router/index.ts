@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
-import DefaultLayout from "@/app/layouts/default-layout.tsx";
+import DefaultLayout from "@/app/layouts/default-layout/default-layout.tsx";
 import { HomePage } from "@/pages/home-page";
 import { CategoryPage } from "@/pages/category-page";
 
