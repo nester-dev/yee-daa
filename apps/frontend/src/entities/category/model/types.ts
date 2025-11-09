@@ -1,12 +1,12 @@
 export type SubCategory = {
-  id: string;
+  _id: string;
   title: string;
   category: string;
   rootCategoryId: string;
 };
 
 export type Category = {
-  id: string;
+  _id: string;
   title: string;
   category: string;
   icon: string;

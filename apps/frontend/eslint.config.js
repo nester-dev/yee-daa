@@ -5,6 +5,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 import prettierConfig from "eslint-plugin-prettier/recommended";
 import { defineConfig, globalIgnores } from "eslint/config";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
 
 export default defineConfig([
   globalIgnores(["dist"]),
@@ -18,11 +19,32 @@ export default defineConfig([
       reactRefresh.configs.vite,
       prettierConfig,
     ],
+    plugins: {
+      "simple-import-sort": simpleImportSort,
+    },
     rules: {
       "prettier/prettier": [
         "error",
         {
           endOfLine: "auto",
+        },
+      ],
+      "simple-import-sort/imports": [
+        "error",
+        {
+          groups: [
+            ["^react", "^@?\\w", "classnames"],
+            ["@\/test.*"],
+            ["@\/app.*"],
+            ["@\/pages.*"],
+            ["@\/widgets.*"],
+            ["@\/feature.*"],
+            ["@\/entities.*"],
+            ["@\/shared.*", "~/styles/colors.module.scss"],
+            ["^\\..\/"],
+            ["^\\.\/"],
+            ["^(.+)\\.module\\.scss$"],
+          ],
         },
       ],
     },

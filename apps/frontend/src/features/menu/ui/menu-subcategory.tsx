@@ -1,8 +1,11 @@
 import { type FC, useRef } from "react";
-import type { SubCategory } from "@/entities/category";
 import { NavLink } from "react-router";
-import { UiTypography } from "@/shared/ui/ui-typography";
 import cn from "clsx";
+
+import type { SubCategory } from "@/entities/category";
+
+import { UiTypography } from "@/shared/ui/ui-typography";
+
 import styles from "./menu.module.scss";
 
 type Props = {
@@ -13,7 +16,7 @@ type Props = {
 
 const MenuSubcategory: FC<Props> = ({
   parentCategory,
-  subCategories,
+  subCategories = [],
   isParentActive,
 }) => {
   const subcategoryRef = useRef<HTMLUListElement>(null);
@@ -32,7 +35,7 @@ const MenuSubcategory: FC<Props> = ({
       {subCategories.map((subcategory) => {
         return (
           <NavLink
-            key={subcategory.id}
+            key={subcategory._id}
             to={`${parentCategory}/${subcategory.category}`}
             className={({ isActive }) =>
               cn(styles.link, isActive && styles["link-active"])

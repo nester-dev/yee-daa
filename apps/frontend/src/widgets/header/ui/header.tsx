@@ -1,5 +1,6 @@
-import styles from './Header.module.scss';
 import { UiLogo } from "@/shared/ui/ui-logo";
+
+import styles from "./Header.module.scss";
 
 const Header = () => {
   return (

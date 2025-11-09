@@ -1,10 +1,13 @@
-import { createBrowserRouter } from "react-router";
-import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
-import DefaultLayout from "@/app/layouts/default-layout/default-layout.tsx";
-import { HomePage } from "@/pages/home-page";
-import { CategoryPage } from "@/pages/category-page";
+import { createBrowserRouter, RouterProvider } from "react-router";
 
-export const router = createBrowserRouter([
+import DefaultLayout from "@/app/layouts/default-layout/default-layout.tsx";
+
+import { CategoryPage } from "@/pages/category-page";
+import { HomePage } from "@/pages/home-page";
+
+import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
+
+const router = createBrowserRouter([
   {
     path: ROUTE_PATHS.HOME,
     Component: DefaultLayout,
@@ -20,3 +23,9 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+const AppRouter = () => {
+  return <RouterProvider router={router} />;
+};
+
+export default AppRouter;

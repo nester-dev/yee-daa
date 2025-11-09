@@ -1,22 +1,26 @@
 import type { FC, MouseEvent } from "react";
-import type { Category } from "@/entities/category";
-import { UiTypography } from "@/shared/ui/ui-typography";
-import MenuSubcategory from "./menu-subcategory.tsx";
-import ExpandArrow from "@/shared/assets/icons/expand-arrow.svg?react";
 import { NavLink, useParams } from "react-router";
 import cn from "clsx";
+
+import type { Category } from "@/entities/category";
+
+import ExpandArrow from "@/shared/assets/icons/expand-arrow.svg?react";
+import { UiTypography } from "@/shared/ui/ui-typography";
+
+import MenuSubcategory from "./menu-subcategory.tsx";
+
 import styles from "./Menu.module.scss";
 
 const MenuCategory: FC<Category> = ({
   icon,
   title,
   category,
-  subCategories,
+  subCategories = [],
 }) => {
   const params = useParams();
   const isCategoryActive = params?.category === category;
   const [firstSubcategory] = subCategories;
-  const url = `${category}/${firstSubcategory.category}`;
+  const url = `${category}/${firstSubcategory?.category}`;
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (isCategoryActive) {
@@ -36,7 +40,7 @@ const MenuCategory: FC<Category> = ({
       >
         <img
           className={styles["menu-icon"]}
-          src={`${import.meta.env.VITE_API_URL}${icon}`}
+          src={`${import.meta.env.VITE_ASSETS_URL}/${icon}`}
           alt={category}
         />
         <UiTypography
