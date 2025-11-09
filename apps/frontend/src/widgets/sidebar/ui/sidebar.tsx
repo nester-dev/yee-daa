@@ -1,8 +1,11 @@
 import type { FC } from "react";
-import { Menu } from "@/features/menu";
-import styles from "./Sidebar.module.scss";
-import { UiCopyright } from "@/shared/ui/ui-copyright";
+
 import { Logout } from "@/features/logout";
+import { Menu } from "@/features/menu";
+
+import { UiCopyright } from "@/shared/ui/ui-copyright";
+
+import styles from "./Sidebar.module.scss";
 
 const Sidebar: FC = () => {
   return (

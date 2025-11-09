@@ -1,12 +1,14 @@
 import { type FC, type PropsWithChildren, useMemo } from "react";
+import cn from "clsx";
+
+import { COLORS_MAP } from "@/shared/config/colors-map.ts";
+import { getTypographyClasses } from "@/shared/ui/ui-typography/helper.ts";
+
 import type {
   ColorVariants,
   FontWeightVariants,
   TypographyVariants,
 } from "./types.ts";
-import { COLORS_MAP } from "@/shared/config/colors-map.ts";
-import { getTypographyClasses } from "@/shared/ui/ui-typography/helper.ts";
-import cn from "clsx";
 
 export type TypographyProps = PropsWithChildren<{
   tag?: keyof HTMLElementTagNameMap;
