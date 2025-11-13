@@ -1,0 +1,33 @@
+@use "@/shared/styles/mixins";
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.background {
+  padding: 16px;
+  background: linear-gradient(208deg, #eaffc7 0%, #29813f 100%);
+  flex: 1 0;
+  height: 100%;
+}
+
+.img {
+  width: 50%;
+  object-fit: cover;
+  object-position: center;
+
+  @include mixins.laptopDevice() {
+    display: none;
+  }
+}
+
+.text {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
+}

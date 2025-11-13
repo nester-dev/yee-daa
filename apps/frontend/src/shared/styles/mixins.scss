@@ -1,0 +1,19 @@
+@use "breakpoints";
+
+@mixin laptopDevice() {
+  @media screen and (max-width: breakpoints.$lg) {
+    @content;
+  }
+}
+
+@mixin tabletDevice() {
+  @media screen and (max-width: breakpoints.$md) {
+    @content;
+  }
+}
+
+@mixin mobileDevice() {
+  @media screen and (max-width: breakpoints.$sm) {
+    @content;
+  }
+}
