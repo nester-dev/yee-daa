@@ -3,6 +3,7 @@
 .img {
   width: 270px;
   height: 64px;
+  margin-bottom: 40px;
 
   @include mixins.tabletDevice() {
     width: 158px;
@@ -12,7 +13,9 @@
 
 .content {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 40px;
   padding-top: 170px;
 
   @include mixins.tabletDevice() {

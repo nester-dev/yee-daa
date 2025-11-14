@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+}
+
+.tabs-group {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex: auto;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.tab-item {
+  padding: 12px 24px;
+  color: var(--c-green-dark);
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &--active {
+    color: var(--c-green-secondary);
+  }
+}
+
+.indicator {
+  position: absolute;
+  bottom: -2px;
+  height: 2px;
+  background-color: var(--c-green-secondary);
+  transition: transform 0.3s;
+}

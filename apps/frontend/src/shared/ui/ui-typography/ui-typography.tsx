@@ -20,7 +20,7 @@ export type TypographyProps = PropsWithChildren<{
 
 const UiTypography: FC<TypographyProps> = ({
   tag = "p",
-  color = "black",
+  color,
   variant,
   fontWeight,
   className,
@@ -31,9 +31,10 @@ const UiTypography: FC<TypographyProps> = ({
     () => getTypographyClasses({ variant, fontWeight, className }),
     [variant, fontWeight, className],
   );
+  const style = color ? { color: `var(${COLORS_MAP[color]})` } : {};
 
   return (
-    <Tag className={cn(classes)} style={{ color: `var(${COLORS_MAP[color]})` }}>
+    <Tag className={cn(classes)} style={style}>
       {children}
     </Tag>
   );
