@@ -14,12 +14,12 @@ export type TabItem = {
 
 interface Props extends TabItem {
   isActive: boolean;
-  onCLick: () => void;
+  onClick: () => void;
 }
 
-const UiTabItem = forwardRef<HTMLLIElement, Props>(
-  ({ onCLick, isActive, title }, ref) => (
-    <li ref={ref} onClick={onCLick} onKeyDown={onCLick}>
+const UiTabItem = forwardRef<HTMLLIElement | null, Props>(
+  ({ onClick, isActive, title }, ref) => (
+    <li ref={ref} onClick={onClick} onKeyDown={onClick}>
       <UiTypography
         variant="lg"
         className={cn(

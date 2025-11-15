@@ -1,4 +1,11 @@
-import { type FC, useEffect, useRef, useState } from "react";
+import {
+  type FC,
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import {
   getIndicatorStyles,
@@ -10,82 +17,70 @@ import UiTabItem, { type TabItem, type TabValue } from "./ui-tab-item.tsx";
 import styles from "./ui-tabs.module.scss";
 
 type Props = {
-  activeTab: TabValue;
+  activeTab?: TabValue;
   initValue?: TabValue;
   items: TabItem[];
   onSelect: (value: TabValue) => void;
 };
 
 const UiTabs: FC<Props> = ({ items, activeTab, initValue, onSelect }) => {
-  const [activeTabIndex, setActiveTab] = useState(
+  const [internalIndex, setInternalIndex] = useState(
     getInitActiveTabIndex(items, initValue),
   );
-  const [indicatorStyle, setIndicatorStyle] = useState(
-    getIndicatorStyles(0, 0),
-  );
+  const [indicatorStyle, setIndicatorStyle] = useState({});
   const tabRefs = useRef<(HTMLLIElement | null)[]>([]);
   const scrollRef = useRef<HTMLUListElement>(null);
 
-  useEffect(() => {
-    const activeTab = tabRefs.current[activeTabIndex];
-    const scrollContainer = scrollRef.current;
+  const isControlled = activeTab !== undefined;
 
-    if (activeTab && scrollContainer) {
-      const { offsetWidth: tabWidth, offsetLeft: tabLeft } = activeTab;
+  const controlledIndex = useMemo(
+    () => getInitActiveTabIndex(items, activeTab),
+    [items, activeTab],
+  );
 
-      const scrollTo = tabLeft - scrollContainer.offsetWidth / 2 + tabWidth / 2;
+  const index = isControlled ? controlledIndex : internalIndex;
 
-      setIndicatorStyle(getIndicatorStyles(tabWidth, tabLeft));
+  useLayoutEffect(() => {
+    const el = tabRefs.current[index];
+    const scroll = scrollRef.current;
 
-      scrollContainer.scrollTo({
-        left: scrollTo,
-        behavior: "smooth",
-      });
-    }
-  }, [activeTabIndex, items]);
+    if (!el || !scroll) return;
 
-  useEffect(() => {
-    if (activeTab) {
-      setActiveTab(getInitActiveTabIndex(items, activeTab));
-    }
-  }, [items, activeTab]);
+    const { offsetWidth, offsetLeft } = el;
 
-  const clickOnTab =
-    ({ value }: TabItem, index: number) =>
-    () => {
-      if (activeTabIndex === index) {
-        return;
-      }
+    setIndicatorStyle(getIndicatorStyles(offsetWidth, offsetLeft));
 
-      if (!activeTab) {
-        setActiveTab(index);
-      }
+    scroll.scrollTo({
+      left: offsetLeft - scroll.offsetWidth / 2 + offsetWidth / 2,
+      behavior: "smooth",
+    });
+  }, [index, items]);
 
-      onSelect(value);
-    };
-
-  const existsActiveIndex = activeTabIndex >= 0;
-
-  const initTabRef = (index: number) => (element: HTMLLIElement) => {
-    tabRefs.current[index] = element;
-  };
+  const handleClick = useCallback(
+    (tab: TabItem, idx: number) => () => {
+      if (!isControlled) setInternalIndex(idx);
+      onSelect(tab.value);
+    },
+    [isControlled, onSelect],
+  );
 
   return (
     <div className={styles.container}>
-      <ul ref={scrollRef} className={styles["tabs-group"]}>
-        {items.map((tab, index) => (
+      <ul ref={scrollRef} className={styles["tabs-group"]} role="tablist">
+        {items.map((tab, idx) => (
           <UiTabItem
             key={tab.value}
-            ref={initTabRef(index)}
+            ref={(el) => {
+              tabRefs.current[idx] = el;
+            }}
             value={tab.value}
             title={tab.title}
-            onCLick={clickOnTab(tab, index)}
-            isActive={tab.value === activeTab}
+            onClick={handleClick(tab, idx)}
+            isActive={idx === index}
           />
         ))}
-        {existsActiveIndex && (
-          <div className={styles.indicator} style={indicatorStyle} />
-        )}
+
+        <div className={styles.indicator} style={indicatorStyle} />
       </ul>
     </div>
   );
