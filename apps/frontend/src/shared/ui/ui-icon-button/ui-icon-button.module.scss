@@ -1,0 +1,28 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .3s ease-in-out;
+}
+
+.sm {
+  padding: 10px;
+}
+
+.md {
+  padding: 15px;
+}
+
+
+.lg {
+  padding: 20px;
+}
+
+.ghost {
+  background: transparent;
+  color: inherit;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}

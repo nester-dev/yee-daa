@@ -6,5 +6,7 @@ export const COLORS_MAP = {
   greenLight: "--c-green-light",
   greenDark: "--c-green-dark",
   greenLime: "--c-green-lime",
+  greenLimeSoft: "--c-green-lime-soft",
   cream: "--c-cream",
+  redPrimary: "--c-red-primary",
 };

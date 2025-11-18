@@ -29,4 +29,27 @@
   li {
     list-style: none;
   }
+
+  input {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    appearance: none;
+  }
+
+  button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+  }
 }
