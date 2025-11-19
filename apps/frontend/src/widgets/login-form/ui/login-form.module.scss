@@ -4,5 +4,11 @@
   row-gap: 24px;
   max-width: 460px;
   width: 100%;
+}
 
+.buttons {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  margin-top: 100px;
 }

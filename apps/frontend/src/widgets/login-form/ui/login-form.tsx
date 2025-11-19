@@ -4,8 +4,10 @@ import type { LoginFormType } from "@/widgets/login-form/model/login-form-schema
 
 import EyeIcon from "@/shared/assets/icons/eye.svg?react";
 import EyeSlashIcon from "@/shared/assets/icons/eye-slash.svg?react";
+import UiButton from "@/shared/ui/ui-button/ui-button.tsx";
 import UiIconButton from "@/shared/ui/ui-icon-button/ui-icon-button.tsx";
 import UiInput from "@/shared/ui/ui-input/ui-input.tsx";
+import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./login-form.module.scss";
 
@@ -53,6 +55,20 @@ const LoginForm: FC = () => {
           )
         }
       />
+
+      <div className={styles.buttons}>
+        <UiButton variant="solid" color="secondary" fullWidth>
+          <UiTypography variant="lg" fontWeight="semibold" color="white">
+            Войти
+          </UiTypography>
+        </UiButton>
+
+        <UiButton variant="text" fullWidth>
+          <UiTypography variant="text" fontWeight="semibold">
+            Забыли логин или пароль?
+          </UiTypography>
+        </UiButton>
+      </div>
     </form>
   );
 };
