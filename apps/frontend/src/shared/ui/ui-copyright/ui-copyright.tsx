@@ -1,4 +1,5 @@
 import { UiTypography } from "@/shared/ui/ui-typography";
+
 import styles from "./ui-copyright.module.scss";
 
 const UiCopyright = () => {

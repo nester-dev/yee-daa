@@ -4,6 +4,7 @@
   width: 270px;
   height: 64px;
   margin-bottom: 40px;
+  flex-shrink: 0;
 
   @include mixins.tabletDevice() {
     width: 158px;
@@ -16,8 +17,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
   row-gap: 40px;
   padding-top: 154px;
+  overflow-y: scroll;
 
   @include mixins.tabletDevice() {
     padding-top: 124px;
@@ -31,4 +34,9 @@
 .form {
   max-width: 460px;
   width: 100%;
+}
+
+.text {
+  margin: auto 0 14px 14px;
+  align-self: start;
 }

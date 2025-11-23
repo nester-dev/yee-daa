@@ -17,17 +17,11 @@
 
 .img {
   width: 50%;
+  height: 100vh;
   object-fit: cover;
   object-position: center;
 
   @include mixins.laptopDevice() {
     display: none;
   }
-}
-
-.text {
-  position: absolute;
-  left: 30px;
-  right: 30px;
-  bottom: 30px;
 }
