@@ -1,0 +1,17 @@
+.progress {
+  &-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  &-line {
+    height: 100%;
+    background: url("@/shared/assets/icons/stripe.svg"), var(--c-green-neon);
+    transition: width 0.3s ease;
+  }
+}
+
+.title {
+  line-height: 150%;
+}

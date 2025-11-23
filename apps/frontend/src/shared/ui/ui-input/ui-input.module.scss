@@ -17,6 +17,7 @@
 }
 
 .label {
+  position: relative;
   display: flex;
   flex-direction: column;
   row-gap: 4px;
@@ -44,4 +45,10 @@
 
 .error {
   border: 2px solid var(--c-red-primary);
+
+  &-text {
+    position: absolute;
+    bottom: -16px;
+    opacity: 0.9;
+  }
 }

@@ -1,6 +1,8 @@
 import type { ChangeEvent, FC, InputHTMLAttributes, ReactElement } from "react";
 import cn from "clsx";
 
+import { UiTypography } from "@/shared/ui/ui-typography";
+
 import styles from "./ui-input.module.scss";
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
@@ -9,7 +11,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   placeholder?: string;
-  error?: string | null;
+  error?: boolean | string;
   helperText?: string;
   suffix?: ReactElement;
 };
@@ -43,6 +45,16 @@ const UiInput: FC<Props> = ({
           </div>
           {helperText && (
             <span className={styles.helperText}>{helperText}</span>
+          )}
+          {typeof error === "string" && (
+            <UiTypography
+              className={styles["error-text"]}
+              color="redPrimary"
+              variant="xs"
+              fontWeight="medium"
+            >
+              {error}
+            </UiTypography>
           )}
         </label>
       </div>

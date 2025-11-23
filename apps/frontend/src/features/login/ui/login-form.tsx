@@ -1,22 +1,39 @@
 import { type ChangeEvent, type FC, type FormEvent, useState } from "react";
 
-import type { LoginFormType } from "@/widgets/login-form/model/login-form-schema.ts";
-
 import EyeIcon from "@/shared/assets/icons/eye.svg?react";
 import EyeSlashIcon from "@/shared/assets/icons/eye-slash.svg?react";
+import { validateForm } from "@/shared/lib/validate-form.ts";
 import UiButton from "@/shared/ui/ui-button/ui-button.tsx";
 import UiIconButton from "@/shared/ui/ui-icon-button/ui-icon-button.tsx";
 import UiInput from "@/shared/ui/ui-input/ui-input.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
+import {
+  LoginFormSchema,
+  type LoginFormType,
+} from "../model/login-form-schema.ts";
+
 import styles from "./login-form.module.scss";
 
 const LoginForm: FC = () => {
-  const [formData, setFormData] = useState<Partial<LoginFormType>>({});
+  const [formData, setFormData] = useState<LoginFormType>({
+    login: "",
+    password: "",
+  });
   const [showPassword, setShowPassword] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
+  const errors = showErrors
+    ? validateForm(LoginFormSchema, formData)
+    : undefined;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const errors = validateForm(LoginFormSchema, formData);
+
+    if (errors) {
+      setShowErrors(true);
+      return;
+    }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +51,7 @@ const LoginForm: FC = () => {
         onChange={handleChange}
         label="Логин для входа на сайт"
         placeholder="Введите логин"
+        error={errors?.login?.at(0)}
       />
 
       <UiInput
@@ -43,6 +61,7 @@ const LoginForm: FC = () => {
         onChange={handleChange}
         label="Пароль"
         placeholder="Пароль для сайта"
+        error={errors?.password?.at(0)}
         suffix={
           showPassword ? (
             <UiIconButton onClick={() => setShowPassword(false)}>

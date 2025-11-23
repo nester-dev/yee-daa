@@ -31,7 +31,9 @@ const AuthLayout: FC = () => {
             },
           ]}
         />
-        <Outlet />
+        <div className={styles.form}>
+          <Outlet />
+        </div>
       </main>
     </UiBackground>
   );

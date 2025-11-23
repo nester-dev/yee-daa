@@ -1,7 +1,13 @@
 import type { FC } from "react";
 
+import { RegisterForm } from "@/features/register";
+
 const SignUp: FC = () => {
-  return <div></div>;
+  return (
+    <>
+      <RegisterForm />
+    </>
+  );
 };
 
 export default SignUp;
