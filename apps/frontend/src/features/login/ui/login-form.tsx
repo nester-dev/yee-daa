@@ -1,5 +1,7 @@
 import { type ChangeEvent, type FC, type FormEvent, useState } from "react";
 
+import { useLoginMutation } from "@/entities/auth";
+
 import EyeIcon from "@/shared/assets/icons/eye.svg?react";
 import EyeSlashIcon from "@/shared/assets/icons/eye-slash.svg?react";
 import { validateForm } from "@/shared/lib/validate-form.ts";
@@ -22,6 +24,7 @@ const LoginForm: FC = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
+  const [login, { isLoading }] = useLoginMutation();
   const errors = showErrors
     ? validateForm(LoginFormSchema, formData)
     : undefined;
@@ -34,6 +37,7 @@ const LoginForm: FC = () => {
       setShowErrors(true);
       return;
     }
+    login(formData);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +80,12 @@ const LoginForm: FC = () => {
       />
 
       <div className={styles.buttons}>
-        <UiButton variant="solid" color="secondary" fullWidth>
+        <UiButton
+          variant="solid"
+          color="secondary"
+          fullWidth
+          disabled={isLoading}
+        >
           <UiTypography variant="lg" fontWeight="semibold" color="white">
             Войти
           </UiTypography>

@@ -1,10 +1,10 @@
 import type { FC, PropsWithChildren } from "react";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
 
-import { queryClient } from "@/shared/api/query-client.ts";
+import { store } from "../store/store";
 
 const AppProvider: FC<PropsWithChildren> = ({ children }) => (
-  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  <Provider store={store}>{children}</Provider>
 );
 
 export default AppProvider;

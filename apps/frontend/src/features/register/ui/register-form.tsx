@@ -1,5 +1,7 @@
 import { type ChangeEvent, type FC, useState } from "react";
 
+import { useRegisterMutation } from "@/entities/auth";
+
 import { validateForm } from "@/shared/lib/validate-form.ts";
 import UiButton from "@/shared/ui/ui-button/ui-button.tsx";
 import UiProgressBar from "@/shared/ui/ui-progress-bar/ui-progress-bar.tsx";
@@ -27,6 +29,7 @@ const RegisterForm: FC = () => {
     confirmPassword: "",
   });
   const [showErrors, setShowErrors] = useState(false);
+  const [register, { isLoading }] = useRegisterMutation();
 
   const { title, schema, buttonText } = getCurrentStepConfig(currentStep);
   const errors = showErrors ? validateForm(schema, formData) : undefined;
@@ -52,7 +55,7 @@ const RegisterForm: FC = () => {
         setCurrentStep(RegisterFormSteps.CREDENTIALS);
         break;
       case RegisterFormSteps.CREDENTIALS:
-        setShowErrors(false);
+        register(formData);
         break;
     }
   };
@@ -82,7 +85,12 @@ const RegisterForm: FC = () => {
           ),
         }[currentStep]
       }
-      <UiButton variant="solid" color="secondary" onClick={handleProceed}>
+      <UiButton
+        variant="solid"
+        color="secondary"
+        onClick={handleProceed}
+        disabled={isLoading}
+      >
         <UiTypography variant="lg" fontWeight="semibold" color="white">
           {buttonText}
         </UiTypography>
