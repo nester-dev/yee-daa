@@ -1,0 +1,47 @@
+@use "@/shared/styles/mixins";
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.area {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 206px;
+  height: 206px;
+  background: radial-gradient(50% 50% at 50% 50%, #c4ff61 0%, rgba(255, 255, 255, 0) 100%);
+
+  @include mixins.tabletDevice() {
+    width: 134px;
+    height: 134px;
+  }
+}
+
+.spinner {
+  width: 37px;
+  height: 37px;
+  animation: spin 1s linear infinite;
+  transform-origin: 50% 50%;
+
+  @include mixins.tabletDevice() {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

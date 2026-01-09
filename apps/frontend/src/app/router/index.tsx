@@ -13,7 +13,6 @@ import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
 
 const router = createBrowserRouter([
   {
-    path: ROUTE_PATHS.HOME,
     Component: DefaultLayout,
     children: [
       {
@@ -31,7 +30,6 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: ROUTE_PATHS.AUTH,
     Component: AuthLayout,
     children: [
       {
