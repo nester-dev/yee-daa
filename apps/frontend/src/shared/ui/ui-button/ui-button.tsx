@@ -4,7 +4,7 @@ import cn from "clsx";
 import styles from "./ui-button.module.scss";
 
 type Props = PropsWithChildren<{
-  variant: "solid" | "outlined" | "text";
+  variant?: "solid" | "outlined" | "text";
   color?: "primary" | "secondary" | "success";
   icon?: ReactElement;
   iconPosition?: "start" | "end";

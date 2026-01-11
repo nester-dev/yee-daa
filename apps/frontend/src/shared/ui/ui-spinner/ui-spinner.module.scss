@@ -1,12 +1,5 @@
 @use "@/shared/styles/mixins";
 
-.backdrop {
-  position: fixed;
-  inset: 0;
-  backdrop-filter: blur(4px);
-  background: rgba(0, 0, 0, 0.16);
-}
-
 .area {
   position: absolute;
   display: flex;

@@ -1,0 +1,31 @@
+@use "@/shared/styles/mixins";
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+  position: relative;
+  max-width: 332px;
+  width: 100%;
+  margin: 0 10px;
+  border-radius: 16px;
+  padding: 32px;
+  background: var(--c-white);
+
+  @include mixins.tabletDevice {
+    padding: 18px;
+    row-gap: 16px;
+  }
+}
+
+.backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-icon {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}

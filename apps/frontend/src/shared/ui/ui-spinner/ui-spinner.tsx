@@ -1,10 +1,12 @@
 import type { FC } from "react";
 
+import UiBackdrop from "@/shared/ui/ui-backdrop/ui-backdrop.tsx";
+
 import styles from "./ui-spinner.module.scss";
 
 const UiSpinner: FC = () => {
   return (
-    <div className={styles.backdrop}>
+    <UiBackdrop>
       <div className={styles.area}>
         <svg
           className={styles.spinner}
@@ -18,7 +20,7 @@ const UiSpinner: FC = () => {
           />
         </svg>
       </div>
-    </div>
+    </UiBackdrop>
   );
 };
 

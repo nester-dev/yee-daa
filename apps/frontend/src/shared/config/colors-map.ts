@@ -9,4 +9,5 @@ export const COLORS_MAP = {
   greenLimeSoft: "--c-green-lime-soft",
   cream: "--c-cream",
   redPrimary: "--c-red-primary",
+  blackOverlay: "--c-black-overlay",
 };
