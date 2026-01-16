@@ -1,4 +1,5 @@
 import { type FC, useCallback } from "react";
+import { useNavigate } from "react-router";
 
 import {
   LoginErrorModal,
@@ -8,10 +9,16 @@ import {
 
 import { useLoginMutation } from "@/entities/auth";
 
+import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
 import { isServerError } from "@/shared/lib/is-server-error.ts";
 
 const SignIn: FC = () => {
-  const [login, { error, reset, originalArgs }] = useLoginMutation();
+  const [login, { isSuccess, error, reset, originalArgs }] = useLoginMutation();
+  const navigate = useNavigate();
+
+  if (isSuccess) {
+    navigate(ROUTE_PATHS.HOME);
+  }
 
   const handleLogin = useCallback(
     (credentials: LoginFormType) => {

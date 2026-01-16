@@ -1,10 +1,10 @@
-import { type FC, type ReactElement, useEffect } from "react";
+import { type FC, type ReactElement } from "react";
 import { createPortal } from "react-dom";
 import cn from "clsx";
 import { AnimatePresence } from "framer-motion";
 
 import CloseIcon from "@/shared/assets/icons/cross-icon.svg?react";
-import { lockScroll } from "@/shared/lib/lock-scroll.ts";
+import { usePortalRoot } from "@/shared/lib/usePortalRoot.ts";
 import UiBackdrop from "@/shared/ui/ui-backdrop/ui-backdrop.tsx";
 import UiIconButton from "@/shared/ui/ui-icon-button/ui-icon-button.tsx";
 
@@ -15,7 +15,7 @@ export type ModalProps = {
   content?: ReactElement;
   footer?: ReactElement;
   onClose?: () => void;
-  isOpen?: boolean;
+  isOpen: boolean;
   className?: string;
 };
 
@@ -27,21 +27,10 @@ const UiModal: FC<ModalProps> = ({
   footer,
   className,
 }) => {
-  const modalRoot = document.getElementById("modal-root");
-
-  useEffect(() => {
-    if (isOpen) {
-      lockScroll(true);
-    }
-
-    return () => {
-      lockScroll(false);
-    };
-  }, [isOpen]);
-
-  if (!modalRoot) {
-    return null;
-  }
+  const modalRoot = usePortalRoot({
+    isOpen,
+    lockScrollOnOpen: true,
+  });
 
   return createPortal(
     <AnimatePresence>
