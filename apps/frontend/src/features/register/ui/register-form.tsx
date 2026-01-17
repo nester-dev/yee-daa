@@ -8,6 +8,7 @@ import UiProgressBar from "@/shared/ui/ui-progress-bar/ui-progress-bar.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import { getCurrentStepConfig } from "../lib/config.ts";
+import { getRegistrationProgress } from "../lib/get-registration-progress";
 import { type RegisterFormType } from "../model/register-form-schema.ts";
 import { RegisterFormSteps } from "../model/types.ts";
 
@@ -62,7 +63,10 @@ const RegisterForm: FC = () => {
 
   return (
     <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-      <UiProgressBar title={title} progress={0} />
+      <UiProgressBar
+        title={title}
+        progress={getRegistrationProgress(formData, errors)}
+      />
       {
         {
           [RegisterFormSteps.PERSONAL_INFO]: (
