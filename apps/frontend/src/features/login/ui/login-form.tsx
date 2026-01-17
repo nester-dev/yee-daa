@@ -17,9 +17,10 @@ import styles from "./login-form.module.scss";
 
 type Props = {
   onLogin: (data: LoginFormType) => void;
+  isServerValidationError: boolean;
 };
 
-const LoginForm: FC<Props> = ({ onLogin }) => {
+const LoginForm: FC<Props> = ({ onLogin, isServerValidationError }) => {
   const [formData, setFormData] = useState<LoginFormType>({
     login: "",
     password: "",
@@ -56,7 +57,7 @@ const LoginForm: FC<Props> = ({ onLogin }) => {
         onChange={handleChange}
         label="Логин для входа на сайт"
         placeholder="Введите логин"
-        error={errors?.login?.at(0)}
+        error={isServerValidationError || errors?.login?.at(0)}
       />
 
       <UiInput
@@ -66,7 +67,7 @@ const LoginForm: FC<Props> = ({ onLogin }) => {
         onChange={handleChange}
         label="Пароль"
         placeholder="Пароль для сайта"
-        error={errors?.password?.at(0)}
+        error={isServerValidationError || errors?.password?.at(0)}
         suffix={
           showPassword ? (
             <UiIconButton onClick={() => setShowPassword(false)}>

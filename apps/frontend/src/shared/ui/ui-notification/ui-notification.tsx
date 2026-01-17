@@ -10,13 +10,18 @@ import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./ui-notification.module.scss";
 
-type Props = Partial<ToastContentProps> & {
+export type NotificationProps = Partial<ToastContentProps> & {
   title: string;
   text: string;
   variant: "error" | "success";
 };
 
-const UiNotification: FC<Props> = ({ title, text, variant, closeToast }) => {
+const UiNotification: FC<NotificationProps> = ({
+  title,
+  text,
+  variant,
+  closeToast,
+}) => {
   const IconComponent = variant === "success" ? CheckIcon : AlertIcon;
 
   return (
