@@ -1,13 +1,13 @@
-import type { RegisterFormType } from "@/features/register/model/register-form-schema.ts";
+import { z } from "zod";
+
+import type { RegisterFormType } from "../model/register-form-schema";
 
 const TOTAL_REGISTRATION_FIELDS = 6;
 const PERCENT_PER_FIELD = 100 / TOTAL_REGISTRATION_FIELDS;
 
-type FieldErrors<T> = Partial<Record<keyof T, string[] | undefined>>;
-
 export const getRegistrationProgress = (
   data: RegisterFormType,
-  errors?: FieldErrors<RegisterFormType>,
+  errors?: z.ZodFlattenedError<RegisterFormType>["fieldErrors"],
 ) => {
   if (!data) {
     return 0;
