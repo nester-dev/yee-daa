@@ -11,8 +11,8 @@ import { UiTypography } from "@/shared/ui/ui-typography";
 import styles from "./ui-notification.module.scss";
 
 export type NotificationProps = Partial<ToastContentProps> & {
-  title: string;
-  text: string;
+  title?: string;
+  text?: string;
   variant: "error" | "success";
 };
 

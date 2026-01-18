@@ -18,7 +18,11 @@ const AuthLayout: FC = () => {
       <main className={styles.content}>
         <Logo className={styles.img} />
         <UiTabs
-          activeTab={location.pathname}
+          activeTab={
+            location.pathname === ROUTE_PATHS.VERIFICATION
+              ? ROUTE_PATHS.SIGN_UP
+              : location.pathname
+          }
           initValue={location.pathname}
           onSelect={(value) => navigate(value.toString())}
           items={[

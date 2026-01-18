@@ -1,15 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
-import AuthLayout from "@/app/layouts/auth-layout/auth-layout.tsx";
-import DefaultLayout from "@/app/layouts/default-layout/default-layout.tsx";
-
 import { CategoryPage } from "@/pages/category-page";
 import { HomePage } from "@/pages/home-page";
 import { NewRecipe } from "@/pages/new-recipe";
 import { SignIn } from "@/pages/sign-in";
 import { SignUp } from "@/pages/sign-up";
+import { VerificationPage } from "@/pages/verification-page";
 
 import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
+
+import AuthLayout from "../layouts/auth-layout/auth-layout.tsx";
+import DefaultLayout from "../layouts/default-layout/default-layout.tsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: ROUTE_PATHS.SIGN_UP,
         Component: SignUp,
+      },
+      {
+        path: ROUTE_PATHS.VERIFICATION,
+        Component: VerificationPage,
       },
       {
         path: ROUTE_PATHS.SIGN_IN,
