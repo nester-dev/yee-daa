@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import ErrorImage from "@/shared/assets/img/login-error.png";
+import ErrorImage from "@/shared/assets/img/food-illustration.png";
 import UiButton from "@/shared/ui/ui-button/ui-button.tsx";
 import UiModal, { type ModalProps } from "@/shared/ui/ui-modal/ui-modal.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";

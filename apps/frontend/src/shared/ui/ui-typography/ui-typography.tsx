@@ -7,6 +7,7 @@ import { getTypographyClasses } from "@/shared/ui/ui-typography/helper.ts";
 import type {
   ColorVariants,
   FontWeightVariants,
+  TextAlignVariants,
   TypographyVariants,
 } from "./types.ts";
 
@@ -15,6 +16,7 @@ export type TypographyProps = PropsWithChildren<{
   variant?: TypographyVariants;
   color?: ColorVariants;
   fontWeight?: FontWeightVariants;
+  align?: TextAlignVariants;
   className?: string;
 }>;
 
@@ -25,13 +27,21 @@ const UiTypography: FC<TypographyProps> = ({
   fontWeight,
   className,
   children,
+  align,
 }) => {
   const Tag = useMemo(() => tag, [tag]);
   const classes = useMemo(
     () => getTypographyClasses({ variant, fontWeight, className }),
     [variant, fontWeight, className],
   );
-  const style = color ? { color: `var(${COLORS_MAP[color]})` } : {};
+
+  const style = useMemo(
+    () => ({
+      ...(color && { color: `var(${COLORS_MAP[color]})` }),
+      ...(align && { textAlign: align }),
+    }),
+    [color, align],
+  );
 
   return (
     <Tag className={cn(classes)} style={style}>

@@ -8,3 +8,7 @@ export type SignUpDto = SignInDto & {
   firstName: string;
   lastName: string;
 };
+
+export type ForgotPasswordDto = {
+  email: string;
+};

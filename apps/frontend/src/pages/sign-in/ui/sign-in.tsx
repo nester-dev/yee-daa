@@ -1,77 +1,53 @@
-import { type FC, useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { type FC } from "react";
 
-import {
-  LoginErrorModal,
-  LoginForm,
-  type LoginFormType,
-} from "@/features/login";
+import { LoginErrorModal, LoginForm } from "@/features/login";
+import { OtpVerificationModal } from "@/features/otp-verification";
+import { PasswordForgotModal } from "@/features/password-forgot";
 
-import { useLoginMutation } from "@/entities/auth";
-
-import { HttpStatus } from "@/shared/api/http-status.ts";
-import { isFetchBaseQueryError } from "@/shared/api/is-query-error.ts";
-import { matchHttpError } from "@/shared/api/match-http-error.ts";
-import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
-import { showNotification } from "@/shared/lib/show-notification.tsx";
+import { useForgotPassword } from "../lib/useForgotPassword.ts";
+import { useLogin } from "../lib/useLogin.ts";
 
 const SignIn: FC = () => {
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  const [login, { isSuccess, error, originalArgs }] = useLoginMutation();
-  const navigate = useNavigate();
+  const {
+    isServerValidationError,
+    showErrorModal,
+    handleCloseErrorModal,
+    handleRetry,
+    handleLogin,
+  } = useLogin();
+  const {
+    verificationEmail,
+    showOtpModal,
+    showForgotPasswordModal,
+    handleForgotPasswordClick,
+    handleOpenForgotModal,
+    handleCloseForgotModal,
+    handleCloseOtpModal,
+  } = useForgotPassword();
 
-  const isServerValidationError =
-    isFetchBaseQueryError(error) && error.status === HttpStatus.UNAUTHORIZED;
-
-  useEffect(() => {
-    matchHttpError(error, {
-      [HttpStatus.UNAUTHORIZED]: (message) => {
-        showNotification({
-          title: message,
-          text: "Попробуйте снова.",
-          variant: "error",
-        });
-      },
-      [HttpStatus.FORBIDDEN]: (message) => {
-        showNotification({
-          title: message,
-          text: "Проверьте почту и перейдите по ссылке.",
-          variant: "error",
-        });
-      },
-      default: () => {
-        setShowErrorModal(true);
-      },
-    });
-  }, [error]);
-
-  if (isSuccess) {
-    navigate(ROUTE_PATHS.HOME);
-  }
-
-  const handleLogin = useCallback(
-    (credentials: LoginFormType) => {
-      login(credentials);
-    },
-    [login],
-  );
-
-  const handleRetry = useCallback(() => {
-    if (originalArgs) {
-      login(originalArgs);
-    }
-  }, [login, originalArgs]);
+  console.log(verificationEmail);
 
   return (
     <>
       <LoginForm
-        onLogin={handleLogin}
         isServerValidationError={isServerValidationError}
+        onLogin={handleLogin}
+        onForgotPasswordClick={handleOpenForgotModal}
       />
       <LoginErrorModal
         isOpen={showErrorModal}
         onRetry={handleRetry}
-        onClose={() => setShowErrorModal(false)}
+        onClose={handleCloseErrorModal}
+      />
+      <PasswordForgotModal
+        isOpen={showForgotPasswordModal}
+        onClose={handleCloseForgotModal}
+        onConfirmClick={handleForgotPasswordClick}
+      />
+      <OtpVerificationModal
+        email={verificationEmail}
+        isOpen={showOtpModal}
+        onClose={handleCloseOtpModal}
       />
     </>
   );

@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import ConfirmationImage from "@/shared/assets/img/login-error.png";
+import ConfirmationImage from "@/shared/assets/img/email-confirmation.png";
 import UiModal, { type ModalProps } from "@/shared/ui/ui-modal/ui-modal.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 

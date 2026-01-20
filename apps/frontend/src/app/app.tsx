@@ -10,15 +10,14 @@ import AppRouter from "./router";
 const App: FC = () => {
   return (
     <AppProvider>
-      <SpinnerProvider>
-        <AppRouter />
-        <ToastContainer
-          position="bottom-center"
-          icon={false}
-          closeButton={false}
-          hideProgressBar={true}
-        />
-      </SpinnerProvider>
+      <SpinnerProvider />
+      <AppRouter />
+      <ToastContainer
+        position="bottom-center"
+        icon={false}
+        closeButton={false}
+        hideProgressBar={true}
+      />
     </AppProvider>
   );
 };

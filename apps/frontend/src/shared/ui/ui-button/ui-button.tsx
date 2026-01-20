@@ -8,7 +8,7 @@ type Props = PropsWithChildren<{
   color?: "primary" | "secondary" | "success";
   icon?: ReactElement;
   iconPosition?: "start" | "end";
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   fullWidth?: boolean;
   disabled?: boolean;
   className?: string;

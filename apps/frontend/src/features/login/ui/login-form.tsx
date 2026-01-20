@@ -17,10 +17,15 @@ import styles from "./login-form.module.scss";
 
 type Props = {
   onLogin: (data: LoginFormType) => void;
+  onForgotPasswordClick: () => void;
   isServerValidationError: boolean;
 };
 
-const LoginForm: FC<Props> = ({ onLogin, isServerValidationError }) => {
+const LoginForm: FC<Props> = ({
+  onLogin,
+  onForgotPasswordClick,
+  isServerValidationError,
+}) => {
   const [formData, setFormData] = useState<LoginFormType>({
     login: "",
     password: "",
@@ -88,7 +93,14 @@ const LoginForm: FC<Props> = ({ onLogin, isServerValidationError }) => {
           </UiTypography>
         </UiButton>
 
-        <UiButton variant="text" fullWidth>
+        <UiButton
+          variant="text"
+          fullWidth
+          onClick={(e) => {
+            e.preventDefault();
+            onForgotPasswordClick();
+          }}
+        >
           <UiTypography variant="text" fontWeight="semibold">
             Забыли логин или пароль?
           </UiTypography>

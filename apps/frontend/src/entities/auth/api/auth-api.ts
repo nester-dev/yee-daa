@@ -1,7 +1,11 @@
 import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { baseApi } from "@/shared/api/base-api.ts";
 
-import type { SignInDto, SignUpDto } from "../model/types.ts";
+import type {
+  ForgotPasswordDto,
+  SignInDto,
+  SignUpDto,
+} from "../model/types.ts";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -19,7 +23,19 @@ export const authApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+    forgotPassword: build.mutation<void, ForgotPasswordDto>({
+      query: (body) => ({
+        url: ApiConfig.FORGOT_PASSWORD,
+        method: HttpMethod.POST,
+        body,
+      }),
+    }),
+    // verifyOtp: build.mutation()
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = authApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useForgotPasswordMutation,
+} = authApi;
