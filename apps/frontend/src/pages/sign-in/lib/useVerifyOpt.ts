@@ -8,7 +8,7 @@ import { matchHttpError } from "@/shared/api/match-http-error.ts";
 import { showNotification } from "@/shared/lib/show-notification.tsx";
 
 export const useVerifyOpt = () => {
-  const [verifyOtp, { error }] = useVerifyOtpMutation();
+  const [verifyOtp, { isSuccess, error, reset }] = useVerifyOtpMutation();
   const [isVerifyError, setIsVerifyError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -35,6 +35,8 @@ export const useVerifyOpt = () => {
   );
 
   return {
+    isVerifySuccess: isSuccess,
+    resetQuery: reset,
     isVerifyError,
     handleVerifyOtp,
   };

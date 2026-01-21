@@ -2,6 +2,7 @@ import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { baseApi } from "@/shared/api/base-api.ts";
 
 import type {
+  AccountRecoveryDto,
   ForgotPasswordDto,
   SignInDto,
   SignUpDto,
@@ -38,6 +39,13 @@ export const authApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+    resetPassword: build.mutation<void, AccountRecoveryDto>({
+      query: (body) => ({
+        url: ApiConfig.RESET_PASSWORD,
+        method: HttpMethod.POST,
+        body,
+      }),
+    }),
   }),
 });
 
@@ -46,4 +54,5 @@ export const {
   useLoginMutation,
   useForgotPasswordMutation,
   useVerifyOtpMutation,
+  useResetPasswordMutation,
 } = authApi;

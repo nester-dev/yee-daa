@@ -17,3 +17,10 @@ export type VerifyOtpDto = {
   email: string;
   otpToken: string;
 };
+
+export type AccountRecoveryDto = {
+  email: string;
+  login: string;
+  password: string;
+  passwordConfirm: string;
+};

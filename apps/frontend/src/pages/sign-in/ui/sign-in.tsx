@@ -1,5 +1,10 @@
 import { type FC } from "react";
 
+import {
+  AccountRecoveryModal,
+  useAccountRecovery,
+} from "@/widgets/account-recovery";
+
 import { LoginErrorModal, LoginForm } from "@/features/login";
 import { OtpVerificationModal } from "@/features/otp-verification";
 import { PasswordForgotModal } from "@/features/password-forgot";
@@ -26,7 +31,10 @@ const SignIn: FC = () => {
     handleCloseOtpModal,
   } = useForgotPassword();
 
-  const { isVerifyError, handleVerifyOtp } = useVerifyOpt();
+  const { isVerifySuccess, resetQuery, isVerifyError, handleVerifyOtp } =
+    useVerifyOpt();
+
+  const { handleRecovery } = useAccountRecovery();
 
   return (
     <>
@@ -51,6 +59,13 @@ const SignIn: FC = () => {
         onClose={handleCloseOtpModal}
         isVerifyError={isVerifyError}
         onVerify={handleVerifyOtp}
+      />
+
+      <AccountRecoveryModal
+        email={verificationEmail}
+        isOpen={isVerifySuccess}
+        onClose={resetQuery}
+        onRecovery={handleRecovery}
       />
     </>
   );

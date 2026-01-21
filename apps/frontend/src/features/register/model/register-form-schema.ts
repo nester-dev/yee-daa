@@ -66,3 +66,4 @@ export const RegisterFormSchema = z.object({
 });
 
 export type RegisterFormType = z.infer<typeof RegisterFormSchema>;
+export type CredentialsFormType = z.infer<typeof CredentialsSchema>;
