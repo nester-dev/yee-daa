@@ -6,6 +6,7 @@ import { PasswordForgotModal } from "@/features/password-forgot";
 
 import { useForgotPassword } from "../lib/useForgotPassword.ts";
 import { useLogin } from "../lib/useLogin.ts";
+import { useVerifyOpt } from "../lib/useVerifyOpt.ts";
 
 const SignIn: FC = () => {
   const {
@@ -25,7 +26,7 @@ const SignIn: FC = () => {
     handleCloseOtpModal,
   } = useForgotPassword();
 
-  console.log(verificationEmail);
+  const { isVerifyError, handleVerifyOtp } = useVerifyOpt();
 
   return (
     <>
@@ -48,6 +49,8 @@ const SignIn: FC = () => {
         email={verificationEmail}
         isOpen={showOtpModal}
         onClose={handleCloseOtpModal}
+        isVerifyError={isVerifyError}
+        onVerify={handleVerifyOtp}
       />
     </>
   );

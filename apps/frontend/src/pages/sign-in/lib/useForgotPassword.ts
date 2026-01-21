@@ -24,7 +24,13 @@ export const useForgotPassword = () => {
     if (!error) return;
 
     matchHttpError(error, {
-      [HttpStatus.FORBIDDEN]: () => {
+      [HttpStatus.BAD_REQUEST]: (message) => {
+        showNotification({
+          title: message,
+          variant: "error",
+        });
+      },
+      [HttpStatus.NOT_FOUND]: () => {
         showNotification({
           title: "Такого email нет",
           text: "Попробуйте другой e-mail или проверьте правильность его написания",

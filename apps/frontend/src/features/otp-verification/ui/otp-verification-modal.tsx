@@ -1,6 +1,8 @@
-import type { FC } from "react";
+import { type FC, useEffect, useState } from "react";
 import cn from "clsx";
 import { OTPInput } from "input-otp";
+
+import type { VerifyOtpDto } from "@/entities/auth/model/types.ts";
 
 import OtpImage from "@/shared/assets/img/user-with-tablet.png";
 import UiModal, { type ModalProps } from "@/shared/ui/ui-modal/ui-modal.tsx";
@@ -10,9 +12,17 @@ import styles from "./otp-verification.module.scss";
 
 type Props = Pick<ModalProps, "isOpen" | "onClose"> & {
   email?: string;
+  isVerifyError: boolean;
+  onVerify: (data: VerifyOtpDto) => void;
 };
 
-const OtpVerificationModal: FC<Props> = ({ isOpen, onClose, email }) => {
+const OtpVerificationModal: FC<Props> = ({
+  isOpen,
+  onClose,
+  email,
+  isVerifyError,
+  onVerify,
+}) => {
   return (
     <UiModal
       isOpen={isOpen}
@@ -25,7 +35,13 @@ const OtpVerificationModal: FC<Props> = ({ isOpen, onClose, email }) => {
           alt="user-with-tablet"
         />
       }
-      content={<VerificationContent email={email} />}
+      content={
+        <VerificationContent
+          email={email}
+          isVerifyError={isVerifyError}
+          onVerify={onVerify}
+        />
+      }
       footer={
         <UiTypography
           className={styles["verification-notice"]}
@@ -39,7 +55,17 @@ const OtpVerificationModal: FC<Props> = ({ isOpen, onClose, email }) => {
   );
 };
 
-const VerificationContent: FC<Pick<Props, "email">> = ({ email }) => {
+const VerificationContent: FC<
+  Pick<Props, "email" | "isVerifyError" | "onVerify">
+> = ({ email, isVerifyError, onVerify }) => {
+  const [otpToken, setOtpToken] = useState("");
+
+  useEffect(() => {
+    if (isVerifyError) {
+      setOtpToken("");
+    }
+  }, [isVerifyError]);
+
   return (
     <div className={styles["verification-content"]}>
       <UiTypography align="center">
@@ -50,7 +76,10 @@ const VerificationContent: FC<Pick<Props, "email">> = ({ email }) => {
       </UiTypography>
       <OTPInput
         maxLength={6}
+        value={otpToken}
+        onChange={setOtpToken}
         containerClassName={styles.otp}
+        onComplete={(otp) => onVerify({ email: email!, otpToken: otp })}
         render={({ slots }) => (
           <>
             <div className={styles["otp-content"]}>
@@ -58,8 +87,11 @@ const VerificationContent: FC<Pick<Props, "email">> = ({ email }) => {
                 <div
                   className={cn(
                     styles["otp-slot"],
-                    slot.isActive && styles["otp-slot--active"],
+                    slot.isActive &&
+                      !isVerifyError &&
+                      styles["otp-slot--active"],
                     !slot.char && styles["otp-slot--empty"],
+                    isVerifyError && styles["otp-slot--error"],
                   )}
                   key={idx}
                 >

@@ -3,6 +3,7 @@ export enum ApiConfig {
   REGISTER = "auth/signup",
   LOGIN = "auth/login",
   FORGOT_PASSWORD = "auth/forgot-password",
+  VERIFY_OTP = "auth/verify-otp",
 }
 
 export enum HttpMethod {

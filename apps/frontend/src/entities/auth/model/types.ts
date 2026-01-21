@@ -12,3 +12,8 @@ export type SignUpDto = SignInDto & {
 export type ForgotPasswordDto = {
   email: string;
 };
+
+export type VerifyOtpDto = {
+  email: string;
+  otpToken: string;
+};

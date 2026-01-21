@@ -50,6 +50,10 @@
     text-align: center;
     color: var(--c-green-dark);
 
+    &--error {
+      border-color: var(--c-red-primary);
+    }
+
     &--active {
       border-color: var(--c-green-primary);
     }

@@ -12,14 +12,19 @@ export const matchHttpError = (error: unknown, matchers: HttpErrorMatchers) => {
     return;
   }
 
-  if (!hasDataInFetchError(error)) {
-    matchers?.default?.();
-    return;
+  let message = "";
+
+  if (hasDataInFetchError(error)) {
+    message = error.data.message;
   }
   const status = error.status;
 
   if (typeof status === "number" && matchers[status]) {
-    matchers[status]?.(error.data.message);
+    matchers[status]?.(message);
     return;
+  }
+
+  if (matchers.default) {
+    matchers?.default?.();
   }
 };

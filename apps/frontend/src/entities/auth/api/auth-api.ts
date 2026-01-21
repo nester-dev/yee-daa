@@ -5,6 +5,7 @@ import type {
   ForgotPasswordDto,
   SignInDto,
   SignUpDto,
+  VerifyOtpDto,
 } from "../model/types.ts";
 
 export const authApi = baseApi.injectEndpoints({
@@ -30,7 +31,13 @@ export const authApi = baseApi.injectEndpoints({
         body,
       }),
     }),
-    // verifyOtp: build.mutation()
+    verifyOtp: build.mutation<void, VerifyOtpDto>({
+      query: (body) => ({
+        url: ApiConfig.VERIFY_OTP,
+        method: HttpMethod.POST,
+        body,
+      }),
+    }),
   }),
 });
 
@@ -38,4 +45,5 @@ export const {
   useRegisterMutation,
   useLoginMutation,
   useForgotPasswordMutation,
+  useVerifyOtpMutation,
 } = authApi;
