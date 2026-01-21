@@ -1,4 +1,4 @@
-import { type FC, useCallback, useEffect, useState } from "react";
+import { type FC, useCallback, useEffect } from "react";
 
 import {
   EmailConfirmationModal,
@@ -10,10 +10,12 @@ import { useRegisterMutation } from "@/entities/auth";
 
 import { HttpStatus } from "@/shared/api/http-status.ts";
 import { matchHttpError } from "@/shared/api/match-http-error.ts";
+import { ModalTypes } from "@/shared/config/modal-types.ts";
 import { showNotification } from "@/shared/lib/show-notification.tsx";
+import { useModal } from "@/shared/lib/use-modal.ts";
 
 const SignUp: FC = () => {
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const { handleOpenModal } = useModal();
   const [register, { isSuccess, error, originalArgs }] = useRegisterMutation();
 
   const handleRegistration = useCallback(
@@ -25,9 +27,9 @@ const SignUp: FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setShowConfirmationModal(true);
+      handleOpenModal(ModalTypes.EMAIL_CONFIRMATION);
     }
-  }, [isSuccess]);
+  }, [isSuccess, handleOpenModal]);
 
   useEffect(() => {
     matchHttpError(error, {
@@ -51,8 +53,7 @@ const SignUp: FC = () => {
     <>
       <RegisterForm onRegistration={handleRegistration} />
       <EmailConfirmationModal
-        isOpen={showConfirmationModal}
-        onClose={() => setShowConfirmationModal(false)}
+        modalType={ModalTypes.EMAIL_CONFIRMATION}
         email={originalArgs?.email}
       />
     </>

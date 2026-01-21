@@ -9,31 +9,18 @@ import { LoginErrorModal, LoginForm } from "@/features/login";
 import { OtpVerificationModal } from "@/features/otp-verification";
 import { PasswordForgotModal } from "@/features/password-forgot";
 
+import { ModalTypes } from "@/shared/config/modal-types.ts";
+import { useModal } from "@/shared/lib/use-modal.ts";
+
 import { useForgotPassword } from "../lib/useForgotPassword.ts";
 import { useLogin } from "../lib/useLogin.ts";
 import { useVerifyOpt } from "../lib/useVerifyOpt.ts";
 
 const SignIn: FC = () => {
-  const {
-    isServerValidationError,
-    showErrorModal,
-    handleCloseErrorModal,
-    handleRetry,
-    handleLogin,
-  } = useLogin();
-  const {
-    verificationEmail,
-    showOtpModal,
-    showForgotPasswordModal,
-    handleForgotPasswordClick,
-    handleOpenForgotModal,
-    handleCloseForgotModal,
-    handleCloseOtpModal,
-  } = useForgotPassword();
-
-  const { isVerifySuccess, resetQuery, isVerifyError, handleVerifyOtp } =
-    useVerifyOpt();
-
+  const { handleOpenModal, handleCloseModal } = useModal();
+  const { isServerValidationError, handleRetry, handleLogin } = useLogin();
+  const { verificationEmail, handleForgotPasswordClick } = useForgotPassword();
+  const { isVerifyError, handleVerifyOtp } = useVerifyOpt();
   const { handleRecovery } = useAccountRecovery();
 
   return (
@@ -41,30 +28,29 @@ const SignIn: FC = () => {
       <LoginForm
         isServerValidationError={isServerValidationError}
         onLogin={handleLogin}
-        onForgotPasswordClick={handleOpenForgotModal}
+        onForgotPasswordClick={() =>
+          handleOpenModal(ModalTypes.PASSWORD_FORGOT)
+        }
       />
       <LoginErrorModal
-        isOpen={showErrorModal}
+        modalType={ModalTypes.LOGIN_ERROR}
         onRetry={handleRetry}
-        onClose={handleCloseErrorModal}
       />
       <PasswordForgotModal
-        isOpen={showForgotPasswordModal}
-        onClose={handleCloseForgotModal}
+        modalType={ModalTypes.PASSWORD_FORGOT}
         onConfirmClick={handleForgotPasswordClick}
       />
       <OtpVerificationModal
+        modalType={ModalTypes.OTP_VERIFICATION}
         email={verificationEmail}
-        isOpen={showOtpModal}
-        onClose={handleCloseOtpModal}
         isVerifyError={isVerifyError}
         onVerify={handleVerifyOtp}
       />
 
       <AccountRecoveryModal
         email={verificationEmail}
-        isOpen={isVerifySuccess}
-        onClose={resetQuery}
+        onClose={handleCloseModal}
+        modalType={ModalTypes.ACCOUNT_RECOVERY}
         onRecovery={handleRecovery}
       />
     </>

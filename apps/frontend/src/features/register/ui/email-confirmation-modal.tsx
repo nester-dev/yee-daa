@@ -6,13 +6,13 @@ import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./register-form.module.scss";
 
-type Props = Pick<ModalProps, "isOpen" | "onClose"> & {
+type Props = Pick<ModalProps, "modalType" | "onClose"> & {
   email?: string;
 };
 
-const EmailConfirmationModal: FC<Props> = ({ isOpen, email, onClose }) => (
+const EmailConfirmationModal: FC<Props> = ({ modalType, email, onClose }) => (
   <UiModal
-    isOpen={isOpen}
+    modalType={modalType}
     onClose={onClose}
     className={styles.confirmation}
     header={

@@ -1,24 +1,24 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import { useForgotPasswordMutation } from "@/entities/auth";
 import type { ForgotPasswordDto } from "@/entities/auth/model/types.ts";
 
 import { HttpStatus } from "@/shared/api/http-status.ts";
 import { matchHttpError } from "@/shared/api/match-http-error.ts";
+import { ModalTypes } from "@/shared/config/modal-types.ts";
 import { showNotification } from "@/shared/lib/show-notification.tsx";
+import { useModal } from "@/shared/lib/use-modal.ts";
 
 export const useForgotPassword = () => {
-  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
-  const [showOtpModal, setShowOtpModal] = useState(false);
+  const { handleOpenModal } = useModal();
   const [forgotPassword, { isSuccess, error }] = useForgotPasswordMutation();
   const emailRef = useRef<ForgotPasswordDto | null>(null);
 
   useEffect(() => {
     if (isSuccess) {
-      setShowForgotPasswordModal(false);
-      setShowOtpModal(true);
+      handleOpenModal(ModalTypes.OTP_VERIFICATION);
     }
-  }, [isSuccess]);
+  }, [isSuccess, handleOpenModal]);
 
   useEffect(() => {
     if (!error) return;
@@ -56,25 +56,8 @@ export const useForgotPassword = () => {
     [forgotPassword],
   );
 
-  const handleCloseForgotModal = useCallback(() => {
-    setShowForgotPasswordModal(false);
-  }, []);
-
-  const handleOpenForgotModal = useCallback(() => {
-    setShowForgotPasswordModal(true);
-  }, []);
-
-  const handleCloseOtpModal = useCallback(() => {
-    setShowOtpModal(false);
-  }, []);
-
   return {
     verificationEmail: emailRef.current?.email,
-    showOtpModal,
-    showForgotPasswordModal,
     handleForgotPasswordClick,
-    handleOpenForgotModal,
-    handleCloseForgotModal,
-    handleCloseOtpModal,
   };
 };

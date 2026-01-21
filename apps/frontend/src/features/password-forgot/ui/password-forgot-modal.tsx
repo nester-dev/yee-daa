@@ -16,19 +16,19 @@ import {
 
 import styles from "./password-forgot.module.scss";
 
-type Props = Pick<ModalProps, "isOpen" | "onClose"> & {
+type Props = Pick<ModalProps, "modalType" | "onClose"> & {
   onConfirmClick: (email: ForgotPasswordDto) => void;
 };
 
 const PasswordForgotModal: FC<Props> = ({
-  isOpen,
+  modalType,
   onClose,
   onConfirmClick,
 }) => {
   return (
     <UiModal
       className={styles["password-forgot"]}
-      isOpen={isOpen}
+      modalType={modalType}
       onClose={onClose}
       header={
         <img

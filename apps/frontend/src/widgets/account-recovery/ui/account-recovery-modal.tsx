@@ -15,13 +15,13 @@ import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./account-recovery.module.scss";
 
-type Props = Pick<ModalProps, "isOpen" | "onClose"> & {
+type Props = Pick<ModalProps, "modalType" | "onClose"> & {
   email?: string;
   onRecovery: (data: AccountRecoveryDto) => void;
 };
 
 const AccountRecoveryModal: FC<Props> = ({
-  isOpen,
+  modalType,
   onClose,
   onRecovery,
   email,
@@ -66,7 +66,7 @@ const AccountRecoveryModal: FC<Props> = ({
 
   return (
     <UiModal
-      isOpen={isOpen}
+      modalType={modalType}
       onClose={onClose}
       className={styles.recovery}
       header={

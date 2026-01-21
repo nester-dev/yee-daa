@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router";
 
 import type { LoginFormType } from "@/features/login";
@@ -8,11 +8,13 @@ import { useLoginMutation } from "@/entities/auth";
 import { HttpStatus } from "@/shared/api/http-status";
 import { isFetchBaseQueryError } from "@/shared/api/is-query-error";
 import { matchHttpError } from "@/shared/api/match-http-error";
+import { ModalTypes } from "@/shared/config/modal-types.ts";
 import { ROUTE_PATHS } from "@/shared/config/route-paths";
 import { showNotification } from "@/shared/lib/show-notification";
+import { useModal } from "@/shared/lib/use-modal.ts";
 
 export const useLogin = () => {
-  const [showErrorModal, setShowErrorModal] = useState(false);
+  const { handleOpenModal } = useModal();
   const [login, { isSuccess, error, originalArgs }] = useLoginMutation();
   const navigate = useNavigate();
 
@@ -47,10 +49,10 @@ export const useLogin = () => {
         });
       },
       default: () => {
-        setShowErrorModal(true);
+        handleOpenModal(ModalTypes.LOGIN_ERROR);
       },
     });
-  }, [error]);
+  }, [error, handleOpenModal]);
 
   const handleLogin = useCallback(
     (credentials: LoginFormType) => {
@@ -64,14 +66,8 @@ export const useLogin = () => {
     }
   }, [login, originalArgs]);
 
-  const handleCloseErrorModal = useCallback(() => {
-    setShowErrorModal(false);
-  }, []);
-
   return {
-    showErrorModal,
     isServerValidationError,
-    handleCloseErrorModal,
     handleRetry,
     handleLogin,
   };

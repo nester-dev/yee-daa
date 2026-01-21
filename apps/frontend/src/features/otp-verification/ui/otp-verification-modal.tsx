@@ -10,14 +10,14 @@ import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./otp-verification.module.scss";
 
-type Props = Pick<ModalProps, "isOpen" | "onClose"> & {
+type Props = Pick<ModalProps, "modalType" | "onClose"> & {
   email?: string;
   isVerifyError: boolean;
   onVerify: (data: VerifyOtpDto) => void;
 };
 
 const OtpVerificationModal: FC<Props> = ({
-  isOpen,
+  modalType,
   onClose,
   email,
   isVerifyError,
@@ -25,7 +25,7 @@ const OtpVerificationModal: FC<Props> = ({
 }) => {
   return (
     <UiModal
-      isOpen={isOpen}
+      modalType={modalType}
       onClose={onClose}
       className={styles.verification}
       header={

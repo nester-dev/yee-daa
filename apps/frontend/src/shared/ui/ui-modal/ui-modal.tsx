@@ -4,6 +4,8 @@ import cn from "clsx";
 import { AnimatePresence } from "framer-motion";
 
 import CloseIcon from "@/shared/assets/icons/cross-icon.svg?react";
+import type { ModalTypes } from "@/shared/config/modal-types.ts";
+import { useModal } from "@/shared/lib/use-modal.ts";
 import { usePortalRoot } from "@/shared/lib/usePortalRoot.ts";
 import UiBackdrop from "@/shared/ui/ui-backdrop/ui-backdrop.tsx";
 import UiIconButton from "@/shared/ui/ui-icon-button/ui-icon-button.tsx";
@@ -15,34 +17,42 @@ export type ModalProps = {
   content?: ReactElement;
   footer?: ReactElement;
   onClose?: () => void;
-  isOpen: boolean;
   className?: string;
+  modalType: ModalTypes;
 };
 
 const UiModal: FC<ModalProps> = ({
-  isOpen,
   onClose,
   header,
   content,
   footer,
   className,
+  modalType,
 }) => {
+  const { getIsModalOpen, handleCloseModal } = useModal();
+  const isModalOpen = getIsModalOpen(modalType);
+
   const modalRoot = usePortalRoot({
-    isOpen,
+    isOpen: isModalOpen,
     lockScrollOnOpen: true,
   });
 
+  const onModalClose = () => {
+    handleCloseModal();
+    onClose?.();
+  };
+
   return createPortal(
     <AnimatePresence>
-      {isOpen && (
-        <UiBackdrop onClick={onClose} className={styles.backdrop}>
+      {isModalOpen && (
+        <UiBackdrop onClick={onModalClose} className={styles.backdrop}>
           <div
             className={cn(styles.modal, className)}
             onClick={(e) => e.stopPropagation()}
           >
             <UiIconButton
               size="sm"
-              onClick={onClose}
+              onClick={onModalClose}
               className={styles["close-icon"]}
             >
               <CloseIcon />

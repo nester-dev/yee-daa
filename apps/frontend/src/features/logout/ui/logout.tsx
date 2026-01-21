@@ -1,6 +1,8 @@
 import { Link } from "react-router";
-import { UiTypography } from "@/shared/ui/ui-typography";
+
 import LogoutIcon from "@/shared/assets/icons/logout.svg?react";
+import { UiTypography } from "@/shared/ui/ui-typography";
+
 import styles from "./Logout.module.scss";
 
 const Logout = () => {

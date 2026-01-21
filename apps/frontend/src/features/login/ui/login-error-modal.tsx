@@ -7,13 +7,13 @@ import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./login-form.module.scss";
 
-type Props = Pick<ModalProps, "isOpen" | "onClose"> & {
+type Props = Pick<ModalProps, "onClose" | "modalType"> & {
   onRetry: () => void;
 };
 
-const LoginErrorModal: FC<Props> = ({ isOpen, onClose, onRetry }) => (
+const LoginErrorModal: FC<Props> = ({ onClose, onRetry, modalType }) => (
   <UiModal
-    isOpen={isOpen}
+    modalType={modalType}
     onClose={onClose}
     header={
       <img
