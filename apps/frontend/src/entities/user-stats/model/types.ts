@@ -1,5 +1,5 @@
 export type UserStatsType = {
-  bookmarksCount: number;
-  likesCount: number;
-  followersCount: number;
+  bookmarksCount?: number;
+  likesCount?: number;
+  followersCount?: number;
 };

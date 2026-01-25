@@ -1,5 +1,23 @@
+import { RecipeCard } from "@/entities/recipe";
+import { useGetAllRecipesQuery } from "@/entities/recipe/api/recipe-api.ts";
+
 const HomePage = () => {
-  return <h1>homePage</h1>;
+  const { data: response } = useGetAllRecipesQuery({ sortBy: "likes" });
+
+  return (
+    <section
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        gridAutoRows: "244px",
+        gap: "24px",
+      }}
+    >
+      {response?.data?.map((recipe) => (
+        <RecipeCard key={recipe._id} {...recipe} direction="row" />
+      ))}
+    </section>
+  );
 };
 
 export default HomePage;

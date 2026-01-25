@@ -1,4 +1,5 @@
-import type { FC } from "react";
+import { type FC } from "react";
+import cn from "clsx";
 
 import BookmarksIcon from "@/shared/assets/icons/bookmark-heart.svg?react";
 import LikesIcon from "@/shared/assets/icons/emoji-heart-eyes.svg?react";
@@ -10,28 +11,35 @@ import UserStatsItem from "./user-stats-item.tsx";
 
 import styles from "./user-stats.module.scss";
 
-const UserStats: FC<UserStatsType> = ({
+type Props = UserStatsType & {
+  size?: "small" | "medium";
+  direction?: "row" | "column";
+};
+
+const UserStats: FC<Props> = ({
   followersCount,
   likesCount,
   bookmarksCount,
+  size = "small",
+  direction = "row",
 }) => {
   return (
-    <div className={styles["user-stats"]}>
-      <UserStatsItem
-        icon={<BookmarksIcon />}
-        className={styles["user-stats-item"]}
-      >
-        {bookmarksCount}
-      </UserStatsItem>
-      <UserStatsItem
-        className={styles["user-stats-item"]}
-        icon={<FollowersIcon />}
-      >
-        {followersCount}
-      </UserStatsItem>
-      <UserStatsItem className={styles["user-stats-item"]} icon={<LikesIcon />}>
-        {likesCount}
-      </UserStatsItem>
+    <div className={cn(styles["user-stats"], styles[size], styles[direction])}>
+      {!!bookmarksCount && (
+        <UserStatsItem icon={<BookmarksIcon />} className={styles["item"]}>
+          {bookmarksCount}
+        </UserStatsItem>
+      )}
+      {!!followersCount && (
+        <UserStatsItem className={styles["item"]} icon={<FollowersIcon />}>
+          {followersCount}
+        </UserStatsItem>
+      )}
+      {!!likesCount && (
+        <UserStatsItem className={styles["item"]} icon={<LikesIcon />}>
+          {likesCount}
+        </UserStatsItem>
+      )}
     </div>
   );
 };

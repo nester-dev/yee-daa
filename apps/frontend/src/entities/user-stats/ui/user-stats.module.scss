@@ -1,12 +1,32 @@
 .user-stats {
   display: flex;
-  flex-direction: column;
-  padding: 16px 0;
-  row-gap: 24px;
+}
 
-  &-item {
-    display: flex;
-    align-items: center;
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.row {
+  align-items: center;
+  column-gap: 6px;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.small {
+  & > .item {
+    column-gap: 8px;
+  }
+}
+
+.medium {
+  row-gap: 24px;
+  padding: 16px 0;
+
+  & > .item {
     padding: 8px 16px;
     column-gap: 8px;
   }

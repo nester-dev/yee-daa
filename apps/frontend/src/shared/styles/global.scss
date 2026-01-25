@@ -64,4 +64,10 @@
     box-shadow: none !important;
     min-height: 0 !important;
   }
+
+  .text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
