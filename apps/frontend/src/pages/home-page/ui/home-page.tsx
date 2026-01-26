@@ -1,8 +1,12 @@
+import { useGetAllCategoriesQuery } from "@/entities/category/api/category-api.ts";
 import { RecipeCard } from "@/entities/recipe";
 import { useGetAllRecipesQuery } from "@/entities/recipe/api/recipe-api.ts";
 
 const HomePage = () => {
-  const { data: response } = useGetAllRecipesQuery({ sortBy: "likes" });
+  const { data: response } = useGetAllRecipesQuery({
+    sortBy: "likes",
+  });
+  useGetAllCategoriesQuery();
 
   return (
     <section

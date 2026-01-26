@@ -1,10 +1,13 @@
 import { type FC, type ReactNode } from "react";
+import { useSelector } from "react-redux";
 import { Truncate } from "@re-dev/react-truncate";
 import cn from "clsx";
 
+import { selectCategoriesById } from "@/entities/category";
 import type { RecipeType } from "@/entities/recipe/model/types.ts";
 import { UserStats } from "@/entities/user-stats";
 
+import UiTag from "@/shared/ui/ui-tag/ui-tag.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./recipe-card.module.scss";
@@ -24,10 +27,15 @@ const RecipeCard: FC<Props> = ({
   image,
   likes,
   bookmarks,
+  categoriesIds,
 }) => {
   const cardImage = image
     ? `${import.meta.env.VITE_ASSETS_URL}/${image}`
     : null;
+  const categories = useSelector((state: RootState) =>
+    selectCategoriesById(state, categoriesIds),
+  );
+  const recipeCategories = categories.map((category) => category?.title);
 
   return (
     <div
@@ -60,6 +68,7 @@ const RecipeCard: FC<Props> = ({
           </div>
         )}
         <div className={styles["card-labels"]}>
+          <UiTag color="greenLimeSoft">{recipeCategories.concat(", ")}</UiTag>
           <UserStats bookmarksCount={bookmarks} likesCount={likes} />
         </div>
       </div>
