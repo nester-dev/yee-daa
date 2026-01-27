@@ -3,6 +3,7 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   overflow: hidden;
+  height: 100%;
 
   &-content {
     display: flex;
@@ -26,6 +27,8 @@
 
 .column {
   flex-direction: column;
+  min-height: 220px;
+  max-height: 414px;
 
   .image-wrapper {
     position: relative;

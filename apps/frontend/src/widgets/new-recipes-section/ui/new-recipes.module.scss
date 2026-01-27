@@ -1,0 +1,38 @@
+.section {
+  max-width: 1360px;
+}
+
+.slider {
+  position: relative;
+  margin-top: 24px;
+}
+
+.slide {
+  height: auto;
+}
+
+.nav-button {
+  position: absolute;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  top: 50%;
+  left: -5px;
+  height: 48px;
+  background-color: var(--c-black);
+  color: var(--c-cream);
+  border-radius: 6px;
+  transform: translate(0, -50%);
+  z-index: 10;
+
+  &--right {
+    left: unset;
+    right: -5px;
+
+    & svg {
+      transform: rotate(180deg);
+    }
+  }
+}

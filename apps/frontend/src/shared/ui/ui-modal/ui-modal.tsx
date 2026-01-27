@@ -18,7 +18,8 @@ export type ModalProps = {
   footer?: ReactElement;
   onClose?: () => void;
   className?: string;
-  modalType: ModalTypes;
+  modalType?: ModalTypes;
+  isOpen?: boolean;
 };
 
 const UiModal: FC<ModalProps> = ({
@@ -28,9 +29,10 @@ const UiModal: FC<ModalProps> = ({
   footer,
   className,
   modalType,
+  isOpen,
 }) => {
   const { getIsModalOpen, handleCloseModal } = useModal();
-  const isModalOpen = getIsModalOpen(modalType);
+  const isModalOpen = getIsModalOpen(modalType) || !!isOpen;
 
   const modalRoot = usePortalRoot({
     isOpen: isModalOpen,

@@ -18,7 +18,7 @@ export const useModal = () => {
   }, [setSearchParams]);
 
   const getIsModalOpen = useCallback(
-    (modalType: ModalTypes | null) => {
+    (modalType?: ModalTypes | null) => {
       return searchParams.get("modal") === modalType;
     },
     [searchParams],
