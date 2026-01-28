@@ -1,0 +1,52 @@
+@use "@/shared/styles/mixins";
+
+.section {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: auto auto 200px;
+  grid-template-rows: repeat(3, auto);
+  align-items: center;
+}
+
+.heading {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.button {
+  white-space: nowrap;
+  grid-column: 3;
+  grid-row: 1;
+  height: 48px;
+
+  & svg {
+    transform: rotate(180deg);
+  }
+
+  @include mixins.tabletDevice {
+    grid-auto-rows: 128px;
+    grid-row: 3;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+  grid-auto-rows: 244px;
+
+  grid-column: 1 / 4;
+  grid-row: 2;
+
+  @include mixins.tabletDevice {
+    grid-auto-rows: 128px;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: end;
+}

@@ -3,7 +3,6 @@
   align-items: center;
   justify-content: center;
   column-gap: 8px;
-  padding: 10px 24px;
   text-align: center;
   border-radius: 6px;
 
@@ -38,4 +37,12 @@
 
 .full-width {
   width: 100%;
+}
+
+.sm {
+  padding: 6px 12px;
+}
+
+.md {
+  padding: 10px 24px;
 }

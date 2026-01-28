@@ -40,30 +40,36 @@ const RecipeCard: FC<Props> = ({
           <img src={cardImage} alt="recipe-image" />
         </div>
       )}
-      <div className={styles["card-content"]}>
-        {title && (
-          <UiTypography
-            className={cn(styles["card-title"], "text-ellipsis")}
-            variant="xl"
-            fontWeight="medium"
-          >
-            {title}
-          </UiTypography>
-        )}
-        {description && (
-          <div className={styles["card-description"]}>
-            <Truncate lines={3} ellipsis="...">
-              <UiTypography variant="sm" fontWeight="regular">
-                {description}
-              </UiTypography>
-            </Truncate>
+      <div className={styles["card-wrapper"]}>
+        <div className={styles["card-content"]}>
+          {title && (
+            <UiTypography
+              className={cn(styles["card-title"], "text-ellipsis")}
+              variant="xl"
+              fontWeight="medium"
+            >
+              {title}
+            </UiTypography>
+          )}
+          {description && (
+            <div className={styles["card-description"]}>
+              <Truncate lines={3} ellipsis="...">
+                <UiTypography variant="sm" fontWeight="regular">
+                  {description}
+                </UiTypography>
+              </Truncate>
+            </div>
+          )}
+          <div className={styles["card-labels"]}>
+            <UserStats
+              bookmarksCount={bookmarks}
+              likesCount={likes}
+              className={styles["card-labels--stats"]}
+            />
           </div>
-        )}
-        <div className={styles["card-labels"]}>
-          <UserStats bookmarksCount={bookmarks} likesCount={likes} />
         </div>
+        {actions && <div>{actions}</div>}
       </div>
-      {actions && <div>{actions}</div>}
     </div>
   );
 };

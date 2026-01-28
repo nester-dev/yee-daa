@@ -5,17 +5,26 @@
   overflow: hidden;
   height: 100%;
 
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+  }
+
   &-content {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding: 20px 24px;
   }
 
   &-labels {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    &--stats {
+      margin-left: auto;
+    }
   }
 
   &-description {
@@ -55,7 +64,7 @@
     width: 50%;
   }
 
-  .card-content {
+  .card-wrapper {
     width: 50%;
   }
 

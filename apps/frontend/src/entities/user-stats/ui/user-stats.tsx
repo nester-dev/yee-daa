@@ -14,6 +14,7 @@ import styles from "./user-stats.module.scss";
 type Props = UserStatsType & {
   size?: "small" | "medium";
   direction?: "row" | "column";
+  className?: string;
 };
 
 const UserStats: FC<Props> = ({
@@ -22,9 +23,17 @@ const UserStats: FC<Props> = ({
   bookmarksCount,
   size = "small",
   direction = "row",
+  className
 }) => {
   return (
-    <div className={cn(styles["user-stats"], styles[size], styles[direction])}>
+    <div
+      className={cn(
+        styles["user-stats"],
+        styles[size],
+        styles[direction],
+        className,
+      )}
+    >
       {!!bookmarksCount && (
         <UserStatsItem icon={<BookmarksIcon />} className={styles["item"]}>
           {bookmarksCount}

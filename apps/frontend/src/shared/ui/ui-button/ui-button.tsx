@@ -6,6 +6,7 @@ import styles from "./ui-button.module.scss";
 type Props = PropsWithChildren<{
   variant?: "solid" | "outlined" | "text";
   color?: "primary" | "secondary" | "success";
+  size?: "sm" | "md";
   icon?: ReactElement;
   iconPosition?: "start" | "end";
   onClick?: (e: React.MouseEvent) => void;
@@ -24,12 +25,14 @@ const UiButton: FC<Props> = ({
   fullWidth,
   disabled,
   className,
+  size = "md",
 }) => {
   return (
     <button
       className={cn(
         styles.button,
         styles[iconPosition === "end" ? "button-reverse" : ""],
+        styles[size],
         fullWidth && styles["full-width"],
         styles[color],
         styles[variant],

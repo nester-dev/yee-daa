@@ -13,7 +13,7 @@ import styles from "./new-recipes.module.scss";
 
 const NewRecipesSection: FC = () => {
   const { data: response } = useGetAllRecipesQuery({
-    sortBy: "likes",
+    sortBy: "createdAt",
   });
 
   const swiperRef = useRef<SwiperType | null>(null);
