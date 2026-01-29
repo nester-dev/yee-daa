@@ -1,9 +1,9 @@
 import { type FC, useRef } from "react";
 import { Swiper as SwiperType } from "swiper";
+import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { RecipeCard } from "@/entities/recipe";
-import { useGetAllRecipesQuery } from "@/entities/recipe/api/recipe-api.ts";
+import { RecipeCard, useGetAllRecipesQuery } from "@/entities/recipe";
 
 import { UiTypography } from "@/shared/ui/ui-typography";
 
@@ -28,8 +28,12 @@ const NewRecipesSection: FC = () => {
         <PrevButton swiperRef={swiperRef} />
         <NextButton swiperRef={swiperRef} />
         <Swiper
+          modules={[Autoplay]}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           loop={true}
+          autoplay={{
+            delay: 2000,
+          }}
           breakpoints={{
             1440: {
               slidesPerView: 4,

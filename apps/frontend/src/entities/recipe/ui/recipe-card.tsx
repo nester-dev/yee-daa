@@ -13,6 +13,8 @@ type Props = RecipeType & {
   direction?: "column" | "row";
   actions?: ReactNode;
   onClick?: () => void;
+  showImage?: boolean;
+  className?: string;
 };
 
 const RecipeCard: FC<Props> = ({
@@ -24,6 +26,8 @@ const RecipeCard: FC<Props> = ({
   image,
   likes,
   bookmarks,
+  showImage = true,
+  className,
 }) => {
   const cardImage = image
     ? `${import.meta.env.VITE_ASSETS_URL}/${image}`
@@ -31,11 +35,11 @@ const RecipeCard: FC<Props> = ({
 
   return (
     <div
-      className={cn(styles.card, styles[direction])}
+      className={cn(styles.card, styles[direction], className)}
       role="button"
       onClick={onClick}
     >
-      {cardImage && (
+      {cardImage && showImage && (
         <div className={styles["image-wrapper"]}>
           <img src={cardImage} alt="recipe-image" />
         </div>

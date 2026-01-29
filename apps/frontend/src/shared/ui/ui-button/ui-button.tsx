@@ -1,4 +1,4 @@
-import type { FC, PropsWithChildren, ReactElement } from "react";
+import { type FC, type PropsWithChildren, type ReactElement } from "react";
 import cn from "clsx";
 
 import styles from "./ui-button.module.scss";

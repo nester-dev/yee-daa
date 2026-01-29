@@ -1,7 +1,6 @@
 import type { FC } from "react";
 
-import { RecipeCard } from "@/entities/recipe";
-import { useGetAllRecipesQuery } from "@/entities/recipe/api/recipe-api.ts";
+import { RecipeCard, useGetAllRecipesQuery } from "@/entities/recipe";
 
 import ArrowIcon from "@/shared/assets/icons/arrow-left.svg?react";
 import UiButton from "@/shared/ui/ui-button/ui-button.tsx";

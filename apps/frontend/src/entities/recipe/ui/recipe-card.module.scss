@@ -36,8 +36,11 @@
 
 .column {
   flex-direction: column;
-  min-height: 220px;
   max-height: 414px;
+
+  .card-wrapper {
+    height: 100%;
+  }
 
   .image-wrapper {
     position: relative;
