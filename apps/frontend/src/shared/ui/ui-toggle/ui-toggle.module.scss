@@ -1,0 +1,30 @@
+.toggle {
+  position: relative;
+  border-radius: 9999px;
+  background-color: rgba(0, 0, 0, 0.16);
+  width: 34px;
+  height: 20px;
+  transition: background-color .2s ease;
+}
+
+.thumb {
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: left .2s ease;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background-color: var(--c-white);
+}
+
+.toggled {
+  &.toggle {
+    background-color: var(--c-green-lime);
+  }
+
+  .thumb {
+    left: calc(100% - 18px);
+  }
+}

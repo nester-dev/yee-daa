@@ -1,5 +1,6 @@
 import { JuiciestSection } from "@/widgets/juiciest-section";
 import { NewRecipesSection } from "@/widgets/new-recipes-section";
+import { RecipeSearchPanel } from "@/widgets/recipe-search-panel";
 import {
   RelevantKitchen,
   useGetRelevantCategory,
@@ -15,6 +16,10 @@ const HomePage = () => {
 
   return (
     <div className={styles.container}>
+      <RecipeSearchPanel
+        heading="Приятного аппетита!"
+        description="Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда."
+      />
       <NewRecipesSection />
       <JuiciestSection />
       <RelevantKitchen parentCategory={category} />

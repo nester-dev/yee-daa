@@ -7,7 +7,7 @@ type Props = PropsWithChildren<{
   onClick?: () => void;
   size?: "inherit" | "sm" | "md" | "lg";
   className?: string;
-  variant?: "ghost";
+  variant?: "ghost" | "outline";
 }>;
 
 const UiIconButton: FC<Props> = ({

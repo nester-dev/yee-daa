@@ -10,7 +10,7 @@
 }
 
 .sm {
-  padding: 10px;
+  padding: 12px;
 }
 
 .md {
@@ -28,4 +28,9 @@
   &:hover {
     background: rgba(0, 0, 0, 0.05);
   }
+}
+
+.outline {
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.48);
 }

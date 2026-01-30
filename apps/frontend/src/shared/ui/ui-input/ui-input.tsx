@@ -25,6 +25,7 @@ const UiInput: FC<Props> = ({
   helperText,
   error,
   suffix,
+  className,
   ...rest
 }) => {
   return (
@@ -32,7 +33,13 @@ const UiInput: FC<Props> = ({
       <div className={styles["input-group"]}>
         <label className={styles.label}>
           {label && <span>{label}</span>}
-          <div className={cn(styles["input-wrapper"], !!error && styles.error)}>
+          <div
+            className={cn(
+              styles["input-wrapper"],
+              !!error && styles.error,
+              className,
+            )}
+          >
             <input
               name={name}
               value={value}
