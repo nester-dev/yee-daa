@@ -3,7 +3,7 @@ import { type ToastContentProps } from "react-toastify";
 import cn from "clsx";
 
 import AlertIcon from "@/shared/assets/icons/alert-icon.svg?react";
-import CheckIcon from "@/shared/assets/icons/check-icon.svg?react";
+import CheckRoundedIcon from "@/shared/assets/icons/check-rounded-icon.svg?react";
 import CloseIcon from "@/shared/assets/icons/close-icon.svg?react";
 import UiIconButton from "@/shared/ui/ui-icon-button/ui-icon-button.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
@@ -22,7 +22,7 @@ const UiNotification: FC<NotificationProps> = ({
   variant,
   closeToast,
 }) => {
-  const IconComponent = variant === "success" ? CheckIcon : AlertIcon;
+  const IconComponent = variant === "success" ? CheckRoundedIcon : AlertIcon;
 
   return (
     <div

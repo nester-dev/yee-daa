@@ -5,7 +5,7 @@ import styles from "./ui-icon-button.module.scss";
 
 type Props = PropsWithChildren<{
   onClick?: () => void;
-  size?: "inherit" | "sm" | "md" | "lg";
+  size?: "inherit" | "xs" | "sm" | "md" | "lg";
   className?: string;
   variant?: "ghost" | "outline";
 }>;

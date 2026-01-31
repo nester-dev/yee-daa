@@ -6,7 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import CloseIcon from "@/shared/assets/icons/cross-icon.svg?react";
 import type { ModalTypes } from "@/shared/config/modal-types.ts";
 import { useModal } from "@/shared/lib/use-modal.ts";
-import { usePortalRoot } from "@/shared/lib/usePortalRoot.ts";
+import { usePortalRoot } from "@/shared/lib/use-portal-root.ts";
 import UiBackdrop from "@/shared/ui/ui-backdrop/ui-backdrop.tsx";
 import UiIconButton from "@/shared/ui/ui-icon-button/ui-icon-button.tsx";
 

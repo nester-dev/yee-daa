@@ -1,14 +1,14 @@
 import type { FC } from "react";
 import { createPortal } from "react-dom";
-import { useSelector } from "react-redux";
 
-import { usePortalRoot } from "@/shared/lib/usePortalRoot.ts";
+import { useAppSelector } from "@/shared/lib/hooks.ts";
+import { usePortalRoot } from "@/shared/lib/use-portal-root.ts";
 import UiSpinner from "@/shared/ui/ui-spinner/ui-spinner.tsx";
 
 import { selectIsSomeQueryPending } from "../store/selectors";
 
 const SpinnerProvider: FC = () => {
-  const isSomeQueryPending = useSelector(selectIsSomeQueryPending);
+  const isSomeQueryPending = useAppSelector(selectIsSomeQueryPending);
   const modalRoot = usePortalRoot({
     isOpen: isSomeQueryPending,
     lockScrollOnOpen: true,
