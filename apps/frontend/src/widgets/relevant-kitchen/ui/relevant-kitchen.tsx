@@ -1,11 +1,9 @@
 import type { FC } from "react";
 
+import { useFilteredRecipes } from "@/features/select-filters";
+
 import type { Category } from "@/entities/category";
-import {
-  RecipeCard,
-  RecipeRow,
-  useGetAllRecipesQuery,
-} from "@/entities/recipe";
+import { RecipeCard, RecipeRow } from "@/entities/recipe";
 
 import { UiTypography } from "@/shared/ui/ui-typography";
 
@@ -20,7 +18,7 @@ const RelevantKitchen: FC<Props> = ({ parentCategory }) => {
     (item) => item._id,
   );
 
-  const { data: response } = useGetAllRecipesQuery({
+  const { data: response } = useFilteredRecipes({
     subcategoriesIds: subcategoriesIds?.join(","),
     limit: 5,
   });

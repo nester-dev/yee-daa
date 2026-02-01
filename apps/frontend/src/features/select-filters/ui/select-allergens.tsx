@@ -1,13 +1,12 @@
 import { type FC, useRef, useState } from "react";
 
-import { selectAllergens } from "@/features/select-allergens";
-
 import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks.ts";
 import { useClickOutside } from "@/shared/lib/use-click-outside.ts";
 import UiCheckboxOption from "@/shared/ui/ui-select/ui-checkbox-option.tsx";
 import UiSelect from "@/shared/ui/ui-select/ui-select.tsx";
 
-import { allergensOptions } from "../model/data.ts";
+import { allergensOptions } from "../config/data.ts";
+import { selectAllergens } from "../model/selectors.ts";
 import { setAllergens } from "../model/slice.ts";
 import type { OptionType } from "../model/types.ts";
 

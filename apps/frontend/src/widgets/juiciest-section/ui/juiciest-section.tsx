@@ -1,6 +1,8 @@
 import type { FC } from "react";
 
-import { RecipeCard, useGetAllRecipesQuery } from "@/entities/recipe";
+import { useFilteredRecipes } from "@/features/select-filters";
+
+import { RecipeCard } from "@/entities/recipe";
 
 import ArrowIcon from "@/shared/assets/icons/arrow-left.svg?react";
 import UiButton from "@/shared/ui/ui-button/ui-button.tsx";
@@ -11,7 +13,7 @@ import ActionButtons from "./action-buttons.tsx";
 import styles from "./juciest.module.scss";
 
 const JuiciestSection: FC = () => {
-  const { data: response } = useGetAllRecipesQuery({
+  const { data: response } = useFilteredRecipes({
     sortBy: "likes",
     limit: 4,
   });

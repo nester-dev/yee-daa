@@ -1,6 +1,6 @@
 import { type FC, useState } from "react";
 
-import { ExcludeAllergens, SelectAllergens } from "@/features/select-allergens";
+import { ExcludeAllergens, SelectAllergens } from "@/features/select-filters";
 
 import FiltersIcon from "@/shared/assets/icons/align-icon.svg?react";
 import SearchIcon from "@/shared/assets/icons/search-icon.svg?react";

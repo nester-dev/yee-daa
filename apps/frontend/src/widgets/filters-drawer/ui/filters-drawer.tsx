@@ -2,8 +2,11 @@ import type { FC } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "motion";
 
-import { ExcludeAllergens, SelectAllergens } from "@/features/select-allergens";
-import { SelectFilters } from "@/features/select-filters";
+import {
+  ExcludeAllergens,
+  SelectAllergens,
+  SelectFilters,
+} from "@/features/select-filters";
 
 import CrossIcon from "@/shared/assets/icons/cross-filled-icon.svg?react";
 import UiBackdrop from "@/shared/ui/ui-backdrop/ui-backdrop.tsx";
@@ -85,7 +88,7 @@ const FiltersDrawer: FC<Props> = ({ onClose, isOpen }) => {
                 </div>
                 <SelectFilters />
                 <FilterTags />
-                <ActionButtons />
+                <ActionButtons onFiltersApply={onClose} />
               </div>
             </div>
           </motion.div>

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks.ts";
 import UiToggle from "@/shared/ui/ui-toggle/ui-toggle.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
-import { selectIsAllergensExcluded } from "../model/selectors";
+import { selectIsAllergensExcluded } from "../model/selectors.ts";
 import { toggleExcludeAllergens } from "../model/slice.ts";
 
 import styles from "./select-allergens.module.scss";

@@ -1,10 +1,13 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-import type { InitialState } from "../model/types.ts";
+import type { InitialState, OptionType } from "../model/types.ts";
 
 const initialState: InitialState = {
   meat: [],
   garnish: [],
+  allergens: [],
+  isAllergensExcluded: false,
+  isFiltersApplied: false,
 };
 
 export const filters = createSlice({
@@ -49,8 +52,24 @@ export const filters = createSlice({
       state.meat = [];
       state.garnish = [];
     },
+    setAllergens: (state, action: PayloadAction<OptionType[]>) => {
+      state.allergens = action.payload;
+    },
+    toggleExcludeAllergens: (state, action: PayloadAction<boolean>) => {
+      state.isAllergensExcluded = action.payload;
+    },
+    toggleIsFiltersApplied: (state, action: PayloadAction<boolean>) => {
+      state.isFiltersApplied = action.payload;
+    },
   },
 });
 
-export const { setMeatFilter, setGarnishFilter, resetFilters, deleteFilter } =
-  filters.actions;
+export const {
+  setMeatFilter,
+  setGarnishFilter,
+  resetFilters,
+  deleteFilter,
+  setAllergens,
+  toggleExcludeAllergens,
+  toggleIsFiltersApplied,
+} = filters.actions;

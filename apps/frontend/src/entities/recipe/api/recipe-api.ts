@@ -16,4 +16,4 @@ export const recipeApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllRecipesQuery } = recipeApi;
+export const { useGetAllRecipesQuery, useLazyGetAllRecipesQuery } = recipeApi;

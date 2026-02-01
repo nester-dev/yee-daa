@@ -3,7 +3,9 @@ import { Swiper as SwiperType } from "swiper";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { RecipeCard, useGetAllRecipesQuery } from "@/entities/recipe";
+import { useFilteredRecipes } from "@/features/select-filters";
+
+import { RecipeCard } from "@/entities/recipe";
 
 import { UiTypography } from "@/shared/ui/ui-typography";
 
@@ -12,7 +14,7 @@ import { NextButton, PrevButton } from "./slider-navigation";
 import styles from "./new-recipes.module.scss";
 
 const NewRecipesSection: FC = () => {
-  const { data: response } = useGetAllRecipesQuery({
+  const { data: response } = useFilteredRecipes({
     sortBy: "createdAt",
   });
 

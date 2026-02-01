@@ -5,5 +5,17 @@ export {
   resetFilters,
   setGarnishFilter,
   deleteFilter,
+  setAllergens,
+  toggleExcludeAllergens,
+  toggleIsFiltersApplied,
 } from "./model/slice.ts";
-export { selectGarnishFilter, selectMeatFilter } from "./model/selectors.ts";
+export {
+  selectGarnishFilter,
+  selectMeatFilter,
+  selectAllergens,
+  selectIsAllergensExcluded,
+  selectIsFiltersApplied,
+} from "./model/selectors.ts";
+export { default as SelectAllergens } from "./ui/select-allergens.tsx";
+export { default as ExcludeAllergens } from "./ui/exclude-allergens.tsx";
+export { useFilteredRecipes } from "./lib/use-filtered-recipes.ts";

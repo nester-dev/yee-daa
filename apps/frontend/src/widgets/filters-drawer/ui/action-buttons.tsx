@@ -1,10 +1,11 @@
 import type { FC } from "react";
 
 import {
+  resetFilters,
   setAllergens,
   toggleExcludeAllergens,
-} from "@/features/select-allergens/model/slice.ts";
-import { resetFilters } from "@/features/select-filters";
+  toggleIsFiltersApplied,
+} from "@/features/select-filters";
 
 import { useAppDispatch } from "@/shared/lib/hooks.ts";
 import UiButton from "@/shared/ui/ui-button/ui-button.tsx";
@@ -12,12 +13,22 @@ import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./filters-drawer.module.scss";
 
-const ActionButtons: FC = () => {
+type Props = {
+  onFiltersApply: () => void;
+};
+
+const ActionButtons: FC<Props> = ({ onFiltersApply }) => {
   const dispatch = useAppDispatch();
+
   const handleFiltersReset = () => {
     dispatch(resetFilters());
     dispatch(setAllergens([]));
     dispatch(toggleExcludeAllergens(false));
+  };
+
+  const handleFiltersApply = () => {
+    dispatch(toggleIsFiltersApplied(true));
+    onFiltersApply();
   };
 
   return (
@@ -28,7 +39,7 @@ const ActionButtons: FC = () => {
         </UiTypography>
       </UiButton>
 
-      <UiButton color="secondary">
+      <UiButton color="secondary" onClick={handleFiltersApply}>
         <UiTypography variant="lg" fontWeight="semibold" color="white">
           Найти рецепт
         </UiTypography>
