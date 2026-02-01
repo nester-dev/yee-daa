@@ -3,4 +3,16 @@
   align-items: center;
   padding: 2px 8px;
   border-radius: 4px;
+  gap: 8px;
+}
+
+.greenLight {
+  background-color: var(--c-green-light);
+  border: 1px solid var(--c-green-lime);
+  font-weight: 500;
+  color: var(--c-green-secondary);
+
+  p {
+    color: var(--c-green-secondary);
+  }
 }

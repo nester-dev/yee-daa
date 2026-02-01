@@ -1,0 +1,51 @@
+.drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  max-width: 465px;
+  width: 100%;
+  padding: 27px;
+  background-color: var(--c-white);
+  z-index: 15;
+  height: 100vh;
+}
+
+.container {
+  height: 100%;
+  overflow: auto;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.22vh;
+  padding: 0 5px;
+  height: 100%;
+}
+
+.allergens {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  margin-top: auto;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 8px;
+}

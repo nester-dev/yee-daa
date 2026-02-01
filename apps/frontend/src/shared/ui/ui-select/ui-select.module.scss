@@ -1,0 +1,44 @@
+:global {
+  .select {
+    &__menu {
+      z-index: 10 !important;
+    }
+
+    &__control {
+      border: 1px solid rgba(0, 0, 0, 0.08) !important;
+      border-radius: 6px !important;
+
+      &--is-focused {
+        box-shadow: 0 0 0 1px var(--c-green-neon) !important;
+      }
+    }
+
+    &__multi-value {
+      border: 1px solid var(--c-green-lime);
+      border-radius: 6px !important;
+      background-color: transparent !important;
+
+      &__label {
+        font-size: 12px !important;
+        font-weight: 500;
+        line-height: 133%;
+        color: var(--c-green-primary) !important;
+      }
+    }
+
+    &__option {
+      display: flex !important;
+      align-items: center;
+      column-gap: 8px;
+      padding: 6px 16px !important;
+
+      &--is-selected {
+        background-color: transparent !important;
+      }
+    }
+
+    &__indicator-separator {
+      display: none;
+    }
+  }
+}

@@ -13,9 +13,14 @@ import styles from "./recipe-search-panel.module.scss";
 type Props = {
   heading: string;
   description?: string;
+  onFilersClick: () => void;
 };
 
-const RecipeSearchPanel: FC<Props> = ({ heading, description }) => {
+const RecipeSearchPanel: FC<Props> = ({
+  heading,
+  description,
+  onFilersClick,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
@@ -36,7 +41,7 @@ const RecipeSearchPanel: FC<Props> = ({ heading, description }) => {
 
       <div className={styles.controls}>
         <div className={styles.search}>
-          <UiIconButton variant="outline" size="sm">
+          <UiIconButton variant="outline" size="sm" onClick={onFilersClick}>
             <FiltersIcon />
           </UiIconButton>
           <UiInput

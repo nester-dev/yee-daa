@@ -1,20 +1,23 @@
 import { type FC, useRef, useState } from "react";
-import Select from "react-select";
 
-import { useAppDispatch } from "@/shared/lib/hooks.ts";
+import { selectAllergens } from "@/features/select-allergens";
+
+import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks.ts";
 import { useClickOutside } from "@/shared/lib/use-click-outside.ts";
+import UiCheckboxOption from "@/shared/ui/ui-select/ui-checkbox-option.tsx";
+import UiSelect from "@/shared/ui/ui-select/ui-select.tsx";
 
 import { allergensOptions } from "../model/data.ts";
 import { setAllergens } from "../model/slice.ts";
 import type { OptionType } from "../model/types.ts";
 
 import CustomMenuList from "./custom-menu-list.tsx";
-import CustomOption from "./custom-option.tsx";
 
 import styles from "./select-allergens.module.scss";
 
 const SelectAllergens: FC = () => {
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const allergens = useAppSelector(selectAllergens);
   const containerRef = useRef<HTMLDivElement>(null);
   useClickOutside<HTMLDivElement>(containerRef, () => setIsInputFocused(false));
   const dispatch = useAppDispatch();
@@ -25,9 +28,9 @@ const SelectAllergens: FC = () => {
 
   return (
     <div ref={containerRef} className={styles.select}>
-      <Select
-        classNamePrefix="allergens"
+      <UiSelect
         options={allergensOptions}
+        value={allergens}
         closeMenuOnSelect={false}
         isMulti={true}
         onChange={handleChange}
@@ -39,7 +42,7 @@ const SelectAllergens: FC = () => {
           menuIsOpen: isInputFocused || undefined,
         }}
         components={{
-          Option: CustomOption,
+          Option: UiCheckboxOption,
           MenuList: CustomMenuList,
         }}
       />

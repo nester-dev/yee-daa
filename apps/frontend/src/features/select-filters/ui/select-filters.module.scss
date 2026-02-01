@@ -1,0 +1,19 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.22vh;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.11vh;
+  margin-top: 1.11vh;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  cursor: pointer;
+}

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { allergens } from "@/features/select-allergens";
+import { filters } from "@/features/select-filters";
 
 import { categories } from "@/entities/category";
 
@@ -11,6 +12,7 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     [categories.name]: categories.reducer,
     [allergens.name]: allergens.reducer,
+    [filters.name]: filters.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),

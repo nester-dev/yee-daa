@@ -4,7 +4,7 @@ import { components, type OptionProps } from "react-select";
 import UiCheckbox from "@/shared/ui/ui-checkbox/ui-checkbox.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
-const CustomOption: FC<OptionProps> = (props) => {
+const UiCheckboxOption: FC<OptionProps> = (props) => {
   return (
     <components.Option {...props}>
       <label htmlFor={props.label}>
@@ -17,4 +17,4 @@ const CustomOption: FC<OptionProps> = (props) => {
   );
 };
 
-export default CustomOption;
+export default UiCheckboxOption;
