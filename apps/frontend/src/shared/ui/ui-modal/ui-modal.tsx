@@ -34,10 +34,7 @@ const UiModal: FC<ModalProps> = ({
   const { getIsModalOpen, handleCloseModal } = useModal();
   const isModalOpen = getIsModalOpen(modalType) || !!isOpen;
 
-  const modalRoot = usePortalRoot({
-    isOpen: isModalOpen,
-    lockScrollOnOpen: true,
-  });
+  const modalRoot = usePortalRoot({});
 
   const onModalClose = () => {
     handleCloseModal();

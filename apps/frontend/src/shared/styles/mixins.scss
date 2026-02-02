@@ -1,5 +1,17 @@
 @use "breakpoints";
 
+@mixin desktopDevice() {
+  @media screen and (max-width: breakpoints.$xxl) {
+    @content;
+  }
+}
+
+@mixin smallDesktopDevice() {
+  @media screen and (max-width: breakpoints.$xl) {
+    @content;
+  }
+}
+
 @mixin laptopDevice() {
   @media screen and (max-width: breakpoints.$lg) {
     @content;
@@ -14,6 +26,12 @@
 
 @mixin mobileDevice() {
   @media screen and (max-width: breakpoints.$sm) {
+    @content;
+  }
+}
+
+@mixin hoverOnly() {
+  @media (hover: hover) {
     @content;
   }
 }

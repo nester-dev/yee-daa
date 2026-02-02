@@ -1,3 +1,5 @@
+@use "@/shared/styles/mixins";
+
 .button {
   display: flex;
   align-items: center;
@@ -41,8 +43,16 @@
 
 .sm {
   padding: 6px 12px;
+
+  @include mixins.laptopDevice {
+    padding: 4px 8px;
+  }
 }
 
 .md {
   padding: 10px 24px;
+
+  @include mixins.laptopDevice {
+    padding: 8px 16px;
+  }
 }

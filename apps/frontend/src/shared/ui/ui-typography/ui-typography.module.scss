@@ -1,19 +1,41 @@
+@use "@/shared/styles/mixins";
+
 .title {
   font-size: var(--fs-h1);
   font-weight: var(--fw-bold);
   line-height: 100%;
   text-align: center;
   color: var(--c-black);
+
+  @include mixins.laptopDevice() {
+    font-size: var(--fs-2xl);
+    line-height: 133%;
+  }
 }
 
 .text {
   font-size: var(--fs-text);
   font-weight: var(--fw-medium);
   line-height: 150%;
+
+  @include mixins.laptopDevice() {
+    font-size: var(--fs-sm);
+    line-height: 143%;
+  }
 }
 
 .xl-5 {
   font-size: var(--fs-h1);
+
+  @include mixins.desktopDevice {
+    font-size: 36px;
+    line-height: 111%;
+  }
+
+  @include mixins.laptopDevice {
+    font-size: 24px;
+    line-height: 133%;
+  }
 }
 
 .xxl {
@@ -30,11 +52,21 @@
   font-size: var(--fs-lg);
   font-weight: var(--fw-medium);
   line-height: 156%;
+
+  @include mixins.laptopDevice {
+    font-size: var(--fs-text);
+    line-height: 150%;
+  }
 }
 
 .sm {
   font-size: var(--fs-sm);
   line-height: 143%;
+
+  @include mixins.laptopDevice {
+    font-size: var(--fs-xs);
+    line-height: 133%;
+  }
 }
 
 .xs {

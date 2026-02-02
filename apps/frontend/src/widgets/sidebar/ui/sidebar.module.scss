@@ -1,7 +1,10 @@
+@use "@/shared/styles/mixins";
+
 .sidebar {
   display: flex;
   flex-direction: column;
-  max-width: 256px;
+  flex-shrink: 0;
+  width: 256px;
   padding-top: 12px;
   height: 100%;
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
@@ -11,5 +14,9 @@
     flex-direction: column;
     row-gap: 16px;
     padding: 32px 24px;
+  }
+
+  @include mixins.laptopDevice() {
+    width: 344px;
   }
 }

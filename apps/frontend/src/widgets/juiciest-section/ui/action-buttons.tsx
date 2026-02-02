@@ -10,7 +10,11 @@ const ActionButtons: FC = () => {
   return (
     <div className={styles.actions}>
       <UiButton size="sm" icon={<BookMarkIcon />}>
-        <UiTypography variant="sm" fontWeight="semibold">
+        <UiTypography
+          variant="sm"
+          fontWeight="semibold"
+          className={styles.save}
+        >
           Сохранить
         </UiTypography>
       </UiButton>

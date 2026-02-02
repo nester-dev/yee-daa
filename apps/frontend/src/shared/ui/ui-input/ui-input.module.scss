@@ -1,3 +1,5 @@
+@use "@/shared/styles/mixins";
+
 .container {
   width: 100%;
 }
@@ -14,6 +16,10 @@
   border-radius: 6px;
   transition: border .3s ease-in-out;
   overflow: hidden;
+
+  @include mixins.laptopDevice {
+    height: 32px;
+  }
 }
 
 .label {
@@ -30,9 +36,17 @@
   width: 100%;
   padding: 13px 16px;
 
+  @include mixins.laptopDevice {
+    padding: 7px 12px;
+  }
+
   &::placeholder {
     font-size: var(--fs-lg);
     color: var(--c-green-dark);
+
+    @include mixins.laptopDevice {
+      font-size: var(--fs-sm);
+    }
   }
 }
 

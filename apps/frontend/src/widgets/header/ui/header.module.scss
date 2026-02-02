@@ -1,6 +1,75 @@
+@use "@/shared/styles/mixins";
+
 .header {
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 16px 48px 16px 16px;
   background-color: var(--c-cream);
+  transition: background-color ease-out .5s;
+
+  &-white {
+    background-color: var(--c-white);
+    z-index: 15;
+  }
+
+  @include mixins.laptopDevice {
+    padding: 8px 16px;
+  }
+}
+
+.burger {
+  display: none;
+
+  @include mixins.laptopDevice() {
+    display: block;
+  }
+}
+
+.burger-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 17px;
+  height: 12px;
+  justify-content: space-between;
+
+  & span {
+    width: 17px;
+    min-height: 2px;
+    background-color: var(--c-black);
+    transition: transform ease-out .3s;
+  }
+}
+
+.open {
+  & span {
+    &:nth-child(1) {
+      transform: rotate(45deg) translate(4px, 4px);
+    }
+
+    &:nth-child(2) {
+      transform: scale(0.1) translate(0px, -3px);
+
+    }
+
+    &:nth-child(3) {
+      transform: rotate(-45deg) translate(4px, -5px);
+    }
+  }
+}
+
+
+.menu {
+  position: absolute;
+  top: 100%;
+  right: 8px;
+  z-index: 10;
+  background-color: var(--c-white);
+  box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 12px 12px;
+  max-height: calc(100vh - 100% - 50px);
+  overflow-y: auto;
+  will-change: transform, opacity;
 }

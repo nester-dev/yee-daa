@@ -1,14 +1,31 @@
+@use "@/shared/styles/mixins";
+
 .section {
-  margin-top: 30px
+  margin-top: 30px;
+
+  @include mixins.laptopDevice {
+    margin-top: 16px;
+  }
 }
 
 .slider {
   position: relative;
   margin-top: 24px;
+
+  @include mixins.laptopDevice {
+    margin-top: 12px;
+    button {
+      display: none;
+    }
+  }
 }
 
 .slide {
   height: auto;
+}
+
+.card {
+  height: 100%;
 }
 
 .nav-button {

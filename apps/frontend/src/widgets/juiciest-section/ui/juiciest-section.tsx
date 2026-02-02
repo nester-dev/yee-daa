@@ -5,6 +5,7 @@ import { useFilteredRecipes } from "@/features/select-filters";
 import { RecipeCard } from "@/entities/recipe";
 
 import ArrowIcon from "@/shared/assets/icons/arrow-left.svg?react";
+import { useIsAboveLaptopDevice } from "@/shared/lib/use-media-query.ts";
 import UiButton from "@/shared/ui/ui-button/ui-button.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
@@ -13,6 +14,7 @@ import ActionButtons from "./action-buttons.tsx";
 import styles from "./juciest.module.scss";
 
 const JuiciestSection: FC = () => {
+  const isAboveLaptopDevice = useIsAboveLaptopDevice();
   const { data: response } = useFilteredRecipes({
     sortBy: "likes",
     limit: 4,
@@ -44,6 +46,7 @@ const JuiciestSection: FC = () => {
             {...recipe}
             direction="row"
             actions={<ActionButtons />}
+            hideDescription={isAboveLaptopDevice}
           />
         ))}
       </div>

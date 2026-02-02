@@ -1,3 +1,5 @@
+@use "@/shared/styles/mixins";
+
 .panel {
   display: flex;
   flex-direction: column;
@@ -9,8 +11,15 @@
   border-radius: 24px;
   transition: box-shadow 0.4s ease;
 
-  &:hover {
-    box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  @include mixins.hoverOnly() {
+    &:hover {
+      box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  @include mixins.smallDesktopDevice() {
+    max-width: none;
+    padding: 16px 0 0 0;
   }
 }
 
@@ -26,6 +35,10 @@
   column-gap: 12px;
   margin-top: 32px;
   width: 100%;
+
+  @include mixins.smallDesktopDevice() {
+    margin-top: 16px;
+  }
 }
 
 .controls {
@@ -47,4 +60,19 @@
   column-gap: 16px;
   margin-top: 16px;
   width: 100%;
+
+  @include mixins.laptopDevice {
+    display: none;
+  }
+}
+
+.icon {
+  @include mixins.laptopDevice {
+    padding: 9px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
 }

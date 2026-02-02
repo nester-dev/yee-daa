@@ -7,6 +7,7 @@ import { useFilteredRecipes } from "@/features/select-filters";
 
 import { RecipeCard } from "@/entities/recipe";
 
+import { useIsAboveLaptopDevice } from "@/shared/lib/use-media-query.ts";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import { NextButton, PrevButton } from "./slider-navigation";
@@ -14,6 +15,7 @@ import { NextButton, PrevButton } from "./slider-navigation";
 import styles from "./new-recipes.module.scss";
 
 const NewRecipesSection: FC = () => {
+  const isAboveLaptopDevice = useIsAboveLaptopDevice();
   const { data: response } = useFilteredRecipes({
     sortBy: "createdAt",
   });
@@ -26,33 +28,55 @@ const NewRecipesSection: FC = () => {
         Новые рецепты
       </UiTypography>
 
-      <div className={styles.slider}>
-        <PrevButton swiperRef={swiperRef} />
-        <NextButton swiperRef={swiperRef} />
-        <Swiper
-          modules={[Autoplay]}
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-          loop={true}
-          autoplay={{
-            delay: 2000,
-          }}
-          breakpoints={{
-            1440: {
-              slidesPerView: 4,
-              spaceBetween: 24,
-            },
-            768: {
-              slidesPerView: 3.1,
-              spaceBetween: 12,
-            },
-          }}
-        >
-          {response?.data?.map((recipe) => (
-            <SwiperSlide key={recipe._id} className={styles.slide}>
-              <RecipeCard {...recipe} direction="column" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <div>
+        <div className={styles.slider}>
+          <PrevButton swiperRef={swiperRef} />
+          <NextButton swiperRef={swiperRef} />
+          <Swiper
+            modules={[Autoplay]}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            loop={true}
+            autoplay={{
+              delay: 2000,
+            }}
+            breakpoints={{
+              1536: {
+                slidesPerView: 4,
+              },
+              1280: {
+                slidesPerView: 3.1,
+              },
+              1024: {
+                slidesPerView: 2.6,
+                spaceBetween: 24,
+              },
+              768: {
+                slidesPerView: 4.3,
+              },
+              640: {
+                slidesPerView: 2.6,
+              },
+              460: {
+                slidesPerView: 3.1,
+              },
+              320: {
+                slidesPerView: 2.1,
+                spaceBetween: 12,
+              },
+            }}
+          >
+            {response?.data?.map((recipe) => (
+              <SwiperSlide key={recipe._id} className={styles.slide}>
+                <RecipeCard
+                  {...recipe}
+                  className={styles.card}
+                  direction="column"
+                  hideDescription={isAboveLaptopDevice}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </section>
   );

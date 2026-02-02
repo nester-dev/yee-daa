@@ -1,3 +1,5 @@
+@use "@/shared/styles/mixins";
+
 .drawer {
   position: fixed;
   top: 0;
@@ -9,6 +11,11 @@
   background-color: var(--c-white);
   z-index: 15;
   height: 100vh;
+
+  @include mixins.laptopDevice {
+    max-width: 344px;
+    padding: 11px;
+  }
 }
 
 .container {
@@ -39,8 +46,17 @@
 .buttons {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   column-gap: 8px;
   margin-top: auto;
+
+  @include mixins.laptopDevice {
+    button {
+      padding: 6px 12px;
+      font-size: var(--fs-sm);
+      line-height: 143%;
+    }
+  }
 }
 
 .tags {

@@ -1,3 +1,5 @@
+@use "@/shared/styles/mixins";
+
 .row {
   display: flex;
   align-items: center;
@@ -6,9 +8,17 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   transition: box-shadow .2s ease;
+  flex-shrink: 1;
 
-  &:hover {
-    box-shadow: 0 10px 15px -3px rgba(32, 126, 0, 0.18), 0 4px 6px -4px rgba(32, 126, 0, 0.25);
+  @include mixins.hoverOnly {
+    &:hover {
+      box-shadow: 0 10px 15px -3px rgba(32, 126, 0, 0.18), 0 4px 6px -4px rgba(32, 126, 0, 0.25);
+    }
+  }
+
+  @include mixins.laptopDevice {
+    padding: 10px 12px;
+    gap: 8px;
   }
 }
 
@@ -18,6 +28,11 @@
   white-space: nowrap;
   overflow: hidden;
   min-width: 150px;
+
+  @include mixins.laptopDevice {
+    font-size: var(--fs-text);
+    line-height: 150%;
+  }
 }
 
 .icon {

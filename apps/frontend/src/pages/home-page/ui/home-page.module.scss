@@ -1,6 +1,13 @@
+@use "@/shared/styles/mixins";
+
 .container {
   max-width: 1360px;
   overflow: hidden;
-  margin-left: 24px;
+  margin: 0 24px;
   padding-bottom: 20px;
+
+  @include mixins.smallDesktopDevice() {
+    max-width: none;
+    margin: 0 16px;
+  }
 }

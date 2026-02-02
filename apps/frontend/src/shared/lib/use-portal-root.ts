@@ -3,16 +3,14 @@ import { useEffect, useMemo } from "react";
 import { lockScroll } from "@/shared/lib/lock-scroll.ts";
 
 type Params = {
-  isOpen: boolean;
   rootId?: string;
   lockScrollOnOpen?: boolean;
 };
 
-export function usePortalRoot({
-  isOpen,
+export const usePortalRoot = ({
   rootId = "portal-root",
   lockScrollOnOpen = true,
-}: Params) {
+}: Params) => {
   const root = useMemo(
     () => document.getElementById(rootId) || document.body,
     [rootId],
@@ -21,14 +19,12 @@ export function usePortalRoot({
   useEffect(() => {
     if (!lockScrollOnOpen) return;
 
-    if (isOpen) {
-      lockScroll(true);
-    }
+    lockScroll(true);
 
     return () => {
       lockScroll(false);
     };
-  }, [isOpen, lockScrollOnOpen]);
+  }, [lockScrollOnOpen]);
 
   return root;
-}
+};

@@ -10,7 +10,6 @@ import { selectIsSomeQueryPending } from "../store/selectors";
 const SpinnerProvider: FC = () => {
   const isSomeQueryPending = useAppSelector(selectIsSomeQueryPending);
   const modalRoot = usePortalRoot({
-    isOpen: isSomeQueryPending,
     lockScrollOnOpen: true,
     rootId: "modal-root",
   });

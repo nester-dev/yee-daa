@@ -12,6 +12,10 @@
     align-items: center;
     column-gap: 12px;
     padding: 12px 8px;
+
+    svg {
+      transition: transform ease-in-out 0.4s;
+    }
   }
 
   &-icon {
@@ -34,6 +38,10 @@
 
   .text {
     font-weight: var(--fw-bold);
+  }
+
+  svg {
+    transform: rotate(180deg);
   }
 }
 

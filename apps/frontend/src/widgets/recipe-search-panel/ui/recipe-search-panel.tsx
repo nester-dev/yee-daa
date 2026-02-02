@@ -51,7 +51,7 @@ const RecipeSearchPanel: FC<Props> = ({
             placeholder="Название или ингредиент..."
             className={styles.input}
             suffix={
-              <UiIconButton>
+              <UiIconButton className={styles.icon}>
                 <SearchIcon />
               </UiIconButton>
             }

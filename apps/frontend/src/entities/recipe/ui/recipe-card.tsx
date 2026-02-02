@@ -5,6 +5,7 @@ import cn from "clsx";
 import type { RecipeType } from "@/entities/recipe/model/types.ts";
 import { UserStats } from "@/entities/user-stats";
 
+import { useIsAboveLaptopDevice } from "@/shared/lib/use-media-query.ts";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./recipe-card.module.scss";
@@ -15,6 +16,7 @@ type Props = RecipeType & {
   onClick?: () => void;
   showImage?: boolean;
   className?: string;
+  hideDescription?: boolean;
 };
 
 const RecipeCard: FC<Props> = ({
@@ -28,7 +30,9 @@ const RecipeCard: FC<Props> = ({
   bookmarks,
   showImage = true,
   className,
+  hideDescription,
 }) => {
+  const isAboveLaptopDevice = useIsAboveLaptopDevice();
   const cardImage = image
     ? `${import.meta.env.VITE_ASSETS_URL}/${image}`
     : null;
@@ -47,16 +51,23 @@ const RecipeCard: FC<Props> = ({
       <div className={styles["card-wrapper"]}>
         <div className={styles["card-content"]}>
           {title && (
-            <UiTypography
-              className={cn(styles["card-title"], "text-ellipsis")}
-              variant="xl"
-              fontWeight="medium"
+            <Truncate
+              lines={isAboveLaptopDevice ? 2 : 1}
+              ellipsis="..."
+              className={styles["card-title"]}
             >
-              {title}
-            </UiTypography>
+              <UiTypography variant="xl" fontWeight="medium">
+                {title}
+              </UiTypography>
+            </Truncate>
           )}
           {description && (
-            <div className={styles["card-description"]}>
+            <div
+              className={cn(
+                styles["card-description"],
+                hideDescription && styles["card-description--hide"],
+              )}
+            >
               <Truncate lines={3} ellipsis="...">
                 <UiTypography variant="sm" fontWeight="regular">
                   {description}

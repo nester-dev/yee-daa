@@ -1,6 +1,9 @@
 import type { FC, PropsWithChildren } from "react";
+import { createPortal } from "react-dom";
 import cn from "clsx";
 import { motion } from "framer-motion";
+
+import { usePortalRoot } from "@/shared/lib/use-portal-root.ts";
 
 import styles from "./ui-backdrop.module.scss";
 
@@ -14,17 +17,21 @@ type Props = PropsWithChildren<{
   className?: string;
 }>;
 
-const UiBackdrop: FC<Props> = ({ onClick, children, className }) => (
-  <motion.div
-    className={cn(styles.backdrop, className)}
-    variants={backdrop}
-    animate="visible"
-    initial="hidden"
-    exit="hidden"
-    onClick={onClick}
-  >
-    {children}
-  </motion.div>
-);
+const UiBackdrop: FC<Props> = ({ onClick, children, className }) => {
+  const backdropRoot = usePortalRoot({});
 
+  return createPortal(
+    <motion.div
+      className={cn(styles.backdrop, className)}
+      variants={backdrop}
+      animate="visible"
+      initial="hidden"
+      exit="hidden"
+      onClick={onClick}
+    >
+      {children}
+    </motion.div>,
+    backdropRoot,
+  );
+};
 export default UiBackdrop;
