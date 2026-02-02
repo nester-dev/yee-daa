@@ -1,0 +1,50 @@
+@use "@/shared/styles/mixins";
+
+.navigation {
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  background-color: var(--c-cream);
+  min-height: 84px;
+  align-items: center;
+  justify-content: center;
+
+  @include mixins.laptopDevice() {
+    display: grid;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    transition: background-color .3s ease, color .3s ease;
+
+    svg {
+      transition: transform .3s ease;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.active {
+  .navigation__icon {
+    color: var(--c-cream);
+    background-color: var(--c-black);
+    font-weight: var(--fw-medium);
+
+    svg {
+      transform: scale(0.7);
+    }
+  }
+}

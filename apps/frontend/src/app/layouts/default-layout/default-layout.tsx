@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 
+import { BottomNavigation } from "@/widgets/bottom-navigation";
 import { Header } from "@/widgets/header";
 import { Sidebar } from "@/widgets/sidebar";
 import { StatsSidebar } from "@/widgets/stats-sidebar";
@@ -21,6 +22,7 @@ const DefaultLayout = () => {
         </div>
         <StatsSidebar />
       </main>
+      <BottomNavigation />
     </div>
   );
 };
