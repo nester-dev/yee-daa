@@ -9,7 +9,7 @@ import {
 
 import { useGetAllCategoriesQuery } from "@/entities/category";
 
-import styles from "./home-page.module.scss";
+import UiContentContainer from "@/shared/ui/ui-content-container/ui-content-container.tsx";
 
 const HomePage = () => {
   useGetAllCategoriesQuery();
@@ -17,7 +17,7 @@ const HomePage = () => {
   const { isOpen, toggleFiltersDrawer } = useFilterDrawer();
 
   return (
-    <div className={styles.container}>
+    <UiContentContainer>
       <RecipeSearchPanel
         heading="Приятного аппетита!"
         description="Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда."
@@ -27,7 +27,7 @@ const HomePage = () => {
       <JuiciestSection />
       <RelevantKitchen parentCategory={category} />
       <FiltersDrawer isOpen={isOpen} onClose={toggleFiltersDrawer} />
-    </div>
+    </UiContentContainer>
   );
 };
 

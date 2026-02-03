@@ -35,7 +35,7 @@ export type RecipeType = {
   _id: string;
 };
 
-export type GetRecipeParams = Partial<{
+export type GetRecipesParams = Partial<{
   page: number;
   limit: number;
   allergens: string;

@@ -1,5 +1,6 @@
 export const COLORS_MAP = {
   black: "--c-black",
+  blackSoft: "--c-black-soft",
   white: "--c-white",
   greenPrimary: "--c-green-primary",
   greenSecondary: "--c-green-secondary",

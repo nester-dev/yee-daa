@@ -1,13 +1,13 @@
 import { generatePath, useNavigate } from "react-router";
 
 import { type Category } from "@/entities/category";
-import { getRecipeCategories, type RecipeType } from "@/entities/recipe";
+import { getRecipePrimaryCategory, type RecipeType } from "@/entities/recipe";
 
 export const useRecipeClick = () => {
   const navigate = useNavigate();
 
   return (recipe: RecipeType, data: Category[]) => {
-    const categories = getRecipeCategories(recipe, data);
+    const categories = getRecipePrimaryCategory(recipe, data);
 
     if (categories) {
       navigate(

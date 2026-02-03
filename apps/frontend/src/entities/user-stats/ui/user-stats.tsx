@@ -23,7 +23,7 @@ const UserStats: FC<Props> = ({
   bookmarksCount,
   size = "small",
   direction = "row",
-  className
+  className,
 }) => {
   return (
     <div

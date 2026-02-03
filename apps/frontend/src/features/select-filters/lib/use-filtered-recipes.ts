@@ -5,11 +5,14 @@ import {
   selectMeatFilter,
 } from "@/features/select-filters";
 
-import { type GetRecipeParams, useGetAllRecipesQuery } from "@/entities/recipe";
+import {
+  type GetRecipesParams,
+  useGetAllRecipesQuery,
+} from "@/entities/recipe";
 
 import { useAppSelector } from "@/shared/lib/hooks.ts";
 
-export const useFilteredRecipes = (params: GetRecipeParams) => {
+export const useFilteredRecipes = (params: GetRecipesParams) => {
   const meatFilters = useAppSelector(selectMeatFilter);
   const garnishFilters = useAppSelector(selectGarnishFilter);
   const allergens = useAppSelector(selectAllergens);
