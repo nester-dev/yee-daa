@@ -10,10 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@re-dev/react-truncate": "^0.5.2",
     "@reduxjs/toolkit": "^2.10.1",
     "axios": "^1.12.2",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "input-otp": "^1.4.2",
     "js-cookie": "^3.0.5",
     "motion": "^12.25.0",

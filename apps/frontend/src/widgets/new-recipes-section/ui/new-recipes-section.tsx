@@ -18,6 +18,8 @@ const NewRecipesSection: FC = () => {
   const isAboveLaptopDevice = useIsAboveLaptopDevice();
   const { data: response } = useFilteredRecipes({
     sortBy: "createdAt",
+    limit: 10,
+    transformResponse: true,
   });
 
   const swiperRef = useRef<SwiperType | null>(null);
@@ -42,9 +44,11 @@ const NewRecipesSection: FC = () => {
             breakpoints={{
               1536: {
                 slidesPerView: 4,
+                spaceBetween: 24,
               },
               1280: {
                 slidesPerView: 3.1,
+                spaceBetween: 24,
               },
               1024: {
                 slidesPerView: 2.6,
@@ -52,12 +56,15 @@ const NewRecipesSection: FC = () => {
               },
               768: {
                 slidesPerView: 4.3,
+                spaceBetween: 12,
               },
               640: {
                 slidesPerView: 2.6,
+                spaceBetween: 12,
               },
               460: {
                 slidesPerView: 3.1,
+                spaceBetween: 12,
               },
               320: {
                 slidesPerView: 2.1,

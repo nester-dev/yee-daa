@@ -45,4 +45,5 @@ export type GetRecipeParams = Partial<{
   subcategoriesIds: string;
   sortBy: string;
   sortOrder: string;
+  transformResponse: boolean;
 }>;

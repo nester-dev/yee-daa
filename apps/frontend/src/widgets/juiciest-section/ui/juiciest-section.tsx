@@ -17,7 +17,9 @@ const JuiciestSection: FC = () => {
   const isAboveLaptopDevice = useIsAboveLaptopDevice();
   const { data: response } = useFilteredRecipes({
     sortBy: "likes",
+    page: 42,
     limit: 4,
+    transformResponse: true,
   });
 
   return (

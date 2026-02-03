@@ -2,6 +2,7 @@ import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { baseApi } from "@/shared/api/base-api.ts";
 import type { BaseQueryResponse } from "@/shared/api/types.ts";
 
+import { getActualRecipes } from "../lib/get-actual-recipes.ts";
 import type { GetRecipeParams, RecipeType } from "../model/types.ts";
 
 export const recipeApi = baseApi.injectEndpoints({
@@ -12,6 +13,20 @@ export const recipeApi = baseApi.injectEndpoints({
         method: HttpMethod.GET,
         params,
       }),
+      transformResponse: async (
+        response: BaseQueryResponse<RecipeType>,
+        _,
+        arg,
+      ) => {
+        if (arg.transformResponse) {
+          return {
+            ...response,
+            data: await getActualRecipes(response.data),
+          };
+        }
+
+        return response;
+      },
     }),
   }),
 });

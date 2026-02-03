@@ -1,11 +1,9 @@
 import { type FC, type ReactNode } from "react";
-import { Truncate } from "@re-dev/react-truncate";
 import cn from "clsx";
 
 import type { RecipeType } from "@/entities/recipe/model/types.ts";
 import { UserStats } from "@/entities/user-stats";
 
-import { useIsAboveLaptopDevice } from "@/shared/lib/use-media-query.ts";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./recipe-card.module.scss";
@@ -32,7 +30,6 @@ const RecipeCard: FC<Props> = ({
   className,
   hideDescription,
 }) => {
-  const isAboveLaptopDevice = useIsAboveLaptopDevice();
   const cardImage = image
     ? `${import.meta.env.VITE_ASSETS_URL}/${image}`
     : null;
@@ -51,28 +48,25 @@ const RecipeCard: FC<Props> = ({
       <div className={styles["card-wrapper"]}>
         <div className={styles["card-content"]}>
           {title && (
-            <Truncate
-              lines={isAboveLaptopDevice ? 2 : 1}
-              ellipsis="..."
-              className={styles["card-title"]}
+            <UiTypography
+              variant="xl"
+              fontWeight="medium"
+              className={cn(styles["card-title"], "text-ellipsis")}
             >
-              <UiTypography variant="xl" fontWeight="medium">
-                {title}
-              </UiTypography>
-            </Truncate>
+              {title}
+            </UiTypography>
           )}
           {description && (
             <div
               className={cn(
                 styles["card-description"],
+                "text-ellipsis",
                 hideDescription && styles["card-description--hide"],
               )}
             >
-              <Truncate lines={3} ellipsis="...">
-                <UiTypography variant="sm" fontWeight="regular">
-                  {description}
-                </UiTypography>
-              </Truncate>
+              <UiTypography variant="sm" fontWeight="regular">
+                {description}
+              </UiTypography>
             </div>
           )}
           <div className={styles["card-labels"]}>

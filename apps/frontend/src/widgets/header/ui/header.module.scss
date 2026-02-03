@@ -9,6 +9,12 @@
   background-color: var(--c-cream);
   transition: background-color ease-out .5s;
 
+  &__right {
+    display: flex;
+    justify-content: center;
+    column-gap: 16px;
+  }
+
   &-white {
     background-color: var(--c-white);
     z-index: 15;
