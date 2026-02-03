@@ -11,9 +11,7 @@
   flex-shrink: 1;
 
   @include mixins.hoverOnly {
-    &:hover {
-      box-shadow: 0 10px 15px -3px rgba(32, 126, 0, 0.18), 0 4px 6px -4px rgba(32, 126, 0, 0.25);
-    }
+    box-shadow: 0 10px 15px -3px rgba(32, 126, 0, 0.18), 0 4px 6px -4px rgba(32, 126, 0, 0.25);
   }
 
   @include mixins.laptopDevice {

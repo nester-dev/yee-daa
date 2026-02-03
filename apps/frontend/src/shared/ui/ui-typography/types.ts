@@ -8,7 +8,8 @@ export type TypographyVariants =
   | "lg"
   | "xl"
   | "xxl"
-  | "xl-5";
+  | "xl-5"
+  | "xl-4";
 export type FontWeightVariants = "regular" | "medium" | "semibold" | "bold";
 export type TextAlignVariants = "left" | "center" | "right" | "justify";
 

@@ -1,0 +1,86 @@
+@use "@/shared/styles/mixins";
+
+.nutrition {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  justify-content: space-between;
+  column-gap: 24px;
+
+  &__note {
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    row-gap: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    @include mixins.hoverOnly() {
+      transform: perspective(800px) rotateX(4deg) rotateY(8deg) translateZ(12px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+    }
+
+    & p:nth-child(1) {
+      color: rgba(0, 0, 0, 0.48);
+    }
+
+    & p:nth-child(3) {
+      color: rgba(0, 0, 0, 0.92);
+    }
+  }
+}
+
+.ingredients {
+  margin-top: 40px;
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0 8px 24px;
+  }
+
+  &__count {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: rgba(0, 0, 0, 0.06);
+    transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    @include mixins.hoverOnly() {
+      transform: perspective(1000px) rotateX(10deg) translateZ(28px);
+    }
+
+    p {
+      color: rgba(0, 0, 0, 0.92);
+    }
+
+    &-odd {
+      background: var(--c-white);
+    }
+
+    &-count {
+      display: flex;
+      align-items: center;
+      column-gap: 4px;
+    }
+  }
+}

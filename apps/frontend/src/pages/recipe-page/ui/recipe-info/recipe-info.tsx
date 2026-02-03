@@ -24,11 +24,11 @@ const RecipeInfo: FC<Partial<RecipeType>> = ({
   const imagePath = `${import.meta.env.VITE_ASSETS_URL}/${image}`;
   const categories = getRecipeCategories(CATEGORIES_DATA, categoriesIds);
 
-  console.log(categories);
-
   return (
     <div className={styles.container}>
-      <img className={styles.image} src={imagePath} alt="recipe-image" />
+      <div className={styles.image__container}>
+        <img className={styles.image} src={imagePath} alt="recipe-image" />
+      </div>
       <div className={styles.info}>
         <div className={styles["info__top"]}>
           <div className={styles["info__categories"]}>
@@ -63,10 +63,12 @@ const RecipeInfo: FC<Partial<RecipeType>> = ({
         </div>
 
         <div className={styles["info__bottom"]}>
-          <UiTag
-            icon={<ClockIcon />}
-            color="blackSoft"
-          >{`${time} минут`}</UiTag>
+          <UiTag icon={<ClockIcon />} color="blackSoft">
+            <UiTypography
+              variant="sm"
+              fontWeight="medium"
+            >{`${time} минут`}</UiTypography>
+          </UiTag>
           <RecipeInfoActions />
         </div>
       </div>

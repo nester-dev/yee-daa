@@ -32,6 +32,8 @@
 
 @mixin hoverOnly() {
   @media (hover: hover) {
-    @content;
+    &:hover {
+      @content;
+    }
   }
 }

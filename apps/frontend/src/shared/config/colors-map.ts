@@ -11,4 +11,5 @@ export const COLORS_MAP = {
   cream: "--c-cream",
   redPrimary: "--c-red-primary",
   blackOverlay: "--c-black-overlay",
+  grayLight: "--c-gray-light",
 };
