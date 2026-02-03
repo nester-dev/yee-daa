@@ -2,7 +2,8 @@ import type { FC } from "react";
 
 import { useFilteredRecipes } from "@/features/select-filters";
 
-import { RecipeCard } from "@/entities/recipe";
+import { CATEGORIES_DATA } from "@/entities/category";
+import { RecipeCard, useRecipeClick } from "@/entities/recipe";
 
 import ArrowIcon from "@/shared/assets/icons/arrow-left.svg?react";
 import { useIsAboveLaptopDevice } from "@/shared/lib/use-media-query.ts";
@@ -21,6 +22,7 @@ const JuiciestSection: FC = () => {
     limit: 4,
     transformResponse: true,
   });
+  const handleRecipeClick = useRecipeClick();
 
   return (
     <section className={styles.section}>
@@ -49,6 +51,7 @@ const JuiciestSection: FC = () => {
             direction="row"
             actions={<ActionButtons />}
             hideDescription={isAboveLaptopDevice}
+            onClick={() => handleRecipeClick(recipe, CATEGORIES_DATA)}
           />
         ))}
       </div>

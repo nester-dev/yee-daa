@@ -1,5 +1,5 @@
 import { type FC, useRef } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useParams } from "react-router";
 import cn from "clsx";
 
 import type { SubCategory } from "@/entities/category";
@@ -19,6 +19,7 @@ const MenuSubcategory: FC<Props> = ({
   subCategories = [],
   isParentActive,
 }) => {
+  const params = useParams();
   const subcategoryRef = useRef<HTMLUListElement>(null);
   const height = isParentActive
     ? `${subcategoryRef.current?.scrollHeight}px`
@@ -33,13 +34,15 @@ const MenuSubcategory: FC<Props> = ({
       }}
     >
       {subCategories.map((subcategory) => {
+        const isSubcategoryActive = params.subcategory === subcategory.category;
         return (
           <NavLink
             key={subcategory._id}
             to={`${parentCategory}/${subcategory.category}`}
-            className={({ isActive }) =>
-              cn(styles.link, isActive && styles["link-active"])
-            }
+            className={cn(
+              styles.link,
+              isSubcategoryActive && styles["link-active"],
+            )}
             end
           >
             <li className={styles.subcategory}>

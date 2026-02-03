@@ -1,16 +1,18 @@
 import { useParams } from "react-router";
 
-import { MENU_DATA } from "@/features/menu/config/data.ts";
+import { CATEGORIES_DATA } from "@/entities/category";
 
 import { getRandomCategory } from "./getRandomCategory.ts";
 
 export const useGetRelevantCategory = () => {
   const params = useParams();
-  const category = getRandomCategory(MENU_DATA);
+  const category = getRandomCategory(CATEGORIES_DATA);
 
   if (!params.category) {
     return category;
   }
 
-  return MENU_DATA.find((category) => category.category === params.category);
+  return CATEGORIES_DATA.find(
+    (category) => category.category === params.category,
+  );
 };

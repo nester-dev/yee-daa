@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import { CategoryPage } from "@/pages/category-page";
 import { HomePage } from "@/pages/home-page";
 import { NewRecipe } from "@/pages/new-recipe";
+import { RecipePage } from "@/pages/recipe-page";
 import { SignIn } from "@/pages/sign-in";
 import { SignUp } from "@/pages/sign-up";
 import { VerificationPage } from "@/pages/verification-page";
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: ":category/:subcategory",
         Component: CategoryPage,
+      },
+      {
+        path: ":category/:subcategory/:recipeId",
+        Component: RecipePage,
       },
       {
         path: ROUTE_PATHS.NEW_RECIPE,

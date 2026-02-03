@@ -2,8 +2,8 @@ import type { FC } from "react";
 
 import { useFilteredRecipes } from "@/features/select-filters";
 
-import type { Category } from "@/entities/category";
-import { RecipeCard, RecipeRow } from "@/entities/recipe";
+import { CATEGORIES_DATA, type Category } from "@/entities/category";
+import { RecipeCard, RecipeRow, useRecipeClick } from "@/entities/recipe";
 
 import { UiTypography } from "@/shared/ui/ui-typography";
 
@@ -23,6 +23,7 @@ const RelevantKitchen: FC<Props> = ({ parentCategory }) => {
     limit: 5,
   });
   const [firstCard, secondCard, ...rest] = response?.data || [];
+  const handleRecipeClick = useRecipeClick();
 
   if (!parentCategory) {
     return;
@@ -43,14 +44,25 @@ const RelevantKitchen: FC<Props> = ({ parentCategory }) => {
         </UiTypography>
       </div>
       <div className={styles.grid}>
-        <RecipeCard {...firstCard} showImage={false} className={styles.card} />
-        <RecipeCard {...secondCard} showImage={false} className={styles.card} />
+        <RecipeCard
+          {...firstCard}
+          showImage={false}
+          className={styles.card}
+          onClick={() => handleRecipeClick(firstCard, CATEGORIES_DATA)}
+        />
+        <RecipeCard
+          {...secondCard}
+          showImage={false}
+          className={styles.card}
+          onClick={() => handleRecipeClick(secondCard, CATEGORIES_DATA)}
+        />
 
         <div className={styles.rows}>
           {rest?.map((recipe) => (
             <RecipeRow
               title={recipe?.title}
               categoryIcon={parentCategory.icon}
+              onClick={() => handleRecipeClick(recipe, CATEGORIES_DATA)}
             />
           ))}
         </div>

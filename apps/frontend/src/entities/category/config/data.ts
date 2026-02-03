@@ -1,6 +1,6 @@
 import type { Category } from "@/entities/category/model/types.ts";
 
-export const MENU_DATA: Category[] = [
+export const CATEGORIES_DATA: Category[] = [
   {
     _id: "67c46dc5f51967aa8390bee6",
     title: "Салаты",

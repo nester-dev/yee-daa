@@ -9,11 +9,12 @@ import styles from "./recipe-row.module.scss";
 
 type Props = Pick<RecipeType, "title"> & {
   categoryIcon: string;
+  onClick: () => void;
 };
 
-const RecipeRow: FC<Props> = ({ categoryIcon, title }) => {
+const RecipeRow: FC<Props> = ({ categoryIcon, title, onClick }) => {
   return (
-    <div className={styles.row}>
+    <div className={styles.row} onClick={onClick}>
       <img
         className={styles.icon}
         src={`${import.meta.env.VITE_ASSETS_URL}/${categoryIcon}`}

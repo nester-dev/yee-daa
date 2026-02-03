@@ -5,7 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { useFilteredRecipes } from "@/features/select-filters";
 
-import { RecipeCard } from "@/entities/recipe";
+import { CATEGORIES_DATA } from "@/entities/category";
+import { RecipeCard, useRecipeClick } from "@/entities/recipe";
 
 import { useIsAboveLaptopDevice } from "@/shared/lib/use-media-query.ts";
 import { UiTypography } from "@/shared/ui/ui-typography";
@@ -21,8 +22,8 @@ const NewRecipesSection: FC = () => {
     limit: 10,
     transformResponse: true,
   });
-
   const swiperRef = useRef<SwiperType | null>(null);
+  const handleRecipeClick = useRecipeClick();
 
   return (
     <section className={styles.section}>
@@ -79,6 +80,7 @@ const NewRecipesSection: FC = () => {
                   className={styles.card}
                   direction="column"
                   hideDescription={isAboveLaptopDevice}
+                  onClick={() => handleRecipeClick(recipe, CATEGORIES_DATA)}
                 />
               </SwiperSlide>
             ))}

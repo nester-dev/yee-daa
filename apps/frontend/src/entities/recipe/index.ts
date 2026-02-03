@@ -3,3 +3,5 @@ export { default as RecipeRow } from "./ui/recipe-row.tsx";
 export type { RecipeType } from "./model/types.ts";
 export { useGetAllRecipesQuery } from "./api/recipe-api.ts";
 export { type GetRecipeParams } from "./model/types.ts";
+export { getRecipeCategories } from "./lib/get-recipe-categories.ts";
+export { useRecipeClick } from "./lib/use-recipe-click.ts";
