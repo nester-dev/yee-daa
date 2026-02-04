@@ -10,7 +10,7 @@ import {
   useGetAllRecipesQuery,
 } from "@/entities/recipe";
 
-import { useAppSelector } from "@/shared/lib/hooks.ts";
+import { useAppSelector } from "@/shared/lib/redux.ts";
 
 export const useFilteredRecipes = (params: GetRecipesParams) => {
   const meatFilters = useAppSelector(selectMeatFilter);

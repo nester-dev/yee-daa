@@ -7,7 +7,7 @@ import {
   selectMeatFilter,
 } from "@/features/select-filters";
 
-import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks.ts";
+import { useAppDispatch, useAppSelector } from "@/shared/lib/redux.ts";
 import UiTag from "@/shared/ui/ui-tag/ui-tag.tsx";
 
 import styles from "./filters-drawer.module.scss";

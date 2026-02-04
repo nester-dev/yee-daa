@@ -7,7 +7,7 @@ import {
   toggleIsFiltersApplied,
 } from "@/features/select-filters";
 
-import { useAppDispatch } from "@/shared/lib/hooks.ts";
+import { useAppDispatch } from "@/shared/lib/redux.ts";
 import UiButton from "@/shared/ui/ui-button/ui-button.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 

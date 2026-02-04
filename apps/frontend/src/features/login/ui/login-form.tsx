@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FC, type FormEvent, useState } from "react";
+import { type ChangeEvent, type FC, useState } from "react";
 
 import EyeIcon from "@/shared/assets/icons/eye.svg?react";
 import EyeSlashIcon from "@/shared/assets/icons/eye-slash.svg?react";
@@ -36,8 +36,7 @@ const LoginForm: FC<Props> = ({
     ? validateForm(LoginFormSchema, formData)
     : undefined;
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleLogin = () => {
     const errors = validateForm(LoginFormSchema, formData);
 
     if (errors) {
@@ -55,7 +54,7 @@ const LoginForm: FC<Props> = ({
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
       <UiInput
         name="login"
         value={formData.login || ""}
@@ -87,7 +86,12 @@ const LoginForm: FC<Props> = ({
       />
 
       <div className={styles.buttons}>
-        <UiButton variant="solid" color="secondary" fullWidth>
+        <UiButton
+          variant="solid"
+          color="secondary"
+          fullWidth
+          onClick={handleLogin}
+        >
           <UiTypography variant="lg" fontWeight="semibold" color="white">
             Войти
           </UiTypography>

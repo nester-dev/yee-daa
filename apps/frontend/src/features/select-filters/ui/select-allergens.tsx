@@ -1,6 +1,6 @@
 import { type FC, useRef, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks.ts";
+import { useAppDispatch, useAppSelector } from "@/shared/lib/redux.ts";
 import { useClickOutside } from "@/shared/lib/use-click-outside.ts";
 import UiCheckboxOption from "@/shared/ui/ui-select/ui-checkbox-option.tsx";
 import UiSelect from "@/shared/ui/ui-select/ui-select.tsx";

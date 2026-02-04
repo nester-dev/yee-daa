@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import Cookies from "js-cookie";
+
+import { getAccessToken } from "@/shared/lib/cookies.ts";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_URL,
   prepareHeaders: (headers) => {
-    const token = Cookies.get("accessToken");
+    const token = getAccessToken();
     if (token) {
-      headers.set("Authorization", token);
+      headers.set("Authorization", `Bearer ${token}`);
     }
     return headers;
   },

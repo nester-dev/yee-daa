@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { createPortal } from "react-dom";
 
-import { useAppSelector } from "@/shared/lib/hooks.ts";
+import { useAppSelector } from "@/shared/lib/redux.ts";
 import { usePortalRoot } from "@/shared/lib/use-portal-root.ts";
 import UiSpinner from "@/shared/ui/ui-spinner/ui-spinner.tsx";
 

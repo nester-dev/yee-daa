@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks.ts";
+import { useAppDispatch, useAppSelector } from "@/shared/lib/redux.ts";
 import UiToggle from "@/shared/ui/ui-toggle/ui-toggle.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 

@@ -1,5 +1,6 @@
 import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { baseApi } from "@/shared/api/base-api.ts";
+import { setAccessToken } from "@/shared/lib/cookies.ts";
 
 import type {
   AccountRecoveryDto,
@@ -24,6 +25,14 @@ export const authApi = baseApi.injectEndpoints({
         method: HttpMethod.POST,
         body,
       }),
+      async onQueryStarted(_, { queryFulfilled }) {
+        const { meta } = await queryFulfilled;
+        const token = meta?.response?.headers.get("authentication-access");
+
+        if (token) {
+          setAccessToken(token);
+        }
+      },
     }),
     forgotPassword: build.mutation<void, ForgotPasswordDto>({
       query: (body) => ({

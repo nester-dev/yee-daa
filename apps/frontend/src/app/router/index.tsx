@@ -8,6 +8,8 @@ import { SignIn } from "@/pages/sign-in";
 import { SignUp } from "@/pages/sign-up";
 import { VerificationPage } from "@/pages/verification-page";
 
+import { ProtectedRoute } from "@/entities/auth";
+
 import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
 
 import AuthLayout from "../layouts/auth-layout/auth-layout.tsx";
@@ -18,20 +20,25 @@ const router = createBrowserRouter([
     Component: DefaultLayout,
     children: [
       {
-        path: ROUTE_PATHS.HOME,
-        Component: HomePage,
-      },
-      {
-        path: ":category/:subcategory",
-        Component: CategoryPage,
-      },
-      {
-        path: ":category/:subcategory/:recipeId",
-        Component: RecipePage,
-      },
-      {
-        path: ROUTE_PATHS.NEW_RECIPE,
-        Component: NewRecipe,
+        Component: ProtectedRoute,
+        children: [
+          {
+            path: ROUTE_PATHS.HOME,
+            Component: HomePage,
+          },
+          {
+            path: ":category/:subcategory",
+            Component: CategoryPage,
+          },
+          {
+            path: ":category/:subcategory/:recipeId",
+            Component: RecipePage,
+          },
+          {
+            path: ROUTE_PATHS.NEW_RECIPE,
+            Component: NewRecipe,
+          },
+        ],
       },
     ],
   },

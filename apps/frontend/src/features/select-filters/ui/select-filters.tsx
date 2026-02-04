@@ -5,7 +5,7 @@ import {
   selectMeatFilter,
 } from "@/features/select-filters";
 
-import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks.ts";
+import { useAppDispatch, useAppSelector } from "@/shared/lib/redux.ts";
 
 import { GARNISH_FILRTERS, MEAT_FILTERS } from "../config/data.ts";
 import { setGarnishFilter, setMeatFilter } from "../model/slice.ts";
