@@ -67,6 +67,7 @@ const RecipeInfo: FC<Partial<RecipeType>> = ({
             <UiTypography
               variant="sm"
               fontWeight="medium"
+              tag="span"
             >{`${time} минут`}</UiTypography>
           </UiTag>
           <RecipeInfoActions />

@@ -1,0 +1,51 @@
+@use "@/shared/styles/mixins";
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  margin-top: 40px;
+}
+
+
+.step {
+  display: flex;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  max-height: 244px;
+
+  @include mixins.hoverOnly() {
+    .step__image-container {
+      transform: scale(1.05);
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+
+    &-container {
+      flex: 1 1 50%;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+
+  &__info {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+    row-gap: 16px;
+  }
+
+  &__tag {
+    align-items: center;
+    width: max-content;
+    line-height: 108%;
+  }
+}

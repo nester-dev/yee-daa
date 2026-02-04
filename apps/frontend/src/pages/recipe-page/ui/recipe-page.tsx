@@ -9,6 +9,7 @@ import UiContentContainer from "@/shared/ui/ui-content-container/ui-content-cont
 
 import IngredientsAndNutrition from "./ingridients-and-nutrition/ingredients-and-nutrition.tsx";
 import RecipeInfo from "./recipe-info/recipe-info.tsx";
+import RecipeSteps from "./recipe-steps/recipe-steps.tsx";
 
 import styles from "./recipe-page.module.scss";
 
@@ -25,6 +26,7 @@ const RecipePage: FC = () => {
           nutritionValue={data?.nutritionValue}
           ingredients={data?.ingredients}
         />
+        <RecipeSteps steps={data?.steps} />
       </div>
       <NewRecipesSection />
     </UiContentContainer>
