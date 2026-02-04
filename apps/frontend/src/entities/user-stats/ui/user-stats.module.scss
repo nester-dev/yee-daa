@@ -1,3 +1,5 @@
+@use "@/shared/styles/mixins";
+
 .user-stats {
   display: flex;
 }
@@ -17,6 +19,17 @@
 }
 
 .small {
+  @include mixins.tabletDevice() {
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    p {
+      font-size: var(--fs-xs);
+    }
+  }
+
   & > .item {
     column-gap: 8px;
   }

@@ -31,7 +31,7 @@ const NewRecipesSection: FC = () => {
         Новые рецепты
       </UiTypography>
 
-      <div>
+      <div className={styles.container}>
         <div className={styles.slider}>
           <PrevButton swiperRef={swiperRef} />
           <NextButton swiperRef={swiperRef} />
@@ -68,7 +68,7 @@ const NewRecipesSection: FC = () => {
                 spaceBetween: 12,
               },
               320: {
-                slidesPerView: 2.1,
+                slidesPerView: 2.2,
                 spaceBetween: 12,
               },
             }}

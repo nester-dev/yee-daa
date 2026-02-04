@@ -8,6 +8,13 @@
   }
 }
 
+.container {
+  @include mixins.tabletDevice() {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+
 .slider {
   position: relative;
   margin-top: 24px;

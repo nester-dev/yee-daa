@@ -5,6 +5,10 @@
   flex-direction: column;
   row-gap: 20px;
   margin-top: 40px;
+
+  @include mixins.tabletDevice() {
+    margin-top: 24px;
+  }
 }
 
 
@@ -20,6 +24,10 @@
     }
   }
 
+  @include mixins.tabletDevice() {
+    max-height: none;
+  }
+
   &__image {
     width: 100%;
     height: 100%;
@@ -32,6 +40,13 @@
       flex: 1 1 50%;
       position: relative;
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+      @include mixins.tabletDevice() {
+        flex: unset;
+        width: 158px;
+        min-height: 128px;
+        height: auto;
+      }
     }
   }
 
@@ -41,6 +56,10 @@
     flex-direction: column;
     padding: 20px 24px;
     row-gap: 16px;
+
+    @include mixins.tabletDevice() {
+      padding: 8px;
+    }
   }
 
   &__tag {

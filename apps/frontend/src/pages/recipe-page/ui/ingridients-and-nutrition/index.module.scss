@@ -8,6 +8,11 @@
   justify-content: space-between;
   column-gap: 24px;
 
+  @include mixins.mobileDevice() {
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
   &__note {
     color: rgba(0, 0, 0, 0.8);
   }
@@ -32,17 +37,44 @@
     }
 
     & p:nth-child(1) {
+      width: 120px;
       color: rgba(0, 0, 0, 0.48);
     }
 
     & p:nth-child(3) {
+      width: 61px;
       color: rgba(0, 0, 0, 0.92);
+    }
+
+    @include mixins.mobileDevice() {
+      flex-direction: row;
+
+      padding: 16px 12px;
+
+      & p:nth-child(1) {
+        flex-grow: 1;
+      }
+
+      & p:nth-child(2) {
+        width: 120px;
+        text-align: center;
+        font-size: 24px;
+        line-height: 133%;
+      }
+
+      & p:nth-child(3) {
+        width: 61px;
+      }
     }
   }
 }
 
 .ingredients {
   margin-top: 40px;
+
+  @include mixins.mobileDevice() {
+    margin-top: 24px;
+  }
 
   &__heading {
     display: flex;

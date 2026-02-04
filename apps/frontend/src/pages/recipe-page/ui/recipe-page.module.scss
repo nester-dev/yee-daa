@@ -1,4 +1,10 @@
+@use "@/shared/styles/mixins";
+
 .container {
   max-width: 670px;
   margin: 40px auto 0;
+
+  @include mixins.mobileDevice() {
+    margin-top: 24px;
+  }
 }

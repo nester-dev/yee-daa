@@ -59,7 +59,9 @@ const RecipeInfo: FC<Partial<RecipeType>> = ({
           <UiTypography variant="title" tag="h1" fontWeight="bold">
             {title}
           </UiTypography>
-          <UiTypography>{description}</UiTypography>
+          <UiTypography className={styles.info__desc}>
+            {description}
+          </UiTypography>
         </div>
 
         <div className={styles["info__bottom"]}>

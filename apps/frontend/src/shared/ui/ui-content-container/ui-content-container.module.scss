@@ -3,11 +3,10 @@
 .container {
   max-width: 1360px;
   overflow: hidden;
-  margin: 0 24px;
-  padding-bottom: 20px;
+  padding: 0 24px 20px;
 
   @include mixins.smallDesktopDevice() {
     max-width: none;
-    margin: 0 16px;
+    padding: 0 16px 20px;
   }
 }

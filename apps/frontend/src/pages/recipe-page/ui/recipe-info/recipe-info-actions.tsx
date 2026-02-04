@@ -11,11 +11,11 @@ const RecipeInfoActions: FC = () => {
   return (
     <div className={styles.actions}>
       <UiButton icon={<LikeIcon />}>
-        <UiTypography>Оценить рецепт</UiTypography>
+        <UiTypography fontWeight="semibold">Оценить рецепт</UiTypography>
       </UiButton>
 
       <UiButton icon={<BookmarkIcon />} color="success">
-        <UiTypography>Сохранить в закладки</UiTypography>
+        <UiTypography fontWeight="semibold">Сохранить в закладки</UiTypography>
       </UiButton>
     </div>
   );
