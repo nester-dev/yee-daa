@@ -6,6 +6,7 @@ export enum ApiConfig {
   VERIFY_OTP = "auth/verify-otp",
   RESET_PASSWORD = "auth/reset-password",
   RECIPE = "recipe",
+  REFRESH_TOKEN = "auth/refresh",
 }
 
 export enum HttpMethod {
