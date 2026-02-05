@@ -8,7 +8,7 @@ const UiCheckboxOption: FC<OptionProps> = (props) => {
   return (
     <components.Option {...props}>
       <label htmlFor={props.label}>
-        <UiCheckbox checked={props.isSelected} id={props.label} />
+        <UiCheckbox checked={props.isSelected} id={props.label} readOnly />
       </label>
       <UiTypography variant="sm" fontWeight="medium">
         {props.label}

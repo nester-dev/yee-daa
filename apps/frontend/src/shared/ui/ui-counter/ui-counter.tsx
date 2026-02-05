@@ -1,23 +1,28 @@
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 import cn from "clsx";
 
 import TriangleIcon from "@/shared/assets/icons/triangle.svg?react";
-import { UiTypography } from "@/shared/ui/ui-typography";
 
-import styles from "./portion-counter.module.scss";
+import styles from "./ui-counter.module.scss";
 
 type Props = {
+  label?: ReactNode;
   value: number;
   increment: () => void;
   decrement: () => void;
+  className?: string;
 };
 
-const PortionCounter: FC<Props> = ({ value, increment, decrement }) => {
+const UiCounter: FC<Props> = ({
+  label,
+  value,
+  increment,
+  decrement,
+  className,
+}) => {
   return (
-    <>
-      <UiTypography variant="xs" fontWeight="bold" color="greenPrimary">
-        ПОРЦИЙ
-      </UiTypography>
+    <div className={className}>
+      {label}
       <div className={styles["number-stepper"]}>
         <button
           type="button"
@@ -37,8 +42,8 @@ const PortionCounter: FC<Props> = ({ value, increment, decrement }) => {
           <TriangleIcon />
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
-export default PortionCounter;
+export default UiCounter;

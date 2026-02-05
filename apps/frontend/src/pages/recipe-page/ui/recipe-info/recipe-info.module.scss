@@ -21,24 +21,19 @@
 }
 
 .image {
-  width: 100%;
+  position: relative;
+  max-width: 555px;
+  width: 41%;
   height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
   object-fit: cover;
   object-position: center;
 
-  &__container {
-    position: relative;
-    max-width: 555px;
-    width: 41%;
-    height: 100%;
-    overflow: hidden;
-    border-radius: 8px;
-
-    @include mixins.tabletDevice() {
-      width: 100%;
-      max-width: none;
-      height: 224px;
-    }
+  @include mixins.tabletDevice() {
+    width: 100%;
+    max-width: none;
+    height: 224px;
   }
 }
 

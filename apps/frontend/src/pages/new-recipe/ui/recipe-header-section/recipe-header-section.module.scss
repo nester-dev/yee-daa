@@ -1,0 +1,80 @@
+@use "@/shared/styles/mixins";
+
+.section {
+  margin-top: 56px;
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+  row-gap: 16px;
+  overflow: hidden;
+  height: 410px;
+}
+
+.uploader {
+  position: relative;
+  max-width: 555px;
+  width: 41%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+
+  @include mixins.tabletDevice() {
+    width: 100%;
+    max-width: none;
+    height: 224px;
+  }
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  height: 100%;
+}
+
+.categories {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 12px;
+  align-self: start;
+  margin-top: 8px;
+
+  & > div {
+    width: 350px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+.input {
+  input::placeholder {
+    color: rgba(0, 0, 0, 0.64);
+  }
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+}
+
+.value-container {
+  flex-wrap: nowrap !important;
+}
+
+.option {
+  padding: 3px 7px;
+}

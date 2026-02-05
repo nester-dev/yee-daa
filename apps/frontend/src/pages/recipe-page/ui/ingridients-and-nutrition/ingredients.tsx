@@ -1,13 +1,15 @@
-import { type FC, useState } from "react";
+import { type FC } from "react";
 import cn from "clsx";
 import { motion } from "framer-motion";
 
 import type { RecipeIngredientType } from "@/entities/recipe";
 
+import { useCounter } from "@/shared/ui/ui-counter/useCounter.ts";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
+import UiCounter from "../../../../shared/ui/ui-counter/ui-counter.tsx";
+
 import IngredientItem from "./ingredient-item";
-import PortionCounter from "./portion-counter.tsx";
 
 import styles from "./index.module.scss";
 
@@ -16,19 +18,13 @@ type Props = {
 };
 
 const Ingredients: FC<Partial<Props>> = ({ ingredients }) => {
-  const [portionCount, setPortionCount] = useState(1);
-
-  const handleDecrement = () => {
-    if (portionCount > 1) {
-      setPortionCount((count) => count - 1);
-    }
-  };
-
-  const handleIncrement = () => {
-    if (portionCount < 999) {
-      setPortionCount((count) => count + 1);
-    }
-  };
+  const {
+    count: portionCount,
+    handleIncrement,
+    handleDecrement,
+  } = useCounter({
+    initialValue: 1,
+  });
 
   return (
     <div className={styles.ingredients}>
@@ -36,13 +32,17 @@ const Ingredients: FC<Partial<Props>> = ({ ingredients }) => {
         <UiTypography variant="xs" fontWeight="bold" color="greenPrimary">
           ИНГРЕДИЕНТЫ
         </UiTypography>
-        <div className={styles.ingredients__count}>
-          <PortionCounter
-            value={portionCount}
-            increment={handleIncrement}
-            decrement={handleDecrement}
-          />
-        </div>
+        <UiCounter
+          label={
+            <UiTypography variant="xs" fontWeight="bold" color="greenPrimary">
+              ПОРЦИЙ
+            </UiTypography>
+          }
+          className={styles.ingredients__count}
+          value={portionCount}
+          increment={handleIncrement}
+          decrement={handleDecrement}
+        />
       </div>
       <motion.div whileHover="hover">
         {ingredients?.map((ingredient, idx) => {

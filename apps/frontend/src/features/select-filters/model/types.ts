@@ -12,6 +12,6 @@ export enum FILTERS_TYPES {
 }
 
 export type OptionType = {
-  value: number;
+  value: string;
   label: string;
 };

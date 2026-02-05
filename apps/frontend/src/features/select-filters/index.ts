@@ -9,6 +9,7 @@ export {
   toggleExcludeAllergens,
   toggleIsFiltersApplied,
 } from "./model/slice.ts";
+export type { OptionType } from "./model/types.ts";
 export {
   selectGarnishFilter,
   selectMeatFilter,

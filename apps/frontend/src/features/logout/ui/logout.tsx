@@ -1,18 +1,27 @@
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 import LogoutIcon from "@/shared/assets/icons/logout.svg?react";
+import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
+import { removeAccessToken } from "@/shared/lib/cookies.ts";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./Logout.module.scss";
 
 const Logout = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    removeAccessToken();
+    navigate(ROUTE_PATHS.SIGN_IN, { replace: true });
+  };
+
   return (
-    <Link to="/" className={styles.logout}>
+    <button onClick={handleLogout} className={styles.logout}>
       <LogoutIcon />
       <UiTypography variant="xs" fontWeight="bold">
         Выйти
       </UiTypography>
-    </Link>
+    </button>
   );
 };
 

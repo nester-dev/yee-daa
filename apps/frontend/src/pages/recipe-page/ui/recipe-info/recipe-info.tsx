@@ -5,6 +5,7 @@ import { getRecipeCategories, type RecipeType } from "@/entities/recipe";
 import { UserStats } from "@/entities/user-stats";
 
 import ClockIcon from "@/shared/assets/icons/alarm-icon.svg?react";
+import UiImage from "@/shared/ui/ui-image/ui-image.tsx";
 import UiTag from "@/shared/ui/ui-tag/ui-tag.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
@@ -26,9 +27,7 @@ const RecipeInfo: FC<Partial<RecipeType>> = ({
 
   return (
     <div className={styles.container}>
-      <div className={styles.image__container}>
-        <img className={styles.image} src={imagePath} alt="recipe-image" />
-      </div>
+      <UiImage className={styles.image} src={imagePath} alt="recipe-image" />
       <div className={styles.info}>
         <div className={styles["info__top"]}>
           <div className={styles["info__categories"]}>

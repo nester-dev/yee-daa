@@ -1,3 +1,5 @@
+@use "@/shared/styles/mixins";
+
 .number-stepper {
   position: relative;
   display: inline-flex;
@@ -15,7 +17,6 @@
   font-weight: 600;
   -moz-appearance: textfield;
   text-align: start;
-
 }
 
 .number-stepper input::-webkit-outer-spin-button,
@@ -35,25 +36,25 @@
   cursor: pointer;
   transition: background 0.15s;
   border-left: 1px solid var(--c-gray-light);
-}
 
-.stepper-btn:hover {
-  background: #e5e7eb;
+  @include mixins.hoverOnly() {
+    background: #e5e7eb;
+  }
+
+  &.decrement {
+    bottom: 0;
+
+    & svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  &.increment {
+    top: 0;
+    border-bottom: 1px solid var(--c-gray-light);
+  }
 }
 
 .stepper-btn:active {
   background: #d1d5db;
-}
-
-.stepper-btn.decrement {
-  bottom: 0;
-
-  & svg {
-    transform: rotate(180deg);
-  }
-}
-
-.stepper-btn.increment {
-  top: 0;
-  border-bottom: 1px solid var(--c-gray-light);
 }
