@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 
 const COOKIES = {
   ACCESS_TOKEN: "accessToken",
+  REFRESH_TOKEN: "refreshToken",
 };
 
 export const setAccessToken = (token: string) => {
@@ -14,4 +15,12 @@ export const removeAccessToken = () => {
 
 export const getAccessToken = () => {
   return Cookies.get(COOKIES.ACCESS_TOKEN);
+};
+
+export const removeRefreshToken = () => {
+  Cookies.remove(COOKIES.REFRESH_TOKEN);
+};
+
+export const getRefreshToken = () => {
+  return Cookies.get(COOKIES.REFRESH_TOKEN);
 };

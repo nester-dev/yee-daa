@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import { newRecipe } from "@/pages/new-recipe";
+
 import { filters } from "@/features/select-filters";
 
 import { categories } from "@/entities/category";
@@ -11,6 +13,7 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     [categories.name]: categories.reducer,
     [filters.name]: filters.reducer,
+    [newRecipe.name]: newRecipe.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),

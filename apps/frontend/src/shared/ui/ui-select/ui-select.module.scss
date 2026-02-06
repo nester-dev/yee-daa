@@ -1,5 +1,5 @@
 :global {
-  .select {
+  .primary {
     &__menu {
       z-index: 10 !important;
     }
@@ -39,6 +39,35 @@
 
     &__indicator-separator {
       display: none;
+    }
+  }
+
+  .secondary {
+    &__control {
+      border: 1px solid rgba(0, 0, 0, 0.08) !important;
+      border-radius: 6px !important;
+
+      &--is-focused {
+        box-shadow: 0 0 0 1px var(--c-black-overlay) !important;
+      }
+    }
+
+    &__option {
+      padding: 6px 16px !important;
+      background-color: transparent !important;
+
+      &--is-selected {
+        background-color: var(--c-black-soft) !important;
+        color: var(--c-black) !important;
+
+        &--is-focused {
+          background-color: var(--c-gray-light) !important;
+        }
+      }
+
+      &__indicator-separator {
+        display: none;
+      }
     }
   }
 }

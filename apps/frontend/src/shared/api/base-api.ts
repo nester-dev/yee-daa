@@ -10,6 +10,7 @@ import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { HttpStatus } from "@/shared/api/http-status.ts";
 import {
   getAccessToken,
+  getRefreshToken,
   removeAccessToken,
   setAccessToken,
 } from "@/shared/lib/cookies.ts";
@@ -36,10 +37,14 @@ export const baseQueryWithRefresh: BaseQueryFn<
   let result = await baseQuery(args, api, extraOptions, ...rest);
 
   if (result.error?.status === HttpStatus.FORBIDDEN) {
+    const refreshToken = getRefreshToken();
     const refreshResult = await baseQuery(
       {
         url: ApiConfig.REFRESH_TOKEN,
-        method: HttpMethod.POST,
+        method: HttpMethod.GET,
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
       },
       api,
       extraOptions,

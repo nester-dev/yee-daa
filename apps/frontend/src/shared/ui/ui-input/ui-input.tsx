@@ -14,6 +14,8 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   error?: boolean | string;
   helperText?: string;
   suffix?: ReactElement;
+  color?: "primary" | "secondary";
+  variant?: "small" | "medium";
 };
 
 const UiInput: FC<Props> = ({
@@ -26,10 +28,12 @@ const UiInput: FC<Props> = ({
   error,
   suffix,
   className,
+  color = "primary",
+  variant = "medium",
   ...rest
 }) => {
   return (
-    <div className={styles.container}>
+    <div className={cn(styles.container, styles[color], styles[variant])}>
       <div className={styles["input-group"]}>
         <label className={styles.label}>
           {label && <span>{label}</span>}

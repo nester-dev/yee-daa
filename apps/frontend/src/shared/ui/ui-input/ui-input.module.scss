@@ -11,9 +11,7 @@
 .input-wrapper {
   display: flex;
   width: 100%;
-  border: 1px solid var(--c-green-lime-soft);
   background-color: var(--c-white);
-  border-radius: 6px;
   transition: border .3s ease-in-out;
   overflow: hidden;
 
@@ -34,7 +32,6 @@
 
 .input {
   width: 100%;
-  padding: 13px 16px;
 
   @include mixins.laptopDevice {
     padding: 7px 12px;
@@ -42,7 +39,6 @@
 
   &::placeholder {
     font-size: var(--fs-lg);
-    color: var(--c-green-dark);
 
     @include mixins.laptopDevice {
       font-size: var(--fs-sm);
@@ -64,5 +60,45 @@
     position: absolute;
     bottom: -16px;
     opacity: 0.9;
+  }
+}
+
+.primary {
+  .input-wrapper {
+    border: 1px solid var(--c-green-lime-soft);
+  }
+
+  .input::placeholder {
+    color: var(--c-green-dark);
+  }
+}
+
+.secondary {
+  .input-wrapper {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .input::placeholder {
+    color: var(--c-gray-light);
+  }
+}
+
+.medium {
+  .input-wrapper {
+    border-radius: 6px;
+  }
+
+  .input {
+    padding: 13px 16px;
+  }
+}
+
+.small {
+  .input-wrapper {
+    border-radius: 4px;
+  }
+
+  .input {
+    padding: 8px 16px;
   }
 }

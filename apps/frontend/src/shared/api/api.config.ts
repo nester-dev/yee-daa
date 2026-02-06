@@ -1,5 +1,6 @@
 export enum ApiConfig {
   CATEGORY = "category",
+  MEASURE_UNITS = "measure-units",
   REGISTER = "auth/signup",
   LOGIN = "auth/login",
   FORGOT_PASSWORD = "auth/forgot-password",

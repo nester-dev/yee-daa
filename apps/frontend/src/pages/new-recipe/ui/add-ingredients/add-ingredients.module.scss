@@ -1,0 +1,29 @@
+.section {
+  margin: 40px auto 0;
+  max-width: 670px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 80px 1.5fr auto;
+  gap: 16px;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.add {
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.remove {
+  color: var(--c-green-primary);
+}

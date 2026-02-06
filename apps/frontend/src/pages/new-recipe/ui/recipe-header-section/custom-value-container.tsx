@@ -43,8 +43,8 @@ export const CustomValueContainer = (
       {multiValues.slice(0, maxVisible)}
 
       {optionsCount > maxVisible && (
-        <span className="select__multi-value" style={{ margin: "0 1px" }}>
-          <div className={cn("select__multi-value__label", styles.option)}>
+        <span className="primary__multi-value" style={{ margin: "0 1px" }}>
+          <div className={cn("primary__multi-value__label", styles.option)}>
             +{optionsCount - maxVisible}
           </div>
         </span>

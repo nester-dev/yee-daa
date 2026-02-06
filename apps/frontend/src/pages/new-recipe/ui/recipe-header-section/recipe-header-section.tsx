@@ -7,10 +7,10 @@ import styles from "./recipe-header-section.module.scss";
 
 const RecipeHeaderSection: FC = () => {
   return (
-    <div className={styles.section}>
+    <section className={styles.section}>
       <ImageUploader />
       <RecipeMeta />
-    </div>
+    </section>
   );
 };
 

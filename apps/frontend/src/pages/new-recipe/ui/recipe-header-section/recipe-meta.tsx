@@ -1,7 +1,6 @@
-import { type FC, useState } from "react";
+import { type FC } from "react";
 
 import UiCounter from "@/shared/ui/ui-counter/ui-counter.tsx";
-import { useCounter } from "@/shared/ui/ui-counter/useCounter.ts";
 import UiInput from "@/shared/ui/ui-input/ui-input.tsx";
 import UiCheckboxOption from "@/shared/ui/ui-select/ui-checkbox-option.tsx";
 import UiSelect from "@/shared/ui/ui-select/ui-select.tsx";
@@ -9,26 +8,26 @@ import UiTextarea from "@/shared/ui/ui-textarea/ui-textarea.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import { getSubcategoryOptions } from "../../lib/get-subcategory-options.ts";
+import { useRecipeMeta } from "../../lib/use-recipe-meta.ts";
 import { CustomValueContainer } from "../recipe-header-section/custom-value-container.tsx";
 
 import styles from "./recipe-header-section.module.scss";
 
 const RecipeMeta: FC = () => {
-  const [name, setName] = useState("");
   const {
-    count: personsCount,
+    title,
+    description,
+    time,
+    portions,
+    categoriesOptions,
+    handleChangeCategories,
+    handleTitleChange,
+    handleDescriptionChange,
     handleIncrement,
+    handleIncrementTime,
+    handleDecrementTime,
     handleDecrement,
-  } = useCounter({
-    initialValue: 1,
-  });
-  const {
-    count: timeCount,
-    handleIncrement: handleIncrementTime,
-    handleDecrement: handleDecrementTime,
-  } = useCounter({
-    initialValue: 5,
-  });
+  } = useRecipeMeta();
 
   return (
     <div className={styles.meta}>
@@ -38,12 +37,16 @@ const RecipeMeta: FC = () => {
         </UiTypography>
         <div>
           <UiSelect
+            value={categoriesOptions}
+            onChange={handleChangeCategories}
             placeholder="Категория"
             isMulti={true}
             options={getSubcategoryOptions()}
             closeMenuOnSelect={false}
             isSearchable={false}
             hideSelectedOptions={false}
+            variant="primary"
+            isClearable={false}
             components={{
               Option: UiCheckboxOption,
               ValueContainer: CustomValueContainer,
@@ -53,12 +56,17 @@ const RecipeMeta: FC = () => {
       </div>
       <UiInput
         className={styles.input}
-        name="recipe-name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        name="recipe-title"
+        value={title}
+        onChange={handleTitleChange}
         placeholder="Название рецепта"
       />
-      <UiTextarea placeholder="Краткое описание рецепта" rows={5} />
+      <UiTextarea
+        value={description}
+        onChange={handleDescriptionChange}
+        placeholder="Краткое описание рецепта"
+        rows={5}
+      />
       <UiCounter
         className={styles.counter}
         label={
@@ -66,7 +74,7 @@ const RecipeMeta: FC = () => {
             На сколько человек ваш рецепт?
           </UiTypography>
         }
-        value={personsCount}
+        value={portions}
         increment={handleIncrement}
         decrement={handleDecrement}
       />
@@ -78,7 +86,7 @@ const RecipeMeta: FC = () => {
             Сколько времени готовить в минутах?{" "}
           </UiTypography>
         }
-        value={timeCount}
+        value={time}
         increment={handleIncrementTime}
         decrement={handleDecrementTime}
       />
