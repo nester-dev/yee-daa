@@ -1,10 +1,15 @@
 import { type ChangeEvent, type FC, useRef, useState } from "react";
+import cn from "clsx";
 
 import UiImage from "@/shared/ui/ui-image/ui-image.tsx";
 
-import styles from "./recipe-header-section.module.scss";
+import styles from "./ui-image-upload.module.scss";
 
-const ImageUploader: FC = () => {
+type Props = {
+  className?: string;
+};
+
+const UiImageUpload: FC<Props> = ({ className }) => {
   const [preview, setPreview] = useState<string | undefined>(undefined);
   const [file, setFile] = useState<File | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -22,7 +27,7 @@ const ImageUploader: FC = () => {
 
   return (
     <button
-      className={styles.uploader}
+      className={cn(styles.container, className)}
       onClick={() => inputRef.current?.click()}
     >
       <UiImage className={styles.image} src={preview} alt="recipe-image" />
@@ -37,4 +42,4 @@ const ImageUploader: FC = () => {
   );
 };
 
-export default ImageUploader;
+export default UiImageUpload;

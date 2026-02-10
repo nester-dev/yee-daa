@@ -11,29 +11,19 @@
 }
 
 .uploader {
-  position: relative;
   max-width: 555px;
   width: 41%;
-  height: 100%;
-  overflow: hidden;
   border-radius: 8px;
-  cursor: pointer;
 
-  input {
-    display: none;
-  }
-}
 
-.image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  & > div {
 
-  @include mixins.tabletDevice() {
-    width: 100%;
-    max-width: none;
-    height: 224px;
+
+    @include mixins.tabletDevice() {
+      width: 100%;
+      max-width: none;
+      height: 224px;
+    }
   }
 }
 

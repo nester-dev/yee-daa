@@ -39,6 +39,7 @@
     & p:nth-child(1) {
       width: 120px;
       color: rgba(0, 0, 0, 0.48);
+      text-align: center;
     }
 
     & p:nth-child(3) {
@@ -52,6 +53,7 @@
       padding: 16px 12px;
 
       & p:nth-child(1) {
+        text-align: start;
         flex-grow: 1;
       }
 

@@ -18,7 +18,7 @@ const AddIngredients: FC = () => {
   const ingredientKeys = Object.keys(ingredients);
 
   return (
-    <section className={styles.section}>
+    <section>
       <div className={styles.title}>
         <UiTypography fontWeight="semibold">
           Добавьте ингредиенты рецепта, нажав на

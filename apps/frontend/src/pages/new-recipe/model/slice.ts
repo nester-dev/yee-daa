@@ -2,7 +2,9 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 import type { OptionType } from "@/features/select-filters";
 
-import { EmptyIngredient } from "../config";
+import type { RecipeStepType } from "@/entities/recipe";
+
+import { EmptyIngredient, EmptyStep } from "../config";
 import type { IngredientType, InitialState } from "../model/types.ts";
 
 export const initialState: InitialState = {
@@ -15,6 +17,12 @@ export const initialState: InitialState = {
   ingredients: {
     0: EmptyIngredient,
   },
+  steps: [
+    {
+      ...EmptyStep,
+      stepNumber: 1,
+    },
+  ],
 };
 
 export const newRecipe = createSlice({
@@ -60,6 +68,7 @@ export const newRecipe = createSlice({
       state.ingredients = Object.entries(state.ingredients).reduce(
         (acc, [key, ingredient]) => {
           const ingredientKey = parseInt(key, 10);
+
           if (ingredientKey !== keyToRemove) {
             return { ...acc, [ingredientKey]: ingredient };
           }
@@ -68,6 +77,27 @@ export const newRecipe = createSlice({
         },
         {} as Record<number, IngredientType>,
       );
+    },
+    setRecipeStep: (state, action: PayloadAction<RecipeStepType>) => {
+      state.steps.push(action.payload);
+    },
+    deleteRecipeStep: (state, action: PayloadAction<number>) => {
+      state.steps.splice(action.payload, 1);
+    },
+    updateRecipeStep: (
+      state,
+      action: PayloadAction<{ stepIndex: number; step: RecipeStepType }>,
+    ) => {
+      const { stepIndex, step } = action.payload;
+      state.steps.splice(stepIndex, 1, step);
+    },
+    resetRecipeSteps: (state) => {
+      state.steps = [
+        {
+          ...EmptyStep,
+          stepNumber: 1,
+        },
+      ];
     },
   },
 });
@@ -82,4 +112,8 @@ export const {
   setRecipeCategories,
   setRecipeIngredient,
   removeRecipeIngredient,
+  setRecipeStep,
+  deleteRecipeStep,
+  updateRecipeStep,
+  resetRecipeSteps,
 } = newRecipe.actions;

@@ -3,3 +3,8 @@ export const EmptyIngredient = {
   count: "1",
   measureUnit: null,
 };
+
+export const EmptyStep = {
+  image: "",
+  description: "",
+};
