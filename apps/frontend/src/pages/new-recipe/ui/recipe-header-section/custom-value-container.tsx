@@ -2,15 +2,18 @@ import { Children, isValidElement, type ReactNode } from "react";
 import { components, type ValueContainerProps } from "react-select";
 import cn from "clsx";
 
+import { useMediaQuery } from "@/shared/lib/use-media-query.ts";
+
 import styles from "./recipe-header-section.module.scss";
 
 export const CustomValueContainer = (
   props: ValueContainerProps<unknown, true>,
 ) => {
+  const isDesktopDevice = useMediaQuery("(max-width: 1440px)");
   const { children, getValue, hasValue } = props;
   const selectedOptions = getValue();
   const optionsCount = selectedOptions.length;
-  const maxVisible = 2;
+  const maxVisible = isDesktopDevice ? 1 : 2;
 
   if (!hasValue) {
     return (

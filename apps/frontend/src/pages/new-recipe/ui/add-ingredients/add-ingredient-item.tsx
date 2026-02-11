@@ -71,6 +71,7 @@ const AddIngredientItem: FC<Props> = ({
         name="ingredient"
         value={ingredient.title}
         placeholder="Ингредиент"
+        containerClasses={styles.ingredient}
         color="secondary"
         variant="small"
         onChange={(e) =>
@@ -82,6 +83,7 @@ const AddIngredientItem: FC<Props> = ({
       />
 
       <UiInput
+        className="ingredient-select"
         name="ingredient"
         type="number"
         placeholder="Количество"
@@ -103,6 +105,7 @@ const AddIngredientItem: FC<Props> = ({
         options={getMeasureUnitsOptions(measureUnits)}
         variant="secondary"
         isClearable
+        maxMenuHeight={150}
         onChange={(newValue) =>
           handleChange({
             ...ingredient,

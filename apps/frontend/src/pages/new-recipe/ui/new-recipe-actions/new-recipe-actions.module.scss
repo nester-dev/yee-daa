@@ -1,5 +1,11 @@
+@use "@/shared/styles/mixins";
+
 .actions {
   display: flex;
   justify-content: center;
-  gap: 20px 16px;
+  gap: 16px;
+
+  @include mixins.mobileDevice() {
+    flex-direction: column;
+  }
 }

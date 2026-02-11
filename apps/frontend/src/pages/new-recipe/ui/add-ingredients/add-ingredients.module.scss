@@ -1,3 +1,5 @@
+@use "@/shared/styles/mixins";
+
 .title {
   display: flex;
   align-items: center;
@@ -6,10 +8,22 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 2fr 80px 1.5fr auto;
+  grid-template-columns: 2fr 80px 225px auto;
   gap: 16px;
   margin-top: 16px;
   align-items: center;
+
+  @include mixins.tabletDevice() {
+    gap: 12px;
+  }
+
+  @include mixins.mobileDevice() {
+    grid-template-columns: 80px 1fr 32px;
+    grid-template-rows: repeat(2, auto);
+    & > p, span {
+      display: none;
+    }
+  }
 }
 
 .add {
@@ -21,4 +35,11 @@
 
 .remove {
   color: var(--c-green-primary);
+}
+
+.ingredient {
+  @include mixins.mobileDevice() {
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
 }

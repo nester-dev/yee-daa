@@ -1,3 +1,5 @@
+@use "@/shared/styles/mixins";
+
 .steps {
   display: flex;
   flex-direction: column;
@@ -6,11 +8,14 @@
 
 .step {
   display: flex;
-  height: 160px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   overflow: hidden;
   margin-top: 16px;
+
+  @include mixins.mobileDevice() {
+    flex-direction: column;
+  }
 }
 
 .details {
@@ -37,6 +42,11 @@
 .image {
   flex: 1 1 50%;
   border-radius: 8px;
+  height: 160px;
+
+  @include mixins.mobileDevice() {
+    flex: auto;
+  }
 }
 
 .description {

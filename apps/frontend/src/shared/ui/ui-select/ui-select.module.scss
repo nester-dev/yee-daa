@@ -1,3 +1,5 @@
+@use "@/shared/styles/mixins";
+
 :global {
   .primary {
     &__menu {
@@ -50,6 +52,17 @@
       &--is-focused {
         box-shadow: 0 0 0 1px var(--c-black-overlay) !important;
       }
+
+      @include mixins.tabletDevice() {
+        height: 30px;
+        min-height: 30px !important;
+      }
+    }
+
+    &__value-container {
+      @include mixins.tabletDevice() {
+        font-size: var(--fs-sm) !important;
+      }
     }
 
     &__option {
@@ -67,6 +80,12 @@
 
       &__indicator-separator {
         display: none;
+      }
+    }
+
+    &__indicator {
+      @include mixins.tabletDevice() {
+        padding: 4px !important;
       }
     }
   }

@@ -1,7 +1,14 @@
+@use "@/shared/styles/mixins";
+
 .section {
   display: flex;
   flex-direction: column;
   row-gap: 40px;
   margin: 40px auto 0;
   max-width: 670px;
+
+  @include mixins.tabletDevice() {
+    margin-top: 32px;
+    row-gap: 32px;
+  }
 }
