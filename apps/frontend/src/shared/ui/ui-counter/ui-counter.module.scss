@@ -6,6 +6,10 @@
   align-items: center;
   border: 1px solid var(--c-gray-light);
   border-radius: 6px;
+
+  &.error {
+    border: 2px solid var(--c-red-primary);
+  }
 }
 
 .number-stepper input {

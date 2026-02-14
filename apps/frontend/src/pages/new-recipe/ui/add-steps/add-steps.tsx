@@ -1,51 +1,33 @@
-import { type FC, useEffect } from "react";
-
-import type { RecipeStepType } from "@/entities/recipe";
+import { type FC } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
 import AddIcon from "@/shared/assets/icons/plus-rounded.svg?react";
-import { useAppDispatch, useAppSelector } from "@/shared/lib/redux.ts";
 import UiButton from "@/shared/ui/ui-button/ui-button.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import { EmptyStep } from "../../config";
-import { selectRecipeSteps } from "../../model/selectors.ts";
-import {
-  deleteRecipeStep,
-  resetRecipeSteps,
-  setRecipeStep,
-  updateRecipeStep,
-} from "../../model/slice.ts";
 
 import Step from "./step.tsx";
 
 import styles from "./add-steps.module.scss";
 
 const AddSteps: FC = () => {
-  const steps = useAppSelector(selectRecipeSteps);
-  const dispatch = useAppDispatch();
+  const { control } = useFormContext();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "steps",
+  });
 
   const handleAddStep = () => {
-    dispatch(
-      setRecipeStep({
-        ...EmptyStep,
-        stepNumber: steps.length + 1,
-      }),
-    );
+    append({
+      ...EmptyStep,
+      stepNumber: fields.length + 1,
+    });
   };
 
   const handleRemove = (index: number) => {
-    dispatch(deleteRecipeStep(index));
+    remove(index);
   };
-
-  const handleChange = (index: number, step: RecipeStepType) => {
-    dispatch(updateRecipeStep({ step, stepIndex: index }));
-  };
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetRecipeSteps());
-    };
-  }, [dispatch]);
 
   return (
     <section className={styles.steps}>
@@ -53,13 +35,12 @@ const AddSteps: FC = () => {
         Добавьте шаги приготовления
       </UiTypography>
       <div>
-        {steps.map((step, idx) => (
+        {fields.map((field, idx) => (
           <Step
-            key={idx}
+            key={field.id}
             index={idx}
-            step={step}
+            totalSteps={fields.length}
             onDelete={handleRemove}
-            onChange={handleChange}
           />
         ))}
       </div>

@@ -1,6 +1,9 @@
 import { type FC } from "react";
+import { useFormContext } from "react-hook-form";
 
-import UiCounter from "@/shared/ui/ui-counter/ui-counter.tsx";
+import type { OptionType } from "@/features/select-filters";
+
+import { FormCounter } from "@/shared/ui/ui-counter/ui-form-counter.tsx";
 import UiInput from "@/shared/ui/ui-input/ui-input.tsx";
 import UiCheckboxOption from "@/shared/ui/ui-select/ui-checkbox-option.tsx";
 import UiSelect from "@/shared/ui/ui-select/ui-select.tsx";
@@ -8,26 +11,14 @@ import UiTextarea from "@/shared/ui/ui-textarea/ui-textarea.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import { getSubcategoryOptions } from "../../lib/get-subcategory-options.ts";
-import { useRecipeMeta } from "../../lib/use-recipe-meta.ts";
+import type { NewRecipeSchemaType } from "../../model/new-recipe-schema.ts";
 import { CustomValueContainer } from "../recipe-header-section/custom-value-container.tsx";
 
 import styles from "./recipe-header-section.module.scss";
 
 const RecipeMeta: FC = () => {
-  const {
-    title,
-    description,
-    time,
-    portions,
-    categoriesOptions,
-    handleChangeCategories,
-    handleTitleChange,
-    handleDescriptionChange,
-    handleIncrement,
-    handleIncrementTime,
-    handleDecrementTime,
-    handleDecrement,
-  } = useRecipeMeta();
+  const { register, formState, setValue, control } =
+    useFormContext<NewRecipeSchemaType>();
 
   return (
     <div className={styles.meta}>
@@ -37,8 +28,6 @@ const RecipeMeta: FC = () => {
         </UiTypography>
         <div>
           <UiSelect
-            value={categoriesOptions}
-            onChange={handleChangeCategories}
             placeholder="Категория"
             isMulti={true}
             options={getSubcategoryOptions()}
@@ -51,44 +40,43 @@ const RecipeMeta: FC = () => {
               Option: UiCheckboxOption,
               ValueContainer: CustomValueContainer,
             }}
+            onChange={(value) => setValue("categories", value as OptionType[])}
+            error={!!formState.errors.categories}
           />
         </div>
       </div>
       <UiInput
         className={styles.input}
-        name="recipe-title"
-        value={title}
-        onChange={handleTitleChange}
         placeholder="Название рецепта"
+        error={!!formState.errors.title}
+        {...register("title")}
       />
       <UiTextarea
-        value={description}
-        onChange={handleDescriptionChange}
         placeholder="Краткое описание рецепта"
         rows={5}
+        error={!!formState.errors.description}
+        {...register("description")}
       />
-      <UiCounter
+      <FormCounter
         className={styles.counter}
         label={
           <UiTypography fontWeight="semibold">
             На сколько человек ваш рецепт?
           </UiTypography>
         }
-        value={portions}
-        increment={handleIncrement}
-        decrement={handleDecrement}
+        control={control}
+        name="portions"
       />
 
-      <UiCounter
+      <FormCounter
         className={styles.counter}
         label={
           <UiTypography fontWeight="semibold">
-            Сколько времени готовить в минутах?{" "}
+            Сколько времени готовить в минутах?
           </UiTypography>
         }
-        value={time}
-        increment={handleIncrementTime}
-        decrement={handleDecrementTime}
+        control={control}
+        name="time"
       />
     </div>
   );

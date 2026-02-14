@@ -53,16 +53,6 @@
   opacity: 0.64;
 }
 
-.error {
-  border: 2px solid var(--c-red-primary);
-
-  &-text {
-    position: absolute;
-    bottom: -16px;
-    opacity: 0.9;
-  }
-}
-
 .primary {
   .input-wrapper {
     border: 1px solid var(--c-green-lime-soft);
@@ -100,5 +90,17 @@
 
   .input {
     padding: 8px 16px;
+  }
+}
+
+.error {
+  .input-wrapper {
+    border: 1px solid var(--c-red-primary);
+  }
+
+  &-text {
+    position: absolute;
+    bottom: -16px;
+    opacity: 0.9;
   }
 }

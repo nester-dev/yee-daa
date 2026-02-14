@@ -42,6 +42,7 @@ export const baseQueryWithRefresh: BaseQueryFn<
       {
         url: ApiConfig.REFRESH_TOKEN,
         method: HttpMethod.GET,
+        credentials: "include",
         headers: {
           Authorization: `Bearer ${refreshToken}`,
         },
@@ -59,9 +60,9 @@ export const baseQueryWithRefresh: BaseQueryFn<
         setAccessToken(newAccessToken);
 
         result = await baseQuery(args, api, extraOptions);
+      } else {
+        removeAccessToken();
       }
-    } else {
-      removeAccessToken();
     }
   }
 

@@ -3,11 +3,17 @@ import cn from "clsx";
 
 import styles from "./ui-textarea.module.scss";
 
-const UiTextarea: FC<TextareaHTMLAttributes<HTMLTextAreaElement>> = ({
-  className,
-  ...rest
-}) => {
-  return <textarea className={cn(styles.textarea, className)} {...rest} />;
+type Props = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+  error?: boolean;
+};
+
+const UiTextarea: FC<Props> = ({ className, error, ...rest }) => {
+  return (
+    <textarea
+      className={cn(styles.textarea, error && styles.error, className)}
+      {...rest}
+    />
+  );
 };
 
 export default UiTextarea;

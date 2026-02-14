@@ -85,3 +85,14 @@
     text-overflow: ellipsis;
   }
 }
+
+.control-error {
+  .primary__control,
+  .secondary__control {
+    border: 1px solid var(--c-red-primary) !important;
+
+    &--is-focused {
+      box-shadow: none !important;
+    }
+  }
+}

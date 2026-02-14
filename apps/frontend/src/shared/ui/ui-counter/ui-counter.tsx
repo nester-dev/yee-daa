@@ -11,6 +11,7 @@ type Props = {
   increment: () => void;
   decrement: () => void;
   className?: string;
+  error?: boolean;
 };
 
 const UiCounter: FC<Props> = ({
@@ -19,9 +20,10 @@ const UiCounter: FC<Props> = ({
   increment,
   decrement,
   className,
+  error,
 }) => {
   return (
-    <div className={className}>
+    <div className={cn(className, error && styles.error)}>
       {label}
       <div className={styles["number-stepper"]}>
         <button

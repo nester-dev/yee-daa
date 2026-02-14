@@ -1,4 +1,5 @@
 import { type FC } from "react";
+import { useFormContext } from "react-hook-form";
 
 import { EmptyIngredient } from "@/pages/new-recipe/config";
 
@@ -11,107 +12,73 @@ import {
 
 import PlusIcon from "@/shared/assets/icons/plus-rounded.svg?react";
 import TrashIcon from "@/shared/assets/icons/trash-icon.svg?react";
-import { useAppDispatch } from "@/shared/lib/redux.ts";
 import UiIconButton from "@/shared/ui/ui-icon-button/ui-icon-button.tsx";
 import UiInput from "@/shared/ui/ui-input/ui-input.tsx";
 import UiSelect from "@/shared/ui/ui-select/ui-select.tsx";
 
-import {
-  removeRecipeIngredient,
-  setRecipeIngredient,
-} from "../../model/slice.ts";
-import type { IngredientType } from "../../model/types.ts";
+import type { NewRecipeSchemaType } from "../../model/new-recipe-schema.ts";
 
 import styles from "./add-ingredients.module.scss";
 
 type Props = {
-  ingredientKey: number;
-  ingredient: IngredientType;
   measureUnits?: MeasureUnit[];
   showAddButton: boolean;
+  remove: (index: number) => void;
+  append: (value: typeof EmptyIngredient) => void;
+  index: number;
 };
 
 const AddIngredientItem: FC<Props> = ({
-  ingredientKey,
-  ingredient,
   measureUnits,
   showAddButton,
+  remove,
+  append,
+  index,
 }) => {
-  const dispatch = useAppDispatch();
-
-  if (!ingredient) {
-    return null;
-  }
-
-  const handleChange = (ingredient: IngredientType) => {
-    dispatch(
-      setRecipeIngredient({
-        key: ingredientKey,
-        ingredient,
-      }),
-    );
-  };
+  const { register, setValue, formState } =
+    useFormContext<NewRecipeSchemaType>();
+  const ingredientErrors = formState.errors.ingredients?.[index];
 
   const handleAdd = () => {
-    dispatch(
-      setRecipeIngredient({
-        key: ingredientKey + 1,
-        ingredient: EmptyIngredient,
-      }),
-    );
+    append(EmptyIngredient);
   };
 
   const handleRemove = () => {
-    dispatch(removeRecipeIngredient(ingredientKey));
+    remove(index);
   };
 
   return (
     <>
       <UiInput
-        name="ingredient"
-        value={ingredient.title}
         placeholder="Ингредиент"
         containerClasses={styles.ingredient}
         color="secondary"
         variant="small"
-        onChange={(e) =>
-          handleChange({
-            ...ingredient,
-            title: e.target.value,
-          })
-        }
+        {...register(`ingredients.${index}.title`)}
+        error={!!ingredientErrors?.title}
       />
 
       <UiInput
         className="ingredient-select"
-        name="ingredient"
         type="number"
         placeholder="Количество"
-        value={ingredient.count}
         min={1}
         color="secondary"
         variant="small"
-        onChange={(e) =>
-          handleChange({
-            ...ingredient,
-            count: e.target.value,
-          })
-        }
+        {...register(`ingredients.${index}.count`)}
+        error={!!ingredientErrors?.count}
       />
 
       <UiSelect
-        value={ingredient.measureUnit}
         placeholder="Единица измерения"
         options={getMeasureUnitsOptions(measureUnits)}
         variant="secondary"
         isClearable
         maxMenuHeight={150}
-        onChange={(newValue) =>
-          handleChange({
-            ...ingredient,
-            measureUnit: newValue as OptionType,
-          })
+        onChange={(value) =>
+          setValue(`ingredients.${index}.measureUnit`, value as OptionType)
         }
+        error={!!ingredientErrors?.measureUnit}
       />
 
       {showAddButton ? (

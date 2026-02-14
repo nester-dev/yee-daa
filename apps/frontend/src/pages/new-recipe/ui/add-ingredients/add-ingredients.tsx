@@ -1,12 +1,10 @@
 import { type FC } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { useGetMeasureUnitsQuery } from "@/entities/measure-units";
 
 import PlusIcon from "@/shared/assets/icons/plus-outlined.svg?react";
-import { useAppSelector } from "@/shared/lib/redux.ts";
 import { UiTypography } from "@/shared/ui/ui-typography";
-
-import { selectRecipeIngredients } from "../../model/selectors.ts";
 
 import AddIngredientItem from "./add-ingredient-item.tsx";
 
@@ -14,8 +12,14 @@ import styles from "./add-ingredients.module.scss";
 
 const AddIngredients: FC = () => {
   const { data } = useGetMeasureUnitsQuery();
-  const ingredients = useAppSelector(selectRecipeIngredients);
-  const ingredientKeys = Object.keys(ingredients);
+
+  const { control } = useFormContext();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "ingredients",
+    keyName: "id",
+  });
 
   return (
     <section>
@@ -39,16 +43,15 @@ const AddIngredients: FC = () => {
         </UiTypography>
         <span />
 
-        {ingredientKeys.map((key, idx) => {
-          const ingredientKey = parseInt(key, 10);
-
+        {fields.map((field, idx) => {
           return (
             <AddIngredientItem
-              key={key}
+              key={field.id}
               measureUnits={data}
-              ingredientKey={ingredientKey}
-              ingredient={ingredients[ingredientKey]}
-              showAddButton={idx === ingredientKeys.length - 1}
+              index={idx}
+              showAddButton={idx === fields.length - 1}
+              remove={remove}
+              append={append}
             />
           );
         })}
