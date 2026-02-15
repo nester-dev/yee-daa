@@ -16,7 +16,7 @@ export const IngredientSchema = z.object({
   measureUnit: z.object(OptionSchema.shape),
 });
 
-export const NewRecipeSchema = z.object({
+export const PublishRecipeSchema = z.object({
   title: z.string().nonempty().min(3).max(50),
   description: z.string().nonempty().min(3).max(500),
   categories: z.array(OptionSchema).min(3),
@@ -26,4 +26,11 @@ export const NewRecipeSchema = z.object({
   ingredients: z.array(IngredientSchema).min(1),
 });
 
-export type NewRecipeSchemaType = z.infer<typeof NewRecipeSchema>;
+export const DraftRecipeSchema = z
+  .object({
+    title: z.string().nonempty().min(3).max(50),
+  })
+  .loose();
+
+export type PublishRecipeSchemaType = z.infer<typeof PublishRecipeSchema>;
+export type DraftRecipeSchemaType = z.infer<typeof DraftRecipeSchema>;

@@ -11,14 +11,15 @@ import UiTextarea from "@/shared/ui/ui-textarea/ui-textarea.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import { getSubcategoryOptions } from "../../lib/get-subcategory-options.ts";
-import type { NewRecipeSchemaType } from "../../model/new-recipe-schema.ts";
-import { CustomValueContainer } from "../recipe-header-section/custom-value-container.tsx";
+import type { PublishRecipeSchemaType } from "../../model/publish-recipe-schema.ts";
+
+import { CustomValueContainer } from "./custom-value-container.tsx";
 
 import styles from "./recipe-header-section.module.scss";
 
 const RecipeMeta: FC = () => {
   const { register, formState, setValue, control } =
-    useFormContext<NewRecipeSchemaType>();
+    useFormContext<PublishRecipeSchemaType>();
 
   return (
     <div className={styles.meta}>

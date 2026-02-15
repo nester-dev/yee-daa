@@ -1,8 +1,8 @@
 import type { FC } from "react";
 
-import { CreateRecipe } from "@/features/create-recipe";
-
 import { UserStats } from "@/entities/user-stats";
+
+import CreateRecipeButton from "./create-recipe-button.tsx";
 
 import styles from "./stats-sidebar.module.scss";
 
@@ -16,7 +16,7 @@ const StatsSidebar: FC = () => {
         followersCount={589}
         likesCount={587}
       />
-      <CreateRecipe />
+      <CreateRecipeButton />
     </aside>
   );
 };

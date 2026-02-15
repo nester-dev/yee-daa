@@ -5,9 +5,9 @@ import CreateRecipeIcon from "@/shared/assets/icons/create-recipe-icon.svg?react
 import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
-import styles from "./create-recipe.module.scss";
+import styles from "./stats-sidebar.module.scss";
 
-const CreateRecipe: FC = () => {
+const CreateRecipeButton: FC = () => {
   return (
     <Link to={ROUTE_PATHS.NEW_RECIPE} className={styles["create-recipe"]}>
       <CreateRecipeIcon />
@@ -16,4 +16,4 @@ const CreateRecipe: FC = () => {
   );
 };
 
-export default CreateRecipe;
+export default CreateRecipeButton;

@@ -8,7 +8,7 @@ import UiTag from "@/shared/ui/ui-tag/ui-tag.tsx";
 import UiTextarea from "@/shared/ui/ui-textarea/ui-textarea.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
-import type { NewRecipeSchemaType } from "../../model/new-recipe-schema.ts";
+import type { PublishRecipeSchemaType } from "../../model/publish-recipe-schema.ts";
 
 import styles from "./add-steps.module.scss";
 
@@ -22,7 +22,7 @@ const Step: FC<Props> = ({ index, onDelete, totalSteps }) => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<NewRecipeSchemaType>();
+  } = useFormContext<PublishRecipeSchemaType>();
   const stepNumber = index + 1;
   const onlyOneStep = totalSteps === 1;
 

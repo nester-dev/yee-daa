@@ -1,23 +1,32 @@
-import type { FC } from "react";
+import { type FC, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import {
+  AddIngredients,
+  AddSteps,
+  DraftRecipeSchema,
+  type DraftRecipeSchemaType,
+  PublishRecipeSchema,
+  type PublishRecipeSchemaType,
+  RecipeFormVariants,
+  RecipeHeaderSection,
+} from "@/features/recipe-form";
+
 import UiContentContainer from "@/shared/ui/ui-content-container/ui-content-container.tsx";
 
-import {
-  NewRecipeSchema,
-  type NewRecipeSchemaType,
-} from "../model/new-recipe-schema.ts";
-
-import AddIngredients from "./add-ingredients/add-ingredients.tsx";
-import AddSteps from "./add-steps/add-steps.tsx";
-import NewRecipeActions from "./new-recipe-actions/new-recipe-actions.tsx";
-import RecipeHeaderSection from "./recipe-header-section/recipe-header-section.tsx";
+import NewRecipeActions from "./new-recipe-actions.tsx";
 
 import styles from "./new-recipe.module.scss";
 
 const NewRecipe: FC = () => {
-  const methods = useForm<NewRecipeSchemaType>({
+  const variantRef = useRef<RecipeFormVariants>(RecipeFormVariants.DRAFT);
+
+  const handleVariantChange = (variant: RecipeFormVariants) => {
+    variantRef.current = variant;
+  };
+
+  const methods = useForm<PublishRecipeSchemaType | DraftRecipeSchemaType>({
     defaultValues: {
       title: "",
       description: "",
@@ -38,7 +47,14 @@ const NewRecipe: FC = () => {
         },
       ],
     },
-    resolver: zodResolver(NewRecipeSchema),
+    resolver: async (data, context, options) => {
+      const schema =
+        variantRef.current === RecipeFormVariants.DRAFT
+          ? DraftRecipeSchema
+          : PublishRecipeSchema;
+
+      return zodResolver(schema)(data, context, options);
+    },
   });
 
   return (
@@ -48,7 +64,7 @@ const NewRecipe: FC = () => {
         <div className={styles.section}>
           <AddIngredients />
           <AddSteps />
-          <NewRecipeActions />
+          <NewRecipeActions onVariantChange={handleVariantChange} />
         </div>
       </FormProvider>
     </UiContentContainer>

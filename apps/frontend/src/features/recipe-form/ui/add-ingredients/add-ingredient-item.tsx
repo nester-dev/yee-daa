@@ -1,8 +1,6 @@
 import { type FC } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { EmptyIngredient } from "@/pages/new-recipe/config";
-
 import type { OptionType } from "@/features/select-filters";
 
 import {
@@ -16,7 +14,8 @@ import UiIconButton from "@/shared/ui/ui-icon-button/ui-icon-button.tsx";
 import UiInput from "@/shared/ui/ui-input/ui-input.tsx";
 import UiSelect from "@/shared/ui/ui-select/ui-select.tsx";
 
-import type { NewRecipeSchemaType } from "../../model/new-recipe-schema.ts";
+import { EmptyIngredient } from "../../config";
+import type { PublishRecipeSchemaType } from "../../model/publish-recipe-schema.ts";
 
 import styles from "./add-ingredients.module.scss";
 
@@ -36,7 +35,7 @@ const AddIngredientItem: FC<Props> = ({
   index,
 }) => {
   const { register, setValue, formState } =
-    useFormContext<NewRecipeSchemaType>();
+    useFormContext<PublishRecipeSchemaType>();
   const ingredientErrors = formState.errors.ingredients?.[index];
 
   const handleAdd = () => {
