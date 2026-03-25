@@ -16,4 +16,3 @@ export { getRecipePrimaryCategory } from "./lib/get-recipe-primary-category.ts";
 export { getRecipeCategories } from "./lib/get-recipe-categories.ts";
 export { useRecipeClick } from "./lib/use-recipe-click.ts";
 export { transformToRequestDto } from "./lib/transform-to-request-dto.ts";
-export { recipeInvalidateKey } from "./config/recipe-invalidate-keys.ts";

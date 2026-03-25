@@ -1,4 +1,5 @@
 import { FiltersDrawer, useFilterDrawer } from "@/widgets/filters-drawer";
+import { FoodBlogs } from "@/widgets/food-blogs";
 import { JuiciestSection } from "@/widgets/juiciest-section";
 import { NewRecipesSection } from "@/widgets/new-recipes-section";
 import { RecipeSearchPanel } from "@/widgets/recipe-search-panel";
@@ -25,6 +26,7 @@ const HomePage = () => {
       />
       <NewRecipesSection />
       <JuiciestSection />
+      <FoodBlogs />
       <RelevantKitchen parentCategory={category} />
       <FiltersDrawer isOpen={isOpen} onClose={toggleFiltersDrawer} />
     </UiContentContainer>

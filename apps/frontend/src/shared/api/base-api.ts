@@ -6,10 +6,9 @@ import type {
 } from "@reduxjs/toolkit/query";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { recipeInvalidateKey } from "@/entities/recipe";
-
 import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { HttpStatus } from "@/shared/api/http-status.ts";
+import { recipeInvalidateKey } from "@/shared/api/invalidate-keys";
 import {
   getAccessToken,
   getRefreshToken,

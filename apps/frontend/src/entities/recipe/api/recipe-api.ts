@@ -1,7 +1,6 @@
-import { recipeInvalidateKey } from "@/entities/recipe";
-
 import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { baseApi } from "@/shared/api/base-api.ts";
+import { recipeInvalidateKey } from "@/shared/api/invalidate-keys.ts";
 import type { BaseQueryResponse } from "@/shared/api/types.ts";
 
 import { getActualRecipes } from "../lib/get-actual-recipes.ts";
