@@ -1,9 +1,16 @@
+import { recipeInvalidateKey } from "@/entities/recipe";
+
 import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { baseApi } from "@/shared/api/base-api.ts";
 import type { BaseQueryResponse } from "@/shared/api/types.ts";
 
 import { getActualRecipes } from "../lib/get-actual-recipes.ts";
-import type { GetRecipesParams, RecipeType } from "../model/types.ts";
+import type {
+  DraftRecipeDto,
+  GetRecipesParams,
+  PublishRecipeDto,
+  RecipeType,
+} from "../model/types.ts";
 
 export const recipeApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -14,6 +21,7 @@ export const recipeApi = baseApi.injectEndpoints({
           method: HttpMethod.GET,
           params,
         }),
+        providesTags: [recipeInvalidateKey],
         transformResponse: async (
           response: BaseQueryResponse<RecipeType>,
           _,
@@ -35,8 +43,32 @@ export const recipeApi = baseApi.injectEndpoints({
         url: `${ApiConfig.RECIPE}/${id}`,
         method: HttpMethod.GET,
       }),
+      providesTags: (_, __, id) => [{ type: recipeInvalidateKey, id }],
+    }),
+    createDraftRecipe: build.mutation<void, DraftRecipeDto>({
+      query: (body) => ({
+        url: ApiConfig.RECIPE_DRAFT,
+        method: HttpMethod.POST,
+        body,
+      }),
+    }),
+    publishRecipe: build.mutation<void, PublishRecipeDto>({
+      query: (body) => ({
+        url: ApiConfig.RECIPE,
+        method: HttpMethod.POST,
+        body,
+      }),
+      // invalidatesTags: (_, __, { id }) => [
+      //   { type: recipeInvalidateKey, id },
+      //   recipeInvalidateKey,
+      // ],
     }),
   }),
 });
 
-export const { useGetAllRecipesQuery, useGetRecipeByIdQuery } = recipeApi;
+export const {
+  useGetAllRecipesQuery,
+  useGetRecipeByIdQuery,
+  useCreateDraftRecipeMutation,
+  usePublishRecipeMutation,
+} = recipeApi;

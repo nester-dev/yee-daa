@@ -1,13 +1,15 @@
+import type { Nullable } from "@/shared/types";
+
 export type RecipeStepType = {
-  stepNumber: number;
-  description: string;
-  image: string;
+  stepNumber: number | null;
+  description: string | null;
+  image: string | null;
 };
 
 export type RecipeIngredientType = {
-  title: string;
-  count: string;
-  measureUnit: string;
+  title: string | null;
+  count: string | null;
+  measureUnit: string | null;
 };
 
 export type RecipeType = {
@@ -47,3 +49,18 @@ export type GetRecipesParams = Partial<{
   sortOrder: string;
   transformResponse: boolean;
 }>;
+
+export type PublishRecipeDto = {
+  title: string;
+  description: string;
+  time: number;
+  categoriesIds: string[];
+  portions: number;
+  image: string;
+  steps: RecipeStepType[];
+  ingredients: RecipeIngredientType[];
+};
+
+export type DraftRecipeDto = Nullable<PublishRecipeDto | null> & {
+  title: string;
+};
