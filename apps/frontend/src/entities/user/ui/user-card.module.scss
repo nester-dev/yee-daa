@@ -1,0 +1,33 @@
+@use "@/shared/styles/mixins";
+
+.author {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  width: 100%;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+  overflow: hidden;
+}
+
+.name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  @include mixins.tabletDevice() {
+    font-size: 16px;
+  }
+}

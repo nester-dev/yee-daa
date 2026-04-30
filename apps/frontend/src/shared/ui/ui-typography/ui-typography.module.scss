@@ -27,6 +27,16 @@
 .xl-4 {
   font-size: var(--fs-4xl);
   line-height: 111%;
+
+  @include mixins.laptopDevice {
+    font-size: 30px;
+    line-height: 120%;
+  }
+
+  @include mixins.tabletDevice {
+    font-size: var(--fs-2xl);
+    line-height: 133%;
+  }
 }
 
 .xl-5 {

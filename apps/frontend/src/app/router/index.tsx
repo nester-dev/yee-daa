@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 import { CategoryPage } from "@/pages/category-page";
+import { FoodBlogsPage } from "@/pages/food-blogs-page";
 import { HomePage } from "@/pages/home-page";
 import { NewRecipe } from "@/pages/new-recipe";
 import { RecipePage } from "@/pages/recipe-page";
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
           {
             path: ROUTE_PATHS.NEW_RECIPE,
             Component: NewRecipe,
+          },
+          {
+            path: ROUTE_PATHS.FOOD_BLOGS,
+            Component: FoodBlogsPage,
           },
         ],
       },

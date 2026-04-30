@@ -9,6 +9,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { HttpStatus } from "@/shared/api/http-status.ts";
 import { recipeInvalidateKey } from "@/shared/api/invalidate-keys";
+import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
 import {
   getAccessToken,
   getRefreshToken,
@@ -63,6 +64,7 @@ export const baseQueryWithRefresh: BaseQueryFn<
         result = await baseQuery(args, api, extraOptions);
       } else {
         removeAccessToken();
+        window.location.replace(ROUTE_PATHS.SIGN_IN);
       }
     }
   }

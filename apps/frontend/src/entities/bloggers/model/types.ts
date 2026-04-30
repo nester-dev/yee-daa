@@ -19,5 +19,5 @@ export type Blogger = {
 
 export type GetBloggersResponse = {
   favorites: Blogger[];
-  other: Blogger[];
+  others: Blogger[];
 };

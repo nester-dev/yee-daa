@@ -1,0 +1,49 @@
+@use "@/shared/styles/mixins";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: var(--c-white);
+
+  @include mixins.tabletDevice() {
+      row-gap: 12px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 12px;
+}
+
+.badge {
+  align-self: flex-start;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--c-black-soft);
+  background-color: var(--c-white);
+}
+
+.note {
+  flex-grow: 1;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 12px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.stats {
+  margin-left: auto;
+}
