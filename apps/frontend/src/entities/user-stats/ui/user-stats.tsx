@@ -12,7 +12,7 @@ import UserStatsItem from "./user-stats-item.tsx";
 import styles from "./user-stats.module.scss";
 
 type Props = UserStatsType & {
-  size?: "small" | "medium";
+  size?: "small" | "medium" | "large";
   direction?: "row" | "column";
   className?: string;
 };
@@ -21,7 +21,7 @@ const UserStats: FC<Props> = ({
   followersCount,
   likesCount,
   bookmarksCount,
-  size = "small",
+  size = "medium",
   direction = "row",
   className,
 }) => {

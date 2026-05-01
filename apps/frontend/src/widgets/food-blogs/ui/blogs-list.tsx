@@ -11,7 +11,7 @@ export const BlogsList = () => {
   return (
     <div className={styles.list}>
       {filteredBloggers?.slice(0, 3).map((blogger) => (
-        <BloggerCard blogger={blogger} key={blogger._id} showFooter={false} />
+        <BloggerCard blogger={blogger} key={blogger._id} />
       ))}
     </div>
   );

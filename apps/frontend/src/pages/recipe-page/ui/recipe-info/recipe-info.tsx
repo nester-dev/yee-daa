@@ -47,11 +47,7 @@ const RecipeInfo: FC<Partial<RecipeType>> = ({
             ))}
           </div>
 
-          <UserStats
-            likesCount={likes}
-            bookmarksCount={bookmarks}
-            size="small"
-          />
+          <UserStats likesCount={likes} bookmarksCount={bookmarks} />
         </div>
 
         <div className={styles["info__text"]}>

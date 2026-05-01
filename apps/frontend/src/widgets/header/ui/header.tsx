@@ -27,7 +27,6 @@ const Header = () => {
       <div className={styles.header__right}>
         {isAboveLaptop && (
           <UserStats
-            size="small"
             direction="row"
             bookmarksCount={185}
             followersCount={589}

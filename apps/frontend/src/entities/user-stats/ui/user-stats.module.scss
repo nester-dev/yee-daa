@@ -19,6 +19,25 @@
 }
 
 .small {
+  column-gap: 4px;
+
+  & > .item {
+    padding: 4px;
+    column-gap: 6px;
+  }
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  p {
+    font-size: var(--fs-xs);
+    line-height: 133%;
+  }
+}
+
+.medium {
   @include mixins.tabletDevice() {
     svg {
       width: 12px;
@@ -35,7 +54,7 @@
   }
 }
 
-.medium {
+.large {
   row-gap: 24px;
   padding: 16px 0;
 

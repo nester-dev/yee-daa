@@ -10,7 +10,7 @@ const StatsSidebar: FC = () => {
   return (
     <aside className={styles.sidebar}>
       <UserStats
-        size="medium"
+        size="large"
         direction="column"
         bookmarksCount={185}
         followersCount={589}
