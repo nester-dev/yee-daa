@@ -8,7 +8,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { HttpStatus } from "@/shared/api/http-status.ts";
-import { recipeInvalidateKey } from "@/shared/api/invalidate-keys";
+import {
+  bloggerInvalidateKey,
+  recipeInvalidateKey,
+} from "@/shared/api/invalidate-keys";
 import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
 import {
   getAccessToken,
@@ -76,5 +79,5 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefresh,
   endpoints: () => ({}),
-  tagTypes: [recipeInvalidateKey],
+  tagTypes: [recipeInvalidateKey, bloggerInvalidateKey],
 });

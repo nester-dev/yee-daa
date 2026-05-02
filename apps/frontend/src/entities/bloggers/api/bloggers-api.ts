@@ -1,5 +1,6 @@
 import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { baseApi } from "@/shared/api/base-api.ts";
+import { bloggerInvalidateKey } from "@/shared/api/invalidate-keys";
 import { decodeAccessToken } from "@/shared/api/jwt-decode";
 import type { PaginationParams } from "@/shared/types";
 
@@ -16,6 +17,7 @@ export const bloggersApi = baseApi.injectEndpoints({
           ...params,
         },
       }),
+      providesTags: [bloggerInvalidateKey],
     }),
   }),
 });
