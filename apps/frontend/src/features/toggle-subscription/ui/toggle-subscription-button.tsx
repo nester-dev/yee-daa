@@ -1,6 +1,10 @@
+import { useEffect } from "react";
+
 import { decodeAccessToken } from "@/shared/api/jwt-decode";
+import { matchHttpError } from "@/shared/api/match-http-error";
 import SubscribeIcon from "@/shared/assets/icons/subscribe.svg?react";
 import SubscribedIcon from "@/shared/assets/icons/subscribed.svg?react";
+import { showNotification } from "@/shared/lib/show-notification";
 import UiButton from "@/shared/ui/ui-button/ui-button";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
@@ -12,7 +16,7 @@ type Props = {
 };
 
 const ToggleSubscriptionButton = ({ isSubscribed, bloggerId }: Props) => {
-  const [toggleSubscription] = useToggleSubscriptionMutation();
+  const [toggleSubscription, { error }] = useToggleSubscriptionMutation();
   const { text, Icon, buttonColor, textColor } = {
     text: isSubscribed ? "Вы подписаны" : "Подписаться",
     Icon: isSubscribed ? SubscribedIcon : SubscribeIcon,
@@ -28,6 +32,20 @@ const ToggleSubscriptionButton = ({ isSubscribed, bloggerId }: Props) => {
 
     toggleSubscription(payload);
   };
+
+  useEffect(() => {
+    if (error) {
+      matchHttpError(error, {
+        default: () => {
+          showNotification({
+            title: "Ошибка сервера",
+            text: "Попробуйте немного позже",
+            variant: "error",
+          });
+        },
+      });
+    }
+  }, [error]);
 
   return (
     <UiButton

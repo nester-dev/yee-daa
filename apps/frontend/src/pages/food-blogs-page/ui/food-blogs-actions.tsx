@@ -14,7 +14,15 @@ const FoodBlogsActions = (props: Blogger) => {
   return (
     <div className={styles.footer}>
       <div className={styles.actions}>
-        <ToggleSubscriptionButton isSubscribed={isFavorite} bloggerId={_id} />
+        {isFavorite ? (
+          <UiButton color="success" size="sm">
+            <UiTypography variant="xs" fontWeight="semibold">
+              Рецепты
+            </UiTypography>
+          </UiButton>
+        ) : (
+          <ToggleSubscriptionButton isSubscribed={isFavorite} bloggerId={_id} />
+        )}
         <UiButton
           size="sm"
           color="success"
