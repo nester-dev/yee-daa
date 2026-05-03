@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 import { NewRecipesSection } from "@/widgets/new-recipes-section";
 
 import { useGetBloggersQuery } from "@/entities/bloggers";
 
 import { UiTypography } from "@/shared/ui/ui-typography";
+
+import { INITIAL_BLOGS_LIMIT } from "../config";
 
 import FavoriteBlogsList from "./favorite-blogs-list";
 import OthersBlogsList from "./others-blogs-list";
@@ -10,12 +14,13 @@ import OthersBlogsList from "./others-blogs-list";
 import styles from "./blogs-page.module.scss";
 
 const FoodBlogsPage = () => {
-  const { data } = useGetBloggersQuery({ limit: 30 });
+  const [limit, setLimit] = useState<number | string>(INITIAL_BLOGS_LIMIT);
+  const { data } = useGetBloggersQuery({ limit });
   const favoriteBloggers = data?.favorites || [];
 
-  const filteredBloggers = data?.others?.filter(
-    (blogger) => blogger.photoLink && blogger.notes.length,
-  );
+  const handleLimitChange = () => {
+    setLimit(limit === INITIAL_BLOGS_LIMIT ? "all" : INITIAL_BLOGS_LIMIT);
+  };
 
   return (
     <div className={styles.container}>
@@ -25,7 +30,11 @@ const FoodBlogsPage = () => {
       {favoriteBloggers?.length && (
         <FavoriteBlogsList data={favoriteBloggers} />
       )}
-      <OthersBlogsList data={filteredBloggers?.slice(0, 9) || []} />
+      <OthersBlogsList
+        isCollapsed={limit === INITIAL_BLOGS_LIMIT}
+        data={data?.others || []}
+        onLimitChange={handleLimitChange}
+      />
       <NewRecipesSection />
     </div>
   );

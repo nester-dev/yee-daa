@@ -38,6 +38,23 @@
       gap: 16px;
     }
   }
+
+  .all-authors-button {
+    margin: 24px auto 0;
+    flex-direction: row-reverse;
+
+    &-reversed {
+      flex-direction: row;
+
+      &:hover svg {
+        transform: rotate(0) translate(0px);
+      }
+
+      svg {
+        transform: rotate(0) translate(3px);
+      }
+    }
+  }
 }
 
 .favorite-blogs {

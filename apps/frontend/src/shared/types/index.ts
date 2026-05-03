@@ -3,6 +3,6 @@ export type Nullable<T> = {
 };
 
 export type PaginationParams = {
-  limit?: number;
+  limit?: number | string;
   offset?: number;
 };
