@@ -1,10 +1,12 @@
 import cn from "clsx";
 
+import type { UserAvatarSize } from "../model/types";
+
 import styles from "./user-avatar.module.scss";
 
 type Props = {
   photo: string;
-  size?: "medium" | "large";
+  size?: UserAvatarSize;
   className?: string;
 };
 

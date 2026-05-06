@@ -4,7 +4,10 @@ import { bloggerInvalidateKey } from "@/shared/api/invalidate-keys";
 import { decodeAccessToken } from "@/shared/api/jwt-decode";
 import type { PaginationParams } from "@/shared/types";
 
-import type { GetBloggersResponse } from "../model/types";
+import type {
+  GetBloggerByIdResponse,
+  GetBloggersResponse,
+} from "../model/types";
 
 export const bloggersApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -19,7 +22,16 @@ export const bloggersApi = baseApi.injectEndpoints({
       }),
       providesTags: [bloggerInvalidateKey],
     }),
+    getBloggerById: build.query<GetBloggerByIdResponse, string>({
+      query: (id) => ({
+        url: `${ApiConfig.BLOGGERS}/${id}`,
+        method: HttpMethod.GET,
+        params: {
+          currentUserId: decodeAccessToken()?.userId,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetBloggersQuery } = bloggersApi;
+export const { useGetBloggersQuery, useGetBloggerByIdQuery } = bloggersApi;

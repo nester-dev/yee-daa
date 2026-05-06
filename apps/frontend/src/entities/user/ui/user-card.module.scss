@@ -1,10 +1,18 @@
-@use "@/shared/styles/mixins";
+@use '@/shared/styles/mixins';
 
 .author {
   display: flex;
   align-items: center;
   column-gap: 12px;
   width: 100%;
+
+  &-large {
+    column-gap: 24px;
+
+    .identity {
+      row-gap: 12px;
+    }
+  }
 }
 
 .avatar {

@@ -1,0 +1,17 @@
+.page {
+  padding: 16px 24px 24px;
+}
+
+.header {
+  width: max-content;
+  margin: 0 auto;
+  max-width: 420px;
+  overflow: hidden;
+
+  &-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+}

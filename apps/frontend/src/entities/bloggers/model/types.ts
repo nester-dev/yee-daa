@@ -21,3 +21,10 @@ export type GetBloggersResponse = {
   favorites: Blogger[];
   others: Blogger[];
 };
+
+export type GetBloggerByIdResponse = {
+  bloggerInfo: Blogger;
+  isFavorite: boolean;
+  totalBookmarks: number;
+  totalSubscribers: number;
+};

@@ -1,21 +1,29 @@
+import { useNavigate } from "react-router";
+
 import { ToggleSubscriptionButton } from "@/features/toggle-subscription";
 
 import type { Blogger } from "@/entities/bloggers";
 import { UserStats } from "@/entities/user-stats";
 
+import { ROUTE_PATHS } from "@/shared/config/route-paths";
 import UiButton from "@/shared/ui/ui-button/ui-button";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./blogs-page.module.scss";
 
 const FoodBlogsActions = (props: Blogger) => {
+  const navigate = useNavigate();
   const { bookmarksCount, subscribersCount, isFavorite, _id } = props;
+
+  const handleRecipesClick = () => {
+    navigate(`${ROUTE_PATHS.BLOGS}/${_id}`);
+  };
 
   return (
     <div className={styles.footer}>
       <div className={styles.actions}>
         {isFavorite ? (
-          <UiButton color="success" size="sm">
+          <UiButton color="success" size="sm" onClick={handleRecipesClick}>
             <UiTypography variant="xs" fontWeight="semibold">
               Рецепты
             </UiTypography>

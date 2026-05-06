@@ -6,4 +6,5 @@ export const ROUTE_PATHS = {
   SIGN_UP: "/auth/sign-up",
   VERIFICATION: "/verification",
   FOOD_BLOGS: "/food-blogs",
+  BLOGS: "/blogs",
 };

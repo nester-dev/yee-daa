@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
+import { BloggerPage } from "@/pages/blogger-page";
 import { CategoryPage } from "@/pages/category-page";
 import { FoodBlogsPage } from "@/pages/food-blogs-page";
 import { HomePage } from "@/pages/home-page";
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
           {
             path: ROUTE_PATHS.FOOD_BLOGS,
             Component: FoodBlogsPage,
+          },
+          {
+            path: `${ROUTE_PATHS.BLOGS}/:bloggerId`,
+            Component: BloggerPage,
           },
         ],
       },
