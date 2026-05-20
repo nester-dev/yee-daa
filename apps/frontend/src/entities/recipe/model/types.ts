@@ -64,3 +64,12 @@ export type PublishRecipeDto = {
 export type DraftRecipeDto = Nullable<PublishRecipeDto | null> & {
   title: string;
 };
+
+export type GetRecipesByUserIdResponse = {
+  myBookmarks: RecipeType[];
+  notes: RecipeType[];
+  recipes: RecipeType[];
+  totalBookmarks: number;
+  totalSubscribers: number;
+  userId: string;
+};

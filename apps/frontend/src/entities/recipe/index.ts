@@ -10,6 +10,7 @@ export {
   useGetRecipeByIdQuery,
   useCreateDraftRecipeMutation,
   usePublishRecipeMutation,
+  useGetRecipesByUserIdQuery,
 } from "./api/recipe-api.ts";
 export { type GetRecipesParams } from "./model/types.ts";
 export { getRecipePrimaryCategory } from "./lib/get-recipe-primary-category.ts";

@@ -6,6 +6,7 @@ import type { BaseQueryResponse } from "@/shared/api/types.ts";
 import { getActualRecipes } from "../lib/get-actual-recipes.ts";
 import type {
   DraftRecipeDto,
+  GetRecipesByUserIdResponse,
   GetRecipesParams,
   PublishRecipeDto,
   RecipeType,
@@ -44,6 +45,13 @@ export const recipeApi = baseApi.injectEndpoints({
       }),
       providesTags: (_, __, id) => [{ type: recipeInvalidateKey, id }],
     }),
+    getRecipesByUserId: build.query<GetRecipesByUserIdResponse, string>({
+      query: (userId) => ({
+        url: `${ApiConfig.RECIPE}/user/${userId}`,
+        method: HttpMethod.GET,
+      }),
+      providesTags: (_, __, userId) => [{ type: recipeInvalidateKey, userId }],
+    }),
     createDraftRecipe: build.mutation<void, DraftRecipeDto>({
       query: (body) => ({
         url: ApiConfig.RECIPE_DRAFT,
@@ -70,4 +78,5 @@ export const {
   useGetRecipeByIdQuery,
   useCreateDraftRecipeMutation,
   usePublishRecipeMutation,
+  useGetRecipesByUserIdQuery,
 } = recipeApi;
