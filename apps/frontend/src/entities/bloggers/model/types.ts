@@ -1,4 +1,4 @@
-export type BloggerNote = {
+export type BloggerNoteType = {
   _id: string;
   date: string;
   text: string;
@@ -7,7 +7,7 @@ export type BloggerNote = {
 export type Blogger = {
   _id: string;
   photoLink: string;
-  notes: BloggerNote[];
+  notes: BloggerNoteType[];
   subscribersCount: number;
   newRecipesCount: number;
   login: string;

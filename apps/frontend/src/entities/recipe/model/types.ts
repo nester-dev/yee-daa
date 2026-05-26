@@ -1,3 +1,5 @@
+import type { BloggerNoteType } from "@/entities/bloggers";
+
 import type { Nullable } from "@/shared/types";
 
 export type RecipeStepType = {
@@ -67,7 +69,7 @@ export type DraftRecipeDto = Nullable<PublishRecipeDto | null> & {
 
 export type GetRecipesByUserIdResponse = {
   myBookmarks: RecipeType[];
-  notes: RecipeType[];
+  notes: BloggerNoteType[];
   recipes: RecipeType[];
   totalBookmarks: number;
   totalSubscribers: number;

@@ -1,22 +1,22 @@
 import { useState } from "react";
-import { useParams } from "react-router";
 
-import { RecipeCard, useGetRecipesByUserIdQuery } from "@/entities/recipe";
+import { RecipeCard, type RecipeType } from "@/entities/recipe";
 
 import UiButton from "@/shared/ui/ui-button/ui-button";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./blogger-page.module.scss";
 
-const BloggerRecipesList = () => {
-  const userId = useParams()?.bloggerId || "";
-  const { data: recipesData } = useGetRecipesByUserIdQuery(userId);
+type TProps = {
+  recipes: RecipeType[];
+};
+
+const BloggerRecipesList = ({ recipes }: TProps) => {
   const [showAll, setShowAll] = useState(false);
-  const recipes = recipesData?.recipes ?? [];
   const showLoadMoreButton = !showAll && recipes.length > 8;
   const visibleRecipes = showAll ? recipes : recipes.slice(0, 8);
 
-  if (!recipesData) {
+  if (!recipes) {
     return null;
   }
 
