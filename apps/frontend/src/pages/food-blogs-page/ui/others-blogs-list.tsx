@@ -1,11 +1,10 @@
 import type { FC } from "react";
 import cn from "clsx";
 
+import { BloggerActions } from "@/widgets/blogger-actions";
 import { AllAuthorsButton } from "@/widgets/food-blogs";
 
 import { type Blogger, BloggerCard } from "@/entities/bloggers";
-
-import FoodBlogsActions from "./food-blogs-actions";
 
 import styles from "./blogs-page.module.scss";
 
@@ -23,7 +22,7 @@ const OthersBlogsList: FC<Props> = ({ data, isCollapsed, onLimitChange }) => {
           <BloggerCard
             blogger={blogger}
             key={blogger._id}
-            footer={<FoodBlogsActions {...blogger} />}
+            footer={<BloggerActions {...blogger} />}
           />
         ))}
       </div>

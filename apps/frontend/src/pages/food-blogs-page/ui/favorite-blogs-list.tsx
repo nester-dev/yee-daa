@@ -1,10 +1,10 @@
 import type { FC } from "react";
 
+import { BloggerActions } from "@/widgets/blogger-actions";
+
 import { type Blogger, BloggerCard } from "@/entities/bloggers";
 
 import { UiTypography } from "@/shared/ui/ui-typography";
-
-import FoodBlogsActions from "./food-blogs-actions";
 
 import styles from "./blogs-page.module.scss";
 
@@ -21,7 +21,7 @@ const FavoriteBlogsList: FC<Props> = ({ data }) => {
           <BloggerCard
             blogger={blogger}
             key={blogger._id}
-            footer={<FoodBlogsActions {...blogger} />}
+            footer={<BloggerActions {...blogger} />}
           />
         ))}
       </div>

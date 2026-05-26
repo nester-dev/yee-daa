@@ -90,3 +90,47 @@
     margin: 0 auto;
   }
 }
+
+.other-blogs {
+  margin-top: 40px;
+  container-name: other-blogs;
+  container-type: inline-size;
+
+  @include mixins.tabletDevice() {
+    margin-top: 32px;
+  }
+
+  &-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+
+    @include mixins.tabletDevice() {
+      gap: 12px;
+    }
+
+    & > article {
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &-button p {
+    @include mixins.tabletDevice() {
+      font-size: 12px;
+    }
+  }
+}
+
+@container other-blogs (max-width: 740px) {
+  .other-blogs-list {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

@@ -9,9 +9,9 @@ import { ROUTE_PATHS } from "@/shared/config/route-paths";
 import UiButton from "@/shared/ui/ui-button/ui-button";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
-import styles from "./blogs-page.module.scss";
+import styles from "./blogger-actions.module.scss";
 
-const FoodBlogsActions = (props: Blogger) => {
+const BloggerActions = (props: Blogger) => {
   const navigate = useNavigate();
   const { bookmarksCount, subscribersCount, isFavorite, _id } = props;
 
@@ -53,4 +53,4 @@ const FoodBlogsActions = (props: Blogger) => {
   );
 };
 
-export default FoodBlogsActions;
+export default BloggerActions;
