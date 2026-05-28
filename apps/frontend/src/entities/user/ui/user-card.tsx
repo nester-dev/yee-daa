@@ -15,6 +15,9 @@ type Props = PropsWithChildren<{
   lastName: string;
   login: string;
   avatarSize?: UserAvatarSize;
+  variant?: "large" | "medium";
+  className?: string;
+  onClick?: () => void;
 }>;
 
 const UserCard = ({
@@ -23,14 +26,25 @@ const UserCard = ({
   lastName,
   login,
   avatarSize = "medium",
+  variant = "large",
   children,
+  className,
+  onClick,
 }: Props) => {
   return (
-    <div className={clsx(styles.author, styles["author-large"])}>
+    <div
+      className={clsx(
+        styles.author,
+        onClick && styles["author-clickable"],
+        variant === "large" && styles["author-large"],
+        className,
+      )}
+      onClick={onClick}
+    >
       <UserAvatar photo={photo} size={avatarSize} />
       <div className={styles.identity}>
         <UiTypography variant="lg" fontWeight="medium" className={styles.name}>
-          {firstName} {lastName}fsadfasddsfasdfdsf
+          {firstName} {lastName}
         </UiTypography>
         <UiTypography variant="sm" color="blackOverlay">
           @{login}

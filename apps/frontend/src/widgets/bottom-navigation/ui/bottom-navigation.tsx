@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { useLocation, useNavigate } from "react-router";
 
+import AvatarIcon from "@/shared/assets/icons/avatar-icon.svg?react";
 import HomeIcon from "@/shared/assets/icons/home-icon.svg?react";
 import NotesIcon from "@/shared/assets/icons/notes-icon.svg?react";
 import SearchIcon from "@/shared/assets/icons/search-icon.svg?react";
@@ -32,6 +33,13 @@ const BottomNavigation: FC = () => {
         onClick={() => navigate(ROUTE_PATHS.NEW_RECIPE)}
       >
         Записать
+      </NavigationItem>
+      <NavigationItem
+        icon={<AvatarIcon className={styles.avatar} />}
+        isActive={location.pathname === ROUTE_PATHS.PROFILE}
+        onClick={() => navigate(ROUTE_PATHS.PROFILE)}
+      >
+        Мой профиль
       </NavigationItem>
     </footer>
   );

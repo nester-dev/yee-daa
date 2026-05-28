@@ -7,4 +7,5 @@ export const ROUTE_PATHS = {
   VERIFICATION: "/verification",
   FOOD_BLOGS: "/food-blogs",
   BLOGS: "/blogs",
+  PROFILE: "/profile",
 };

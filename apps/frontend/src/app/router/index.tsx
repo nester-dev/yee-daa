@@ -5,6 +5,7 @@ import { CategoryPage } from "@/pages/category-page";
 import { FoodBlogsPage } from "@/pages/food-blogs-page";
 import { HomePage } from "@/pages/home-page";
 import { NewRecipe } from "@/pages/new-recipe";
+import { ProfilePage } from "@/pages/profile-page";
 import { RecipePage } from "@/pages/recipe-page";
 import { SignIn } from "@/pages/sign-in";
 import { SignUp } from "@/pages/sign-up";
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
           {
             path: `${ROUTE_PATHS.BLOGS}/:bloggerId`,
             Component: BloggerPage,
+          },
+          {
+            path: ROUTE_PATHS.PROFILE,
+            Component: ProfilePage,
           },
         ],
       },
