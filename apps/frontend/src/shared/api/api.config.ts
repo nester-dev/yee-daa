@@ -11,6 +11,7 @@ export enum ApiConfig {
   REFRESH_TOKEN = "auth/refresh",
   BLOGGERS = "bloggers",
   TOGGLE_SUBSCRIPTION = "/users/toggle-subscription",
+  ME = "/users/me",
 }
 
 export enum HttpMethod {

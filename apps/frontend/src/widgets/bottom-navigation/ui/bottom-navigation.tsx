@@ -1,6 +1,8 @@
 import type { FC } from "react";
 import { useLocation, useNavigate } from "react-router";
 
+import { useGetMeQuery, UserAvatar } from "@/entities/user/index.ts";
+
 import AvatarIcon from "@/shared/assets/icons/avatar-icon.svg?react";
 import HomeIcon from "@/shared/assets/icons/home-icon.svg?react";
 import NotesIcon from "@/shared/assets/icons/notes-icon.svg?react";
@@ -12,8 +14,15 @@ import NavigationItem from "./navigation-item.tsx";
 import styles from "./bottom-navigation.module.scss";
 
 const BottomNavigation: FC = () => {
+  const { data } = useGetMeQuery();
   const location = useLocation();
   const navigate = useNavigate();
+
+  const avatar = data?.photoLink ? (
+    <UserAvatar photo={data.photoLink} />
+  ) : (
+    <AvatarIcon className={styles.avatar} />
+  );
 
   return (
     <footer className={styles.navigation}>
@@ -35,7 +44,7 @@ const BottomNavigation: FC = () => {
         Записать
       </NavigationItem>
       <NavigationItem
-        icon={<AvatarIcon className={styles.avatar} />}
+        icon={avatar}
         isActive={location.pathname === ROUTE_PATHS.PROFILE}
         onClick={() => navigate(ROUTE_PATHS.PROFILE)}
       >

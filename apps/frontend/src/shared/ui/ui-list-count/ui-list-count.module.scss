@@ -1,0 +1,32 @@
+.list {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  &-count {
+    color: rgba(0, 0, 0, 0.48);
+  }
+
+  &-text {
+    font-weight: var(--fw-bold);
+
+    color: var(--c-black);
+  }
+}
+
+.large {
+  .list-text {
+    font-size: var(--fs-4xl);
+    line-height: 111%;
+  }
+
+  .list-count {
+    font-size: 30px;
+    line-height: 120%;
+  }
+}
+
+.medium {
+  font-size: var(--fs-xl);
+  line-height: 140%;
+}

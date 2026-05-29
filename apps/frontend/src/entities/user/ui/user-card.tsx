@@ -16,6 +16,7 @@ type Props = PropsWithChildren<{
   login: string;
   avatarSize?: UserAvatarSize;
   variant?: "large" | "medium";
+  nameSize?: "large" | "medium";
   className?: string;
   onClick?: () => void;
 }>;
@@ -26,6 +27,7 @@ const UserCard = ({
   lastName,
   login,
   avatarSize = "medium",
+  nameSize = "medium",
   variant = "large",
   children,
   className,
@@ -43,7 +45,11 @@ const UserCard = ({
     >
       <UserAvatar photo={photo} size={avatarSize} />
       <div className={styles.identity}>
-        <UiTypography variant="lg" fontWeight="medium" className={styles.name}>
+        <UiTypography
+          variant={nameSize === "medium" ? "lg" : "title"}
+          fontWeight={nameSize === "medium" ? "medium" : "bold"}
+          className={styles.name}
+        >
           {firstName} {lastName}
         </UiTypography>
         <UiTypography variant="sm" color="blackOverlay">

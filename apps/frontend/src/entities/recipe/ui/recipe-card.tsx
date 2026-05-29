@@ -1,20 +1,26 @@
-import { type FC, type ReactNode } from "react";
+import { type FC, type ReactNode, useState } from "react";
 import cn from "clsx";
 
-import type { RecipeType } from "@/entities/recipe/model/types.ts";
 import { UserStats } from "@/entities/user-stats";
 
+import ImagePlaceholder from "@/shared/assets/icons/image-placeholder.svg?react";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import styles from "./recipe-card.module.scss";
 
-type Props = RecipeType & {
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string;
+  likes?: number;
+  bookmarks?: number;
   direction?: "column" | "row";
   actions?: ReactNode;
   onClick?: () => void;
   showImage?: boolean;
   className?: string;
   hideDescription?: boolean;
+  cardHeader?: ReactNode;
 };
 
 const RecipeCard: FC<Props> = ({
@@ -29,10 +35,10 @@ const RecipeCard: FC<Props> = ({
   showImage = true,
   className,
   hideDescription,
+  cardHeader,
 }) => {
-  const cardImage = image
-    ? `${import.meta.env.VITE_ASSETS_URL}/${image}`
-    : null;
+  const [isImageUrlValid, setIsImageUrlValid] = useState<boolean | null>(null);
+  const imageSrc = `${import.meta.env.VITE_ASSETS_URL}/${image}`;
 
   return (
     <div
@@ -40,9 +46,20 @@ const RecipeCard: FC<Props> = ({
       role="button"
       onClick={onClick}
     >
-      {cardImage && showImage && (
+      {showImage && (
         <div className={styles["image-wrapper"]}>
-          <img src={cardImage} alt="recipe-image" />
+          <img
+            className={cn(!isImageUrlValid && styles["hide"])}
+            src={imageSrc}
+            alt="recipe-image"
+            onLoad={() => setIsImageUrlValid(true)}
+            onError={() => setIsImageUrlValid(false)}
+          />
+          {!isImageUrlValid && (
+            <div className={styles["image-placeholder"]}>
+              <ImagePlaceholder />
+            </div>
+          )}
         </div>
       )}
       <div className={styles["card-wrapper"]}>
@@ -70,11 +87,15 @@ const RecipeCard: FC<Props> = ({
             </div>
           )}
           <div className={styles["card-labels"]}>
-            <UserStats
-              bookmarksCount={bookmarks}
-              likesCount={likes}
-              className={styles["card-labels--stats"]}
-            />
+            {cardHeader ? (
+              cardHeader
+            ) : (
+              <UserStats
+                bookmarksCount={bookmarks}
+                likesCount={likes}
+                className={styles["card-labels--stats"]}
+              />
+            )}
           </div>
         </div>
         {actions && <div>{actions}</div>}

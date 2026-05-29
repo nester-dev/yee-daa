@@ -67,6 +67,11 @@ export type DraftRecipeDto = Nullable<PublishRecipeDto | null> & {
   title: string;
 };
 
+export type DraftRecipeType = Partial<PublishRecipeDto> & {
+  _id: string;
+  title: string;
+};
+
 export type GetRecipesByUserIdResponse = {
   myBookmarks: RecipeType[];
   notes: BloggerNoteType[];

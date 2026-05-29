@@ -34,17 +34,17 @@ const UserStats: FC<Props> = ({
         className,
       )}
     >
-      {!!bookmarksCount && (
+      {Number(bookmarksCount) >= 0 && (
         <UserStatsItem icon={<BookmarksIcon />} className={styles["item"]}>
           {bookmarksCount}
         </UserStatsItem>
       )}
-      {!!followersCount && (
+      {Number(followersCount) >= 0 && (
         <UserStatsItem className={styles["item"]} icon={<FollowersIcon />}>
           {followersCount}
         </UserStatsItem>
       )}
-      {!!likesCount && (
+      {Number(likesCount) >= 0 && (
         <UserStatsItem className={styles["item"]} icon={<LikesIcon />}>
           {likesCount}
         </UserStatsItem>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import cn from "clsx";
 
-import { UserCard } from "@/entities/user";
+import { useGetMeQuery, UserCard } from "@/entities/user";
 import { UserStats } from "@/entities/user-stats";
 
 import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
@@ -14,6 +14,7 @@ import Burger from "./burger.tsx";
 import styles from "./Header.module.scss";
 
 const Header = () => {
+  const { data } = useGetMeQuery();
   const navigate = useNavigate();
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const isAboveLaptop = useIsAboveLaptopDevice();
@@ -34,10 +35,10 @@ const Header = () => {
       {!isAboveLaptop && (
         <UserCard
           variant="medium"
-          photo=""
-          firstName="Дмитрий"
-          lastName="Нестер"
-          login="nester.dev"
+          photo={data?.photoLink || ""}
+          firstName={data?.firstName || ""}
+          lastName={data?.lastName || ""}
+          login={data?.login || ""}
           className={styles.profile}
           onClick={handleProfileClick}
         />

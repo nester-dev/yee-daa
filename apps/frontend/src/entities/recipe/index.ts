@@ -4,6 +4,8 @@ export type {
   RecipeType,
   RecipeIngredientType,
   RecipeStepType,
+  DraftRecipeDto,
+  DraftRecipeType,
 } from "./model/types.ts";
 export {
   useGetAllRecipesQuery,

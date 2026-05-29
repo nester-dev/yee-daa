@@ -1,0 +1,46 @@
+.container {
+  padding: 24px 16px;
+}
+
+.info {
+  display: flex;
+  gap: 16px;
+  align-items: start;
+  justify-content: space-between;
+  max-width: calc(100% - 70px);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+  margin-top: 40px;
+}
+
+.recipes {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+
+  &-count {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  &-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(330px, 1fr));
+    gap: 16px 24px;
+    grid-auto-rows: 244px;
+
+    &--tag {
+      margin-left: auto;
+      margin-bottom: 5px;
+    }
+  }
+
+  &--edit {
+    margin-left: auto;
+  }
+}
