@@ -22,7 +22,7 @@ export const transformToRequestDto = (
     ingredients:
       data?.ingredients?.map((ingredient) => ({
         title: ingredient?.title || null,
-        count: ingredient?.count || null,
+        count: Number(ingredient?.count) || null,
         measureUnit: ingredient?.measureUnit?.label || null,
       })) || null,
   };

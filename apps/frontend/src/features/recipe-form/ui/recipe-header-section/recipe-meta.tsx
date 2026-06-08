@@ -1,5 +1,5 @@
 import { type FC } from "react";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 import type { OptionType } from "@/features/select-filters";
 
@@ -18,7 +18,7 @@ import { CustomValueContainer } from "./custom-value-container.tsx";
 import styles from "./recipe-header-section.module.scss";
 
 const RecipeMeta: FC = () => {
-  const { register, formState, setValue, control } =
+  const { register, formState, control } =
     useFormContext<PublishRecipeSchemaType>();
 
   return (
@@ -28,21 +28,31 @@ const RecipeMeta: FC = () => {
           Выберите не менее 3-х тегов
         </UiTypography>
         <div>
-          <UiSelect
-            placeholder="Категория"
-            isMulti={true}
-            options={getSubcategoryOptions()}
-            closeMenuOnSelect={false}
-            isSearchable={false}
-            hideSelectedOptions={false}
-            variant="primary"
-            isClearable={false}
-            components={{
-              Option: UiCheckboxOption,
-              ValueContainer: CustomValueContainer,
-            }}
-            onChange={(value) => setValue("categories", value as OptionType[])}
-            error={!!formState.errors.categories}
+          <Controller
+            control={control}
+            name="categories"
+            render={({ field }) => (
+              <UiSelect
+                {...field}
+                placeholder="Категория"
+                isMulti={true}
+                options={getSubcategoryOptions()}
+                closeMenuOnSelect={false}
+                isSearchable={false}
+                hideSelectedOptions={false}
+                variant="primary"
+                isClearable={false}
+                components={{
+                  Option: UiCheckboxOption,
+                  ValueContainer: CustomValueContainer,
+                }}
+                value={(field.value as OptionType[]) ?? []}
+                onChange={(value) =>
+                  field.onChange((value as OptionType[]) ?? [])
+                }
+                error={!!formState.errors.categories}
+              />
+            )}
           />
         </div>
       </div>

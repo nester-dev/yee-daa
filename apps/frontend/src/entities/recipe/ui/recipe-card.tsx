@@ -42,7 +42,12 @@ const RecipeCard: FC<Props> = ({
 
   return (
     <div
-      className={cn(styles.card, styles[direction], className)}
+      className={cn(
+        styles.card,
+        styles[direction],
+        styles["card--clickable"],
+        className,
+      )}
       role="button"
       onClick={onClick}
     >

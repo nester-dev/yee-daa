@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useNavigate } from "react-router";
 
 import {
   type DraftRecipeType,
@@ -6,6 +7,7 @@ import {
   type RecipeType,
 } from "@/entities/recipe";
 
+import { ROUTE_PATHS } from "@/shared/config/route-paths";
 import UiListCount from "@/shared/ui/ui-list-count/ui-list-count";
 import UiTag from "@/shared/ui/ui-tag/ui-tag";
 
@@ -19,6 +21,12 @@ type TProps = {
 };
 
 const RecipesList: FC<TProps> = ({ recipes, drafts }) => {
+  const navigate = useNavigate();
+
+  const handleDraftClick = (draftId: string) => {
+    navigate(`${ROUTE_PATHS.EDIT_DRAFT_RECIPE}/${draftId}`);
+  };
+
   return (
     <div className={styles.recipes}>
       <div className={styles["recipes-count"]}>
@@ -40,6 +48,7 @@ const RecipesList: FC<TProps> = ({ recipes, drafts }) => {
               <EditRecipeButton className={styles["recipes--edit"]} isDraft />
             }
             direction="row"
+            onClick={() => handleDraftClick(draft._id)}
           />
         ))}
         {recipes.map((recipe) => (

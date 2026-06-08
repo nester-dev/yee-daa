@@ -11,6 +11,7 @@ import { HttpStatus } from "@/shared/api/http-status.ts";
 import {
   bloggerInvalidateKey,
   recipeInvalidateKey,
+  userInvalidateKey,
 } from "@/shared/api/invalidate-keys";
 import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
 import {
@@ -79,5 +80,5 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefresh,
   endpoints: () => ({}),
-  tagTypes: [recipeInvalidateKey, bloggerInvalidateKey],
+  tagTypes: [recipeInvalidateKey, bloggerInvalidateKey, userInvalidateKey],
 });

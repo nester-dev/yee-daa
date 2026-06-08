@@ -8,4 +8,5 @@ export const ROUTE_PATHS = {
   FOOD_BLOGS: "/food-blogs",
   BLOGS: "/blogs",
   PROFILE: "/profile",
+  EDIT_DRAFT_RECIPE: "/edit-draft",
 };

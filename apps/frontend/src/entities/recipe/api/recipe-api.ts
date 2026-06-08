@@ -1,6 +1,9 @@
 import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { baseApi } from "@/shared/api/base-api.ts";
-import { recipeInvalidateKey } from "@/shared/api/invalidate-keys.ts";
+import {
+  recipeInvalidateKey,
+  userInvalidateKey,
+} from "@/shared/api/invalidate-keys.ts";
 import type { BaseQueryResponse } from "@/shared/api/types.ts";
 
 import { getActualRecipes } from "../lib/get-actual-recipes.ts";
@@ -59,6 +62,20 @@ export const recipeApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+    updateDraftRecipe: build.mutation<
+      void,
+      {
+        id: string;
+        body: DraftRecipeDto;
+      }
+    >({
+      query: ({ id, body }) => ({
+        url: `${ApiConfig.RECIPE_DRAFT}/${id}`,
+        method: HttpMethod.PATCH,
+        body,
+      }),
+      invalidatesTags: () => [userInvalidateKey],
+    }),
     publishRecipe: build.mutation<void, PublishRecipeDto>({
       query: (body) => ({
         url: ApiConfig.RECIPE,
@@ -79,4 +96,5 @@ export const {
   useCreateDraftRecipeMutation,
   usePublishRecipeMutation,
   useGetRecipesByUserIdQuery,
+  useUpdateDraftRecipeMutation,
 } = recipeApi;

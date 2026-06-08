@@ -10,7 +10,7 @@ export type RecipeStepType = {
 
 export type RecipeIngredientType = {
   title: string | null;
-  count: string | null;
+  count: string | number | null;
   measureUnit: string | null;
 };
 

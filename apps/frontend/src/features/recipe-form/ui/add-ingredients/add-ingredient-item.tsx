@@ -1,5 +1,5 @@
 import { type FC } from "react";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 import type { OptionType } from "@/features/select-filters";
 
@@ -34,7 +34,7 @@ const AddIngredientItem: FC<Props> = ({
   append,
   index,
 }) => {
-  const { register, setValue, formState } =
+  const { register, control, formState } =
     useFormContext<PublishRecipeSchemaType>();
   const ingredientErrors = formState.errors.ingredients?.[index];
 
@@ -62,22 +62,56 @@ const AddIngredientItem: FC<Props> = ({
         type="number"
         placeholder="Количество"
         min={1}
+        step={1}
+        inputMode="numeric"
         color="secondary"
         variant="small"
-        {...register(`ingredients.${index}.count`)}
+        onKeyDown={(e) => {
+          if (["e", "E", "+", "-", ".", ","].includes(e.key)) {
+            e.preventDefault();
+          }
+        }}
+        onPaste={(e) => {
+          const text = e.clipboardData.getData("text").trim();
+          if (!/^\d+$/.test(text)) {
+            e.preventDefault();
+          }
+        }}
+        {...register(`ingredients.${index}.count`, {
+          setValueAs: (value) => {
+            if (value === "" || value == null) return "";
+            const onlyDigits = String(value).replace(/[^\d]/g, "");
+            if (!onlyDigits) return "";
+            return Number.parseInt(onlyDigits, 10);
+          },
+        })}
         error={!!ingredientErrors?.count}
       />
 
-      <UiSelect
-        placeholder="Единица измерения"
-        options={getMeasureUnitsOptions(measureUnits)}
-        variant="secondary"
-        isClearable
-        maxMenuHeight={150}
-        onChange={(value) =>
-          setValue(`ingredients.${index}.measureUnit`, value as OptionType)
-        }
-        error={!!ingredientErrors?.measureUnit}
+      <Controller
+        control={control}
+        name={`ingredients.${index}.measureUnit`}
+        render={({ field }) => {
+          const currentValue = field.value as Partial<OptionType> | undefined;
+
+          return (
+            <UiSelect
+              {...field}
+              placeholder="Единица измерения"
+              options={getMeasureUnitsOptions(measureUnits)}
+              variant="secondary"
+              isClearable
+              maxMenuHeight={150}
+              value={currentValue?.value ? (currentValue as OptionType) : null}
+              onChange={(value) =>
+                field.onChange(
+                  (value as OptionType) ?? { value: "", label: "" },
+                )
+              }
+              error={!!ingredientErrors?.measureUnit}
+            />
+          );
+        }}
       />
 
       {showAddButton ? (

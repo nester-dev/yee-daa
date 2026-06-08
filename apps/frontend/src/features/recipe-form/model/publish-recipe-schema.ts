@@ -22,13 +22,13 @@ export const StepDraftSchema = z.object({
 
 export const IngredientSchema = z.object({
   title: z.string().max(50).nonempty(),
-  count: z.string().max(20).nonempty(),
+  count: z.union([z.string().max(20).nonempty(), z.number().positive()]),
   measureUnit: z.object(OptionSchema.shape),
 });
 
 const IngredientDraftSchema = z.object({
   title: z.string().max(50),
-  count: z.string().max(20),
+  count: z.union([z.string().max(20), z.number().nonnegative()]),
   measureUnit: z.object(OptionDraftSchema.shape),
 });
 

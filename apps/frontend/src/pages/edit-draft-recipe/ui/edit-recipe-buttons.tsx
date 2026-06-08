@@ -8,25 +8,31 @@ import {
   RecipeFormVariants,
 } from "@/features/recipe-form";
 
-import {
-  transformToRequestDto,
-  useCreateDraftRecipeMutation,
-} from "@/entities/recipe";
+import { transformToRequestDto } from "@/entities/recipe";
+import { useUpdateDraftRecipeMutation } from "@/entities/recipe/api/recipe-api";
 
 type Props = {
   onVariantChange: (variant: RecipeFormVariants) => void;
   variant: RecipeFormVariants;
+  recipeId: string;
 };
 
-const NewRecipeActions: FC<Props> = ({ onVariantChange, variant }) => {
+const EditRecipeButtons: FC<Props> = ({
+  onVariantChange,
+  variant,
+  recipeId,
+}) => {
   const { handleSubmit } = useFormContext<PublishRecipeSchemaType>();
-  const [createDraft] = useCreateDraftRecipeMutation();
+  const [updateDraft] = useUpdateDraftRecipeMutation();
 
   const onSubmit: SubmitHandler<
     PublishRecipeSchemaType | DraftRecipeSchemaType
   > = (data) => {
     if (variant === RecipeFormVariants.DRAFT) {
-      createDraft(transformToRequestDto(data));
+      updateDraft({
+        id: recipeId,
+        body: transformToRequestDto(data),
+      });
     } else {
       return;
     }
@@ -47,4 +53,4 @@ const NewRecipeActions: FC<Props> = ({ onVariantChange, variant }) => {
   );
 };
 
-export default NewRecipeActions;
+export default EditRecipeButtons;

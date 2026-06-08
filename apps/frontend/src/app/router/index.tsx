@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 
 import { BloggerPage } from "@/pages/blogger-page";
 import { CategoryPage } from "@/pages/category-page";
+import { EditDraftRecipe } from "@/pages/edit-draft-recipe";
 import { FoodBlogsPage } from "@/pages/food-blogs-page";
 import { HomePage } from "@/pages/home-page";
 import { NewRecipe } from "@/pages/new-recipe";
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
           {
             path: ROUTE_PATHS.PROFILE,
             Component: ProfilePage,
+          },
+          {
+            path: `${ROUTE_PATHS.EDIT_DRAFT_RECIPE}/:recipeId`,
+            Component: EditDraftRecipe,
           },
         ],
       },
