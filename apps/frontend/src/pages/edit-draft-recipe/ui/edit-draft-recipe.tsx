@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 
-import { getRecipeFormDefaultValues, RecipeForm } from "@/features/recipe-form";
+import { getRecipeFormDefaultValues, RecipeForm } from "@/widgets/recipe-form";
 
 import { useGetMeQuery } from "@/entities/user";
 

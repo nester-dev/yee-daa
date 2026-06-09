@@ -6,11 +6,13 @@ import {
   type PublishRecipeSchemaType,
   RecipeButtons,
   RecipeFormVariants,
-} from "@/features/recipe-form";
+} from "@/widgets/recipe-form";
 
 import {
+  type PublishRecipeDto,
   transformToRequestDto,
   useCreateDraftRecipeMutation,
+  usePublishRecipeMutation,
 } from "@/entities/recipe";
 
 type Props = {
@@ -21,6 +23,7 @@ type Props = {
 const NewRecipeActions: FC<Props> = ({ onVariantChange, variant }) => {
   const { handleSubmit } = useFormContext<PublishRecipeSchemaType>();
   const [createDraft] = useCreateDraftRecipeMutation();
+  const [publishRecipe] = usePublishRecipeMutation();
 
   const onSubmit: SubmitHandler<
     PublishRecipeSchemaType | DraftRecipeSchemaType
@@ -28,7 +31,7 @@ const NewRecipeActions: FC<Props> = ({ onVariantChange, variant }) => {
     if (variant === RecipeFormVariants.DRAFT) {
       createDraft(transformToRequestDto(data));
     } else {
-      return;
+      publishRecipe(transformToRequestDto(data) as unknown as PublishRecipeDto);
     }
   };
 

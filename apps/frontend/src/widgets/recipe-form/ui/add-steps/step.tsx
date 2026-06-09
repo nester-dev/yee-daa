@@ -1,9 +1,10 @@
-import type { FC } from "react";
+import { type FC, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
+
+import { ImageUpload } from "@/features/image-upload/index.ts";
 
 import TrashIcon from "@/shared/assets/icons/trash-icon.svg?react";
 import UiIconButton from "@/shared/ui/ui-icon-button/ui-icon-button.tsx";
-import UiImageUpload from "@/shared/ui/ui-image-upload/ui-image-upload.tsx";
 import UiTag from "@/shared/ui/ui-tag/ui-tag.tsx";
 import UiTextarea from "@/shared/ui/ui-textarea/ui-textarea.tsx";
 import { UiTypography } from "@/shared/ui/ui-typography";
@@ -21,14 +22,28 @@ type Props = {
 const Step: FC<Props> = ({ index, onDelete, totalSteps }) => {
   const {
     register,
+    setValue,
+    watch,
     formState: { errors },
   } = useFormContext<PublishRecipeSchemaType>();
   const stepNumber = index + 1;
   const onlyOneStep = totalSteps === 1;
+  const image = watch(`steps.${index}.image`);
+
+  const onUploadSuccess = useCallback(
+    (url: string) => {
+      setValue(`steps.${index}.image`, url);
+    },
+    [setValue, index],
+  );
 
   return (
     <div className={styles.step}>
-      <UiImageUpload className={styles.image} />
+      <ImageUpload
+        className={styles.image}
+        onUploadSuccess={onUploadSuccess}
+        preview={image}
+      />
       <div className={styles.details}>
         <div className={styles.details__top}>
           <UiTag icon="Шаг" color="blackSoft" className={styles.details__tag}>

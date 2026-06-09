@@ -1,7 +1,7 @@
 import type {
   DraftRecipeSchemaType,
   PublishRecipeSchemaType,
-} from "@/features/recipe-form";
+} from "@/widgets/recipe-form";
 
 export const transformToRequestDto = (
   data: DraftRecipeSchemaType | PublishRecipeSchemaType,
@@ -9,7 +9,7 @@ export const transformToRequestDto = (
   return {
     title: data.title,
     description: data?.description || null,
-    image: null,
+    image: data?.image || null,
     categoriesIds: data.categories?.map((category) => category?.value) || null,
     time: data?.time || null,
     portions: data?.portions || null,

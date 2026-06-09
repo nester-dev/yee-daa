@@ -12,6 +12,7 @@ export enum ApiConfig {
   BLOGGERS = "bloggers",
   TOGGLE_SUBSCRIPTION = "/users/toggle-subscription",
   ME = "/users/me",
+  FILE_UPLOAD = "/file/upload",
 }
 
 export enum HttpMethod {

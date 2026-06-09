@@ -6,6 +6,7 @@ export type {
   RecipeStepType,
   DraftRecipeDto,
   DraftRecipeType,
+  PublishRecipeDto,
 } from "./model/types.ts";
 export {
   useGetAllRecipesQuery,
@@ -13,6 +14,7 @@ export {
   useCreateDraftRecipeMutation,
   usePublishRecipeMutation,
   useGetRecipesByUserIdQuery,
+  useUpdateDraftRecipeMutation,
 } from "./api/recipe-api.ts";
 export { type GetRecipesParams } from "./model/types.ts";
 export { getRecipePrimaryCategory } from "./lib/get-recipe-primary-category.ts";

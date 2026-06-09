@@ -39,6 +39,7 @@ export const PublishRecipeSchema = z.object({
   time: z.number().positive().int().max(10000),
   portions: z.number().positive().int(),
   steps: z.array(StepSchema).min(1),
+  image: z.string(),
   ingredients: z.array(IngredientSchema).min(1),
 });
 
@@ -50,6 +51,7 @@ export const DraftRecipeSchema = z.object({
   portions: z.number().positive().int().optional(),
   ingredients: z.array(IngredientDraftSchema),
   steps: z.array(StepDraftSchema),
+  image: z.string().optional(),
 });
 
 export type PublishRecipeSchemaType = z.infer<typeof PublishRecipeSchema>;

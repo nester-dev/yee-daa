@@ -1,6 +1,6 @@
 import { type FC } from "react";
 
-import { RecipeForm } from "@/features/recipe-form";
+import { RecipeForm } from "@/widgets/recipe-form";
 
 import UiContentContainer from "@/shared/ui/ui-content-container/ui-content-container.tsx";
 

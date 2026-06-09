@@ -6,10 +6,12 @@ import {
   type PublishRecipeSchemaType,
   RecipeButtons,
   RecipeFormVariants,
-} from "@/features/recipe-form";
+} from "@/widgets/recipe-form";
 
-import { transformToRequestDto } from "@/entities/recipe";
-import { useUpdateDraftRecipeMutation } from "@/entities/recipe/api/recipe-api";
+import {
+  transformToRequestDto,
+  useUpdateDraftRecipeMutation,
+} from "@/entities/recipe";
 
 type Props = {
   onVariantChange: (variant: RecipeFormVariants) => void;

@@ -82,10 +82,7 @@ export const recipeApi = baseApi.injectEndpoints({
         method: HttpMethod.POST,
         body,
       }),
-      // invalidatesTags: (_, __, { id }) => [
-      //   { type: recipeInvalidateKey, id },
-      //   recipeInvalidateKey,
-      // ],
+      invalidatesTags: () => [recipeInvalidateKey, userInvalidateKey],
     }),
   }),
 });

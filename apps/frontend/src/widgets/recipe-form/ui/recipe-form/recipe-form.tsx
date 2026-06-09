@@ -52,6 +52,7 @@ const RecipeForm: FC<TProps> = ({ formActions, defaultValues }) => {
           description: "",
         },
       ],
+      image: "",
       ...defaultValues,
     },
     resolver: async (data, context, options) => {
