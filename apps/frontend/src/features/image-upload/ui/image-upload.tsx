@@ -11,9 +11,15 @@ type Props = {
   className?: string;
   onUploadSuccess?: (url: string) => void;
   preview?: string | undefined;
+  error?: string;
 };
 
-const ImageUpload: FC<Props> = ({ className, onUploadSuccess, preview }) => {
+const ImageUpload: FC<Props> = ({
+  className,
+  onUploadSuccess,
+  preview,
+  error,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const imagePreview = preview
     ? `${import.meta.env.VITE_ASSETS_URL}/${preview}`
@@ -29,6 +35,7 @@ const ImageUpload: FC<Props> = ({ className, onUploadSuccess, preview }) => {
           className={styles.image}
           src={imagePreview}
           alt="recipe-image"
+          error={error}
         />
       </button>
       <ImageUploadModal

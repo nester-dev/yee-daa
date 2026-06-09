@@ -29,7 +29,7 @@ export const IngredientSchema = z.object({
 const IngredientDraftSchema = z.object({
   title: z.string().max(50),
   count: z.union([z.string().max(20), z.number().nonnegative()]),
-  measureUnit: z.object(OptionDraftSchema.shape),
+  measureUnit: z.object(OptionDraftSchema.shape).nullish(),
 });
 
 export const PublishRecipeSchema = z.object({
@@ -39,7 +39,7 @@ export const PublishRecipeSchema = z.object({
   time: z.number().positive().int().max(10000),
   portions: z.number().positive().int(),
   steps: z.array(StepSchema).min(1),
-  image: z.string(),
+  image: z.string().nonempty(),
   ingredients: z.array(IngredientSchema).min(1),
 });
 
@@ -51,7 +51,7 @@ export const DraftRecipeSchema = z.object({
   portions: z.number().positive().int().optional(),
   ingredients: z.array(IngredientDraftSchema),
   steps: z.array(StepDraftSchema),
-  image: z.string().optional(),
+  image: z.string().nullish(),
 });
 
 export type PublishRecipeSchemaType = z.infer<typeof PublishRecipeSchema>;

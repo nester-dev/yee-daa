@@ -10,11 +10,8 @@ const NewRecipe: FC = () => {
   return (
     <UiContentContainer>
       <RecipeForm
-        formActions={({ onVariantChange, variant }) => (
-          <NewRecipeActions
-            onVariantChange={onVariantChange}
-            variant={variant}
-          />
+        formActions={({ onVariantChange }) => (
+          <NewRecipeActions onVariantChange={onVariantChange} />
         )}
       />
     </UiContentContainer>

@@ -22,10 +22,9 @@ const EditDraftRecipe = () => {
     <UiContentContainer>
       <RecipeForm
         defaultValues={getRecipeFormDefaultValues(draft)}
-        formActions={({ onVariantChange, variant }) => (
+        formActions={({ onVariantChange }) => (
           <EditRecipeButtons
             onVariantChange={onVariantChange}
-            variant={variant}
             recipeId={recipeId}
           />
         )}

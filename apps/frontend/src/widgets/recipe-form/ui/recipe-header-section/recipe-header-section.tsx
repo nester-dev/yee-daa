@@ -10,7 +10,11 @@ import RecipeMeta from "./recipe-meta.tsx";
 import styles from "./recipe-header-section.module.scss";
 
 const RecipeHeaderSection: FC = () => {
-  const { setValue, watch } = useFormContext<PublishRecipeSchemaType>();
+  const {
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext<PublishRecipeSchemaType>();
   const image = watch("image");
 
   const onUploadSuccess = useCallback(
@@ -26,6 +30,7 @@ const RecipeHeaderSection: FC = () => {
         className={styles.uploader}
         onUploadSuccess={onUploadSuccess}
         preview={image}
+        error={errors.image?.message}
       />
       <RecipeMeta />
     </section>

@@ -1,0 +1,24 @@
+.modal {
+  max-width: 400px;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.image {
+  max-width: 206px;
+}
+
+.icon {
+  color: var(--c-white);
+}

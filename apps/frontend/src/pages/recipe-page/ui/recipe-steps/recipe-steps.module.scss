@@ -1,4 +1,4 @@
-@use "@/shared/styles/mixins";
+@use '@/shared/styles/mixins';
 
 .steps {
   display: flex;
@@ -10,7 +10,6 @@
     margin-top: 24px;
   }
 }
-
 
 .step {
   display: flex;
@@ -56,6 +55,12 @@
     flex-direction: column;
     padding: 20px 24px;
     row-gap: 16px;
+    overflow: hidden;
+
+    p {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
 
     @include mixins.tabletDevice() {
       padding: 8px;

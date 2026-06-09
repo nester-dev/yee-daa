@@ -8,6 +8,8 @@ import {
   RecipeFormVariants,
 } from "@/widgets/recipe-form";
 
+import { UnsavedChangesGuard } from "@/features/unsaved-changes";
+
 import {
   transformToRequestDto,
   useUpdateDraftRecipeMutation,
@@ -15,43 +17,65 @@ import {
 
 type Props = {
   onVariantChange: (variant: RecipeFormVariants) => void;
-  variant: RecipeFormVariants;
   recipeId: string;
 };
 
-const EditRecipeButtons: FC<Props> = ({
-  onVariantChange,
-  variant,
-  recipeId,
-}) => {
-  const { handleSubmit } = useFormContext<PublishRecipeSchemaType>();
+const EditRecipeButtons: FC<Props> = ({ onVariantChange, recipeId }) => {
+  const {
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useFormContext<PublishRecipeSchemaType | DraftRecipeSchemaType>();
   const [updateDraft] = useUpdateDraftRecipeMutation();
 
-  const onSubmit: SubmitHandler<
+  const onDraftSubmit: SubmitHandler<
     PublishRecipeSchemaType | DraftRecipeSchemaType
-  > = (data) => {
-    if (variant === RecipeFormVariants.DRAFT) {
-      updateDraft({
-        id: recipeId,
-        body: transformToRequestDto(data),
-      });
-    } else {
-      return;
-    }
+  > = async (data) => {
+    await updateDraft({
+      id: recipeId,
+      body: transformToRequestDto(data),
+    }).unwrap();
+  };
+
+  const submitDraft = async () => {
+    let isValid = false;
+
+    onVariantChange(RecipeFormVariants.DRAFT);
+    await handleSubmit(
+      async (data) => {
+        try {
+          await onDraftSubmit(data);
+          reset(data);
+          isValid = true;
+        } catch {
+          isValid = false;
+        }
+      },
+      () => {
+        isValid = false;
+      },
+    )();
+
+    return isValid;
   };
 
   const handleDraft = () => {
-    onVariantChange(RecipeFormVariants.DRAFT);
-    handleSubmit(onSubmit)();
+    void submitDraft();
   };
 
   const handlePublish = () => {
     onVariantChange(RecipeFormVariants.NEW);
-    handleSubmit(onSubmit)();
+    void handleSubmit(() => undefined)();
   };
 
   return (
-    <RecipeButtons onDraftClick={handleDraft} onPublishClick={handlePublish} />
+    <>
+      <RecipeButtons
+        onDraftClick={handleDraft}
+        onPublishClick={handlePublish}
+      />
+      <UnsavedChangesGuard isDirty={isDirty} onSaveDraft={submitDraft} />
+    </>
   );
 };
 

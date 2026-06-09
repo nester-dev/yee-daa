@@ -8,6 +8,8 @@ import {
   RecipeFormVariants,
 } from "@/widgets/recipe-form";
 
+import { UnsavedChangesGuard } from "@/features/unsaved-changes";
+
 import {
   type PublishRecipeDto,
   transformToRequestDto,
@@ -17,36 +19,71 @@ import {
 
 type Props = {
   onVariantChange: (variant: RecipeFormVariants) => void;
-  variant: RecipeFormVariants;
 };
 
-const NewRecipeActions: FC<Props> = ({ onVariantChange, variant }) => {
-  const { handleSubmit } = useFormContext<PublishRecipeSchemaType>();
+const NewRecipeActions: FC<Props> = ({ onVariantChange }) => {
+  const {
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useFormContext<PublishRecipeSchemaType | DraftRecipeSchemaType>();
   const [createDraft] = useCreateDraftRecipeMutation();
   const [publishRecipe] = usePublishRecipeMutation();
 
-  const onSubmit: SubmitHandler<
+  const onDraftSubmit: SubmitHandler<
     PublishRecipeSchemaType | DraftRecipeSchemaType
-  > = (data) => {
-    if (variant === RecipeFormVariants.DRAFT) {
-      createDraft(transformToRequestDto(data));
-    } else {
-      publishRecipe(transformToRequestDto(data) as unknown as PublishRecipeDto);
-    }
+  > = async (data) => {
+    await createDraft(transformToRequestDto(data)).unwrap();
+  };
+
+  const onPublishSubmit: SubmitHandler<
+    PublishRecipeSchemaType | DraftRecipeSchemaType
+  > = async (data) => {
+    await publishRecipe(
+      transformToRequestDto(data) as unknown as PublishRecipeDto,
+    ).unwrap();
+  };
+
+  const submitDraft = async () => {
+    let isValid = false;
+
+    onVariantChange(RecipeFormVariants.DRAFT);
+
+    await handleSubmit(
+      async (data) => {
+        try {
+          await onDraftSubmit(data);
+          reset(data);
+          isValid = true;
+        } catch {
+          isValid = false;
+        }
+      },
+      () => {
+        isValid = false;
+      },
+    )();
+
+    return isValid;
   };
 
   const handleDraft = () => {
-    onVariantChange(RecipeFormVariants.DRAFT);
-    handleSubmit(onSubmit)();
+    void submitDraft();
   };
 
   const handlePublish = () => {
     onVariantChange(RecipeFormVariants.NEW);
-    handleSubmit(onSubmit)();
+    void handleSubmit(onPublishSubmit)();
   };
 
   return (
-    <RecipeButtons onDraftClick={handleDraft} onPublishClick={handlePublish} />
+    <>
+      <RecipeButtons
+        onDraftClick={handleDraft}
+        onPublishClick={handlePublish}
+      />
+      <UnsavedChangesGuard isDirty={isDirty} onSaveDraft={submitDraft} />
+    </>
   );
 };
 

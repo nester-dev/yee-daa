@@ -5,10 +5,11 @@ import ImagePlaceholder from "@/shared/assets/icons/image-placeholder.svg?react"
 
 import styles from "./ui-image.module.scss";
 
-const UiImage: FC<ImgHTMLAttributes<HTMLImageElement>> = ({
+const UiImage: FC<ImgHTMLAttributes<HTMLImageElement> & { error?: string }> = ({
   className,
   alt,
   src,
+  error,
   ...rest
 }) => {
   const [isImageUrlValid, setIsImageUrlValid] = useState<boolean | null>(null);
@@ -19,6 +20,7 @@ const UiImage: FC<ImgHTMLAttributes<HTMLImageElement>> = ({
         styles.container,
         className,
         !isImageUrlValid && styles.error,
+        error && styles.validationError,
       )}
     >
       <img
