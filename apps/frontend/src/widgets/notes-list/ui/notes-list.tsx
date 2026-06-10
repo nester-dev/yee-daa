@@ -1,5 +1,7 @@
 import { type FC, useState } from "react";
 
+import { DeleteNoteButton } from "@/features/delete-note";
+
 import { BloggerNote, type BloggerNoteType } from "@/entities/bloggers";
 
 import PenIcon from "@/shared/assets/icons/pen-icon.svg?react";
@@ -13,12 +15,14 @@ type Props = {
   notes: BloggerNoteType[];
   headingTextSize?: "large" | "medium";
   onNewNoteClick?: () => void;
+  canDeleteNote?: boolean;
 };
 
 const NotesList: FC<Props> = ({
   notes,
   headingTextSize = "large",
   onNewNoteClick,
+  canDeleteNote = false,
 }) => {
   const [showAll, setShowAll] = useState(false);
   const displayShowMoreButton = !showAll && notes.length > 3;
@@ -45,7 +49,9 @@ const NotesList: FC<Props> = ({
       </div>
       <div className={styles["notes-list"]}>
         {notesToShow.map((note) => (
-          <BloggerNote key={note.date} {...note} />
+          <BloggerNote key={note._id} {...note}>
+            {canDeleteNote && <DeleteNoteButton noteId={note._id} />}
+          </BloggerNote>
         ))}
       </div>
       {displayShowMoreButton && (

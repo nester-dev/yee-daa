@@ -1,4 +1,5 @@
-import { type ChangeEvent, type FC, useState } from "react";
+import { type FC } from "react";
+import { useForm } from "react-hook-form";
 import cn from "clsx";
 
 import { useCreateNoteMutation } from "@/entities/user";
@@ -15,7 +16,18 @@ import styles from "./new-note-drawer.module.scss";
 const MAX_NOTE_LENGTH = 160;
 
 const NewNoteDrawer: FC<UiDrawerProps> = ({ isOpen, onClose }) => {
-  const [noteText, setNoteText] = useState("");
+  const {
+    register,
+    reset,
+    watch,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<{ text: string }>({
+    defaultValues: {
+      text: "",
+    },
+  });
+  const noteText = watch("text");
   const [createNote] = useCreateNoteMutation();
   const noteLength = noteText.length;
   const remainingChars = MAX_NOTE_LENGTH - noteLength;
@@ -23,13 +35,9 @@ const NewNoteDrawer: FC<UiDrawerProps> = ({ isOpen, onClose }) => {
 
   const counterText = `(${remainingChars})`;
 
-  const handleNoteChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setNoteText(event.target.value);
-  };
-
-  const handleCreateNote = async () => {
+  const handleCreateNote = handleSubmit(async ({ text }) => {
     try {
-      await createNote({ text: noteText }).unwrap();
+      await createNote({ text }).unwrap();
       showNotification({
         title: "Заметка опубликована",
         variant: "success",
@@ -40,23 +48,29 @@ const NewNoteDrawer: FC<UiDrawerProps> = ({ isOpen, onClose }) => {
         text: "Попробуйте немного позже",
         variant: "error",
       });
+    } finally {
+      reset();
+      onClose();
     }
-    setNoteText("");
-    onClose();
-  };
+  });
 
   return (
     <UiDrawer isOpen={isOpen} onClose={onClose} title="Новая заметка">
       <div className={styles.content}>
         <div className={styles.textareaWrap}>
           <UiTextarea
-            value={noteText}
-            onChange={handleNoteChange}
             placeholder="максимально 160 символов"
             rows={5}
             minLength={10}
-            error={isLimitExceeded}
             className={styles.textarea}
+            {...register("text", {
+              required: "Введите заметку",
+              minLength: {
+                value: 10,
+                message: "Минимальная длина 10 символов",
+              },
+            })}
+            error={!!errors.text?.message}
           />
           <span
             className={cn(

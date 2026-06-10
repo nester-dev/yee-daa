@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router";
 
 import type { LoginFormType } from "@/features/login";
@@ -15,7 +15,7 @@ import { useModal } from "@/shared/lib/use-modal.ts";
 
 export const useLogin = () => {
   const { handleOpenModal } = useModal();
-  const [login, { isSuccess, error, originalArgs }] = useLoginMutation();
+  const [login, { error, originalArgs }] = useLoginMutation();
   const navigate = useNavigate();
 
   const isServerValidationError = useMemo(() => {
@@ -24,47 +24,47 @@ export const useLogin = () => {
     );
   }, [error]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      navigate(ROUTE_PATHS.HOME);
-    }
-  }, [isSuccess, navigate]);
-
-  useEffect(() => {
-    if (!error) return;
-
-    matchHttpError(error, {
-      [HttpStatus.UNAUTHORIZED]: (message) => {
-        showNotification({
-          title: message,
-          text: "Попробуйте снова.",
-          variant: "error",
+  const loginQuery = useCallback(
+    async (credentials: LoginFormType) => {
+      try {
+        await login(credentials).unwrap();
+        navigate(ROUTE_PATHS.HOME);
+      } catch (error) {
+        matchHttpError(error, {
+          [HttpStatus.UNAUTHORIZED]: (message) => {
+            showNotification({
+              title: message,
+              text: "Попробуйте снова.",
+              variant: "error",
+            });
+          },
+          [HttpStatus.FORBIDDEN]: (message) => {
+            showNotification({
+              title: message,
+              text: "Проверьте почту и перейдите по ссылке.",
+              variant: "error",
+            });
+          },
+          default: () => {
+            handleOpenModal(ModalTypes.LOGIN_ERROR);
+          },
         });
-      },
-      [HttpStatus.FORBIDDEN]: (message) => {
-        showNotification({
-          title: message,
-          text: "Проверьте почту и перейдите по ссылке.",
-          variant: "error",
-        });
-      },
-      default: () => {
-        handleOpenModal(ModalTypes.LOGIN_ERROR);
-      },
-    });
-  }, [error, handleOpenModal]);
+      }
+    },
+    [login, navigate, handleOpenModal],
+  );
 
   const handleLogin = useCallback(
     (credentials: LoginFormType) => {
-      login(credentials);
+      loginQuery(credentials);
     },
-    [login],
+    [loginQuery],
   );
   const handleRetry = useCallback(() => {
     if (originalArgs) {
-      login(originalArgs);
+      loginQuery(originalArgs);
     }
-  }, [login, originalArgs]);
+  }, [loginQuery, originalArgs]);
 
   return {
     isServerValidationError,

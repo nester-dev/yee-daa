@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { useVerifyOtpMutation } from "@/entities/auth";
 import type { VerifyOtpDto } from "@/entities/auth/model/types.ts";
@@ -10,37 +10,32 @@ import { showNotification } from "@/shared/lib/show-notification.tsx";
 import { useModal } from "@/shared/lib/use-modal.ts";
 
 export const useVerifyOpt = () => {
-  const [verifyOtp, { isSuccess, error }] = useVerifyOtpMutation();
+  const [verifyOtp] = useVerifyOtpMutation();
   const { handleOpenModal } = useModal();
   const [isVerifyError, setIsVerifyError] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (isSuccess) {
-      handleOpenModal(ModalTypes.ACCOUNT_RECOVERY);
-    }
-  }, [isSuccess, handleOpenModal]);
-
-  useEffect(() => {
-    matchHttpError(error, {
-      [HttpStatus.FORBIDDEN]: () => {
-        setIsVerifyError(true);
-      },
-      default: () => {
-        showNotification({
-          title: "Ошибка сервера",
-          text: "Попробуйте немного позже",
-          variant: "error",
-        });
-      },
-    });
-  }, [error]);
-
   const handleVerifyOtp = useCallback(
-    (data: VerifyOtpDto) => {
+    async (data: VerifyOtpDto) => {
       setIsVerifyError(false);
-      verifyOtp(data);
+      try {
+        await verifyOtp(data).unwrap();
+        handleOpenModal(ModalTypes.ACCOUNT_RECOVERY);
+      } catch (error) {
+        matchHttpError(error, {
+          [HttpStatus.FORBIDDEN]: () => {
+            setIsVerifyError(true);
+          },
+          default: () => {
+            showNotification({
+              title: "Ошибка сервера",
+              text: "Попробуйте немного позже",
+              variant: "error",
+            });
+          },
+        });
+      }
     },
-    [verifyOtp],
+    [verifyOtp, handleOpenModal],
   );
 
   return {

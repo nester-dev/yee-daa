@@ -7,4 +7,10 @@
   border-radius: 8px;
   word-wrap: break-word;
   background: var(--c-white);
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

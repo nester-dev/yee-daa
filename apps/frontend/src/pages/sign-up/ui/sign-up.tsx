@@ -1,4 +1,4 @@
-import { type FC, useCallback, useEffect } from "react";
+import { type FC, useCallback } from "react";
 
 import {
   EmailConfirmationModal,
@@ -16,38 +16,34 @@ import { useModal } from "@/shared/lib/use-modal.ts";
 
 const SignUp: FC = () => {
   const { handleOpenModal } = useModal();
-  const [register, { isSuccess, error, originalArgs }] = useRegisterMutation();
+  const [register, { originalArgs }] = useRegisterMutation();
 
   const handleRegistration = useCallback(
-    (credentials: RegisterFormType) => {
+    async (credentials: RegisterFormType) => {
+      try {
+        await register(credentials).unwrap();
+        handleOpenModal(ModalTypes.EMAIL_CONFIRMATION);
+      } catch (error) {
+        matchHttpError(error, {
+          [HttpStatus.BAD_REQUEST]: (message) => {
+            showNotification({
+              title: message,
+              variant: "error",
+            });
+          },
+          default: () => {
+            showNotification({
+              title: "Ошибка сервера",
+              text: "Попробуйте немного позже",
+              variant: "error",
+            });
+          },
+        });
+      }
       register(credentials);
     },
-    [register],
+    [register, handleOpenModal],
   );
-
-  useEffect(() => {
-    if (isSuccess) {
-      handleOpenModal(ModalTypes.EMAIL_CONFIRMATION);
-    }
-  }, [isSuccess, handleOpenModal]);
-
-  useEffect(() => {
-    matchHttpError(error, {
-      [HttpStatus.BAD_REQUEST]: (message) => {
-        showNotification({
-          title: message,
-          variant: "error",
-        });
-      },
-      default: () => {
-        showNotification({
-          title: "Ошибка сервера",
-          text: "Попробуйте немного позже",
-          variant: "error",
-        });
-      },
-    });
-  }, [error]);
 
   return (
     <>

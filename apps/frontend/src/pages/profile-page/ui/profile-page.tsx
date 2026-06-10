@@ -38,6 +38,7 @@ const ProfilePage = () => {
       </div>
       <NotesList
         notes={recipes?.notes || []}
+        canDeleteNote={!!userId}
         headingTextSize="medium"
         onNewNoteClick={openNoteDrawer}
       />

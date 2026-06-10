@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router";
 
 import { useResetPasswordMutation } from "@/entities/auth";
@@ -10,48 +10,43 @@ import { ROUTE_PATHS } from "@/shared/config/route-paths.ts";
 import { showNotification } from "@/shared/lib/show-notification.tsx";
 
 export const useAccountRecovery = () => {
-  const [resetPassword, { isSuccess, error }] = useResetPasswordMutation();
+  const [resetPassword] = useResetPasswordMutation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isSuccess) {
-      navigate(ROUTE_PATHS.HOME, { replace: true });
-      showNotification({
-        title: "Восстановление данных успешно",
-        variant: "success",
-      });
-    }
-  }, [isSuccess, navigate]);
-
-  useEffect(() => {
-    matchHttpError(error, {
-      [HttpStatus.BAD_REQUEST]: (message) => {
-        showNotification({
-          title: message,
-          variant: "error",
-        });
-      },
-      [HttpStatus.FORBIDDEN]: (message) => {
-        showNotification({
-          title: message,
-          variant: "error",
-        });
-      },
-      default: () => {
-        showNotification({
-          title: "Ошибка сервера",
-          text: "Попробуйте немного позже",
-          variant: "error",
-        });
-      },
-    });
-  }, [error]);
-
   const handleRecovery = useCallback(
-    (data: AccountRecoveryDto) => {
-      resetPassword(data);
+    async (data: AccountRecoveryDto) => {
+      try {
+        await resetPassword(data).unwrap();
+        navigate(ROUTE_PATHS.HOME, { replace: true });
+        showNotification({
+          title: "Восстановление данных успешно",
+          variant: "success",
+        });
+      } catch (error) {
+        matchHttpError(error, {
+          [HttpStatus.BAD_REQUEST]: (message) => {
+            showNotification({
+              title: message,
+              variant: "error",
+            });
+          },
+          [HttpStatus.FORBIDDEN]: (message) => {
+            showNotification({
+              title: message,
+              variant: "error",
+            });
+          },
+          default: () => {
+            showNotification({
+              title: "Ошибка сервера",
+              text: "Попробуйте немного позже",
+              variant: "error",
+            });
+          },
+        });
+      }
     },
-    [resetPassword],
+    [resetPassword, navigate],
   );
 
   return {

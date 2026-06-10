@@ -91,40 +91,35 @@ type FooterProps = {
 };
 
 const Footer: FC<FooterProps> = ({ file, onSuccess, onClose }) => {
-  const [uploadFile, { isSuccess, error, data, reset }] =
-    useUploadFileMutation();
-
-  useEffect(() => {
-    matchHttpError(error, {
-      [HttpStatus.BAD_REQUEST]: (message) => {
-        showNotification({
-          title: message,
-          variant: "error",
-        });
-      },
-      default: () => {
-        showNotification({
-          title: "Ошибка сервера",
-          text: "Попробуйте немного позже",
-          variant: "error",
-        });
-      },
-    });
-  }, [error]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      onSuccess?.(data?.url || "");
-      reset();
-    }
-  }, [isSuccess, data, onSuccess, reset]);
+  const [uploadFile, { reset }] = useUploadFileMutation();
 
   if (!file) return null;
 
   const handleUpload = async () => {
     const formData = new FormData();
     formData.append("file", file);
-    await uploadFile(formData);
+
+    try {
+      const response = await uploadFile(formData).unwrap();
+      onSuccess?.(response.url || "");
+      reset();
+    } catch (error) {
+      matchHttpError(error, {
+        [HttpStatus.BAD_REQUEST]: (message) => {
+          showNotification({
+            title: message,
+            variant: "error",
+          });
+        },
+        default: () => {
+          showNotification({
+            title: "Ошибка сервера",
+            text: "Попробуйте немного позже",
+            variant: "error",
+          });
+        },
+      });
+    }
     onClose();
   };
 
