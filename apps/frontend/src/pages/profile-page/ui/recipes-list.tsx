@@ -30,8 +30,12 @@ const RecipesList: FC<TProps> = ({ recipes, drafts }) => {
   return (
     <div className={styles.recipes}>
       <div className={styles["recipes-count"]}>
-        <UiListCount count={recipes.length}>Мои рецепты</UiListCount>
-        <UiListCount count={drafts.length}>Черновики</UiListCount>
+        <UiListCount count={recipes.length} size="medium">
+          Мои рецепты
+        </UiListCount>
+        <UiListCount count={drafts.length} size="medium">
+          Черновики
+        </UiListCount>
       </div>
 
       <div className={styles["recipes-list"]}>

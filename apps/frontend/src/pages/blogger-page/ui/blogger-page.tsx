@@ -1,9 +1,10 @@
 import { useParams } from "react-router";
 
+import { NotesList } from "@/widgets/notes-list";
+
 import { useGetBloggersQuery } from "@/entities/bloggers";
 import { useGetRecipesByUserIdQuery } from "@/entities/recipe";
 
-import BloggerNotesList from "./blogger-notes-list";
 import BloggerPageHeader from "./blogger-page-header";
 import BloggerRecipesList from "./blogger-recipes-list";
 import OtherBlogsList from "./other-blogs-list";
@@ -19,7 +20,9 @@ const BloggerPage = () => {
     <div className={styles.page}>
       <BloggerPageHeader />
       <BloggerRecipesList recipes={data?.recipes ?? []} />
-      <BloggerNotesList notes={data?.notes ?? []} />
+      {data?.notes && data?.notes.length > 0 && (
+        <NotesList notes={data?.notes} />
+      )}
       <OtherBlogsList data={bloggerData?.others || []} />
     </div>
   );

@@ -1,3 +1,7 @@
+import { NotesList } from "@/widgets/notes-list";
+
+import { NewNoteDrawer, useNoteDrawer } from "@/features/add-new-note";
+
 import { useGetRecipesByUserIdQuery } from "@/entities/recipe";
 import { useGetMeQuery } from "@/entities/user";
 
@@ -7,6 +11,7 @@ import UserInfo from "./user-info";
 import styles from "./profile-page.module.scss";
 
 const ProfilePage = () => {
+  const { isOpen, toggleNoteDrawer, openNoteDrawer } = useNoteDrawer();
   const { data } = useGetMeQuery();
   const userId = data?._id;
   const { data: recipes } = useGetRecipesByUserIdQuery(userId ?? "", {
@@ -31,6 +36,16 @@ const ProfilePage = () => {
           drafts={data?.drafts || []}
         />
       </div>
+      <NotesList
+        notes={recipes?.notes || []}
+        headingTextSize="medium"
+        onNewNoteClick={openNoteDrawer}
+      />
+      <NewNoteDrawer
+        isOpen={isOpen}
+        onClose={toggleNoteDrawer}
+        title="Новая заметка"
+      />
     </div>
   );
 };

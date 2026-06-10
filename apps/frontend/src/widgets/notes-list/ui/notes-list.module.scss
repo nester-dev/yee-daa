@@ -1,0 +1,62 @@
+@use '@/shared/styles/mixins';
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  padding: 24px 24px 16px;
+  margin-top: 40px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.04);
+  container-name: notes;
+  container-type: inline-size;
+
+  @include mixins.tabletDevice() {
+    padding: 16px;
+  }
+
+  @container notes (max-width: 780px) {
+    .notes-list {
+      grid-template-columns: repeat(2, minmax(200px, 1fr));
+    }
+  }
+
+  @container notes (max-width: 576px) {
+    .notes-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &-count {
+    font-size: 30px;
+    line-height: 120%;
+    color: rgba(0, 0, 0, 0.48);
+
+    @include mixins.tabletDevice() {
+      font-size: 20px;
+      line-height: 140%;
+    }
+  }
+
+  &-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    gap: 16px;
+
+    @include mixins.tabletDevice() {
+      gap: 12px;
+    }
+  }
+
+  &-show-more {
+    width: max-content;
+    margin: 0 auto;
+  }
+}
