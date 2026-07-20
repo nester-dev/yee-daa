@@ -3,6 +3,8 @@ import { useParams } from "react-router";
 
 import { NewRecipesSection } from "@/widgets/new-recipes-section";
 
+import { useBookmarks } from "@/features/toggle-bookmarks/index.ts";
+
 import { useGetRecipeByIdQuery } from "@/entities/recipe";
 
 import UiContentContainer from "@/shared/ui/ui-content-container/ui-content-container.tsx";
@@ -17,10 +19,11 @@ const RecipePage: FC = () => {
   const { recipeId } = useParams();
 
   const { data } = useGetRecipeByIdQuery(recipeId!, { skip: !recipeId });
+  const { isBookmarked } = useBookmarks(recipeId!);
 
   return (
     <UiContentContainer>
-      <RecipeInfo {...data} />
+      <RecipeInfo {...data} isBookmarked={isBookmarked} />
       <div className={styles.container}>
         <IngredientsAndNutrition
           nutritionValue={data?.nutritionValue}

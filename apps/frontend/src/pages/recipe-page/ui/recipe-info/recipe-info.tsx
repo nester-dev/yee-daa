@@ -14,7 +14,11 @@ import RecipeInfoActions from "./recipe-info-actions.tsx";
 
 import styles from "./recipe-info.module.scss";
 
-const RecipeInfo: FC<Partial<RecipeType>> = ({
+type TProps = Partial<RecipeType> & {
+  isBookmarked?: boolean;
+};
+
+const RecipeInfo: FC<TProps> = ({
   image,
   likes,
   bookmarks,
@@ -24,6 +28,7 @@ const RecipeInfo: FC<Partial<RecipeType>> = ({
   categoriesIds,
   authorId,
   _id,
+  isBookmarked,
 }) => {
   const imagePath = `${import.meta.env.VITE_ASSETS_URL}/${image}`;
   const categories = getRecipeCategories(CATEGORIES_DATA, categoriesIds);
@@ -75,7 +80,11 @@ const RecipeInfo: FC<Partial<RecipeType>> = ({
               tag="span"
             >{`${time} минут`}</UiTypography>
           </UiTag>
-          <RecipeInfoActions isAuthor={isAuthor} id={_id} />
+          <RecipeInfoActions
+            isAuthor={isAuthor}
+            id={_id}
+            isBookmarked={isBookmarked}
+          />
         </div>
       </div>
     </div>

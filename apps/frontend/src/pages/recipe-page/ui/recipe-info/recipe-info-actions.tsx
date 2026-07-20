@@ -2,8 +2,8 @@ import { type FC, useState } from "react";
 import { generatePath, useNavigate, useParams } from "react-router";
 
 import { DeleteRecipeModal } from "@/features/delete-recipe";
+import { ToggleBookmarkButton } from "@/features/toggle-bookmarks";
 
-import BookmarkIcon from "@/shared/assets/icons/bookmark-heart.svg?react";
 import LikeIcon from "@/shared/assets/icons/emoji-heart-eyes.svg?react";
 import PencilIcon from "@/shared/assets/icons/pencil-icon.svg?react";
 import TrashIcon from "@/shared/assets/icons/trash-icon.svg?react";
@@ -17,9 +17,10 @@ import styles from "./recipe-info.module.scss";
 type TProps = {
   isAuthor: boolean;
   id: string;
+  isBookmarked?: boolean;
 };
 
-const RecipeInfoActions: FC<TProps> = ({ isAuthor, id }) => {
+const RecipeInfoActions: FC<TProps> = ({ isAuthor, id, isBookmarked }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
   const { category, subcategory, recipeId } = useParams();
@@ -67,11 +68,7 @@ const RecipeInfoActions: FC<TProps> = ({ isAuthor, id }) => {
             </UiTypography>
           </UiButton>
         ) : (
-          <UiButton icon={<BookmarkIcon />} color="success">
-            <UiTypography fontWeight="semibold">
-              Сохранить в закладки
-            </UiTypography>
-          </UiButton>
+          <ToggleBookmarkButton recipeId={id} isBookmarked={isBookmarked} />
         )}
       </div>
       <DeleteRecipeModal

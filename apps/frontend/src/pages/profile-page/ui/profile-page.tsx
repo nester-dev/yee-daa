@@ -5,6 +5,7 @@ import { NewNoteDrawer, useNoteDrawer } from "@/features/add-new-note";
 import { useGetRecipesByUserIdQuery } from "@/entities/recipe";
 import { useGetMeQuery } from "@/entities/user";
 
+import BookmarksList from "./bookmarks-list";
 import RecipesList from "./recipes-list";
 import UserInfo from "./user-info";
 
@@ -42,6 +43,7 @@ const ProfilePage = () => {
         headingTextSize="medium"
         onNewNoteClick={openNoteDrawer}
       />
+      <BookmarksList />
       <NewNoteDrawer
         isOpen={isOpen}
         onClose={toggleNoteDrawer}

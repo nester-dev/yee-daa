@@ -49,7 +49,7 @@ const JuiciestSection: FC = () => {
             key={recipe._id}
             {...recipe}
             direction="row"
-            actions={<ActionButtons />}
+            actions={<ActionButtons recipeId={recipe._id} />}
             hideDescription={isAboveLaptopDevice}
             onClick={() => handleRecipeClick(recipe, CATEGORIES_DATA)}
           />

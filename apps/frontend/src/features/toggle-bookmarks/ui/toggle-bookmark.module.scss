@@ -1,0 +1,7 @@
+@use "@/shared/styles/mixins";
+
+.bookmark-remove {
+  @include mixins.laptopDevice {
+    display: none;
+  }
+}
