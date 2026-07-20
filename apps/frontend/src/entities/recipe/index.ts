@@ -15,6 +15,8 @@ export {
   usePublishRecipeMutation,
   useGetRecipesByUserIdQuery,
   useUpdateDraftRecipeMutation,
+  useDeleteDraftRecipeMutation,
+  useUpdateRecipeMutation,
 } from "./api/recipe-api.ts";
 export { type GetRecipesParams } from "./model/types.ts";
 export { getRecipePrimaryCategory } from "./lib/get-recipe-primary-category.ts";

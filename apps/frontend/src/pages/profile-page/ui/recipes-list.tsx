@@ -1,17 +1,20 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router";
 
+import { CATEGORIES_DATA } from "@/entities/category";
 import {
   type DraftRecipeType,
   RecipeCard,
   type RecipeType,
+  useRecipeClick,
 } from "@/entities/recipe";
 
 import { ROUTE_PATHS } from "@/shared/config/route-paths";
+import { useIsAboveLaptopDevice } from "@/shared/lib/use-media-query";
 import UiListCount from "@/shared/ui/ui-list-count/ui-list-count";
 import UiTag from "@/shared/ui/ui-tag/ui-tag";
 
-import EditRecipeButton from "./edit-recipe";
+import { DraftRecipeActions, EditRecipeButton } from "./recipe-actions";
 
 import styles from "./profile-page.module.scss";
 
@@ -22,9 +25,19 @@ type TProps = {
 
 const RecipesList: FC<TProps> = ({ recipes, drafts }) => {
   const navigate = useNavigate();
+  const handleRecipeClick = useRecipeClick();
+  const isAboveLaptopDevice = useIsAboveLaptopDevice();
 
   const handleDraftClick = (draftId: string) => {
     navigate(`${ROUTE_PATHS.EDIT_DRAFT_RECIPE}/${draftId}`);
+  };
+
+  const onRecipeClick = (recipe: RecipeType) => {
+    handleRecipeClick(
+      recipe,
+      CATEGORIES_DATA,
+      `${ROUTE_PATHS.EDIT_RECIPE}/:category/:subcategory/:recipeId`,
+    );
   };
 
   return (
@@ -48,15 +61,26 @@ const RecipesList: FC<TProps> = ({ recipes, drafts }) => {
                 Черновик
               </UiTag>
             }
-            actions={
-              <EditRecipeButton className={styles["recipes--edit"]} isDraft />
-            }
+            actions={<DraftRecipeActions recipeId={draft._id} />}
             direction="row"
+            hideDescription={isAboveLaptopDevice}
             onClick={() => handleDraftClick(draft._id)}
           />
         ))}
         {recipes.map((recipe) => (
-          <RecipeCard key={recipe._id} {...recipe} direction="row" />
+          <RecipeCard
+            key={recipe._id}
+            {...recipe}
+            direction="row"
+            onClick={() => onRecipeClick(recipe)}
+            hideDescription={isAboveLaptopDevice}
+            actions={
+              <EditRecipeButton
+                isDraft={false}
+                className={styles["actions-edit"]}
+              />
+            }
+          />
         ))}
       </div>
     </div>

@@ -2,28 +2,27 @@ import { useParams } from "react-router";
 
 import { getRecipeFormDefaultValues, RecipeForm } from "@/widgets/recipe-form";
 
-import { useGetMeQuery } from "@/entities/user";
+import { useGetRecipeByIdQuery } from "@/entities/recipe";
 
 import UiContentContainer from "@/shared/ui/ui-content-container/ui-content-container";
 
-import EditDraftRecipeButtons from "./edit-draft-recipe-buttons";
+import EditRecipeButtons from "./edit-recipe-buttons";
 
-const EditDraftRecipe = () => {
+const EditRecipePage = () => {
   const { recipeId } = useParams();
-  const { data: me } = useGetMeQuery();
 
-  const draft = me?.drafts?.find((item) => item._id === recipeId);
+  const { data } = useGetRecipeByIdQuery(recipeId!, { skip: !recipeId });
 
-  if (!draft || !recipeId) {
+  if (!data || !recipeId) {
     return null;
   }
 
   return (
     <UiContentContainer>
       <RecipeForm
-        defaultValues={getRecipeFormDefaultValues(draft)}
+        defaultValues={getRecipeFormDefaultValues(data)}
         formActions={({ onVariantChange }) => (
-          <EditDraftRecipeButtons
+          <EditRecipeButtons
             onVariantChange={onVariantChange}
             recipeId={recipeId}
           />
@@ -33,4 +32,4 @@ const EditDraftRecipe = () => {
   );
 };
 
-export default EditDraftRecipe;
+export default EditRecipePage;

@@ -16,59 +16,37 @@ import {
   getRecipePrimaryCategory,
   type PublishRecipeDto,
   transformToRequestDto,
-  useCreateDraftRecipeMutation,
   usePublishRecipeMutation,
+  useUpdateDraftRecipeMutation,
 } from "@/entities/recipe";
 
-import { HttpStatus } from "@/shared/api/http-status";
 import { matchHttpError } from "@/shared/api/match-http-error";
-import { ROUTE_PATHS } from "@/shared/config/route-paths";
 import { showNotification } from "@/shared/lib/show-notification";
 
 type Props = {
   onVariantChange: (variant: RecipeFormVariants) => void;
+  recipeId: string;
 };
 
-const NewRecipeActions: FC<Props> = ({ onVariantChange }) => {
+const EditRecipeButtons: FC<Props> = ({ onVariantChange, recipeId }) => {
   const {
     handleSubmit,
     reset,
     formState: { isDirty, isSubmitting, isSubmitSuccessful },
   } = useFormContext<PublishRecipeSchemaType | DraftRecipeSchemaType>();
-  const navigate = useNavigate();
 
   const hasUnsavedChanges = isDirty && !isSubmitting && !isSubmitSuccessful;
-  const [createDraft] = useCreateDraftRecipeMutation();
+  const [updateDraft] = useUpdateDraftRecipeMutation();
   const [publishRecipe] = usePublishRecipeMutation();
+  const navigate = useNavigate();
 
   const onDraftSubmit: SubmitHandler<
     PublishRecipeSchemaType | DraftRecipeSchemaType
   > = async (data) => {
-    try {
-      await createDraft(transformToRequestDto(data)).unwrap();
-      showNotification({
-        title: "Черновик успешно сохранен",
-        variant: "success",
-      });
-      navigate(ROUTE_PATHS.HOME);
-    } catch (error) {
-      matchHttpError(error, {
-        [HttpStatus.CONFLICT]: () => {
-          showNotification({
-            title: "Ошибка",
-            text: "Рецепт с таким названием уже существует.",
-            variant: "error",
-          });
-        },
-        default: () => {
-          showNotification({
-            title: "Ошибка сервера",
-            text: "Попробуйте пока сохранить в черновик.",
-            variant: "error",
-          });
-        },
-      });
-    }
+    await updateDraft({
+      id: recipeId,
+      body: transformToRequestDto(data),
+    }).unwrap();
   };
 
   const onPublishSubmit: SubmitHandler<
@@ -94,13 +72,6 @@ const NewRecipeActions: FC<Props> = ({ onVariantChange }) => {
       }
     } catch (error) {
       matchHttpError(error, {
-        [HttpStatus.CONFLICT]: () => {
-          showNotification({
-            title: "Ошибка",
-            text: "Рецепт с таким названием уже существует.",
-            variant: "error",
-          });
-        },
         default: () => {
           showNotification({
             title: "Ошибка сервера",
@@ -116,7 +87,6 @@ const NewRecipeActions: FC<Props> = ({ onVariantChange }) => {
     let isValid = false;
 
     onVariantChange(RecipeFormVariants.DRAFT);
-
     await handleSubmit(
       async (data) => {
         try {
@@ -158,4 +128,4 @@ const NewRecipeActions: FC<Props> = ({ onVariantChange }) => {
   );
 };
 
-export default NewRecipeActions;
+export default EditRecipeButtons;

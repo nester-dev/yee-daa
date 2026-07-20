@@ -27,9 +27,9 @@ export const IngredientSchema = z.object({
 });
 
 const IngredientDraftSchema = z.object({
-  title: z.string().max(50),
-  count: z.union([z.string().max(20), z.number().nonnegative()]),
-  measureUnit: z.object(OptionDraftSchema.shape).nullish(),
+  title: z.string().max(50).optional(),
+  count: z.union([z.string().max(20), z.number().nonnegative()]).optional(),
+  measureUnit: z.object(OptionDraftSchema.shape).partial().nullish(),
 });
 
 export const PublishRecipeSchema = z.object({
@@ -46,11 +46,11 @@ export const PublishRecipeSchema = z.object({
 export const DraftRecipeSchema = z.object({
   title: z.string().nonempty().max(50),
   description: z.string().max(500).optional(),
-  categories: z.array(OptionDraftSchema),
+  categories: z.array(OptionDraftSchema).optional(),
   time: z.number().positive().int().max(10000).optional(),
   portions: z.number().positive().int().optional(),
-  ingredients: z.array(IngredientDraftSchema),
-  steps: z.array(StepDraftSchema),
+  ingredients: z.array(IngredientDraftSchema).optional(),
+  steps: z.array(StepDraftSchema).optional(),
   image: z.string().nullish(),
 });
 

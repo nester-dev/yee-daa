@@ -4,6 +4,7 @@ import { CATEGORIES_DATA } from "@/entities/category";
 import { getRecipeCategories, type RecipeType } from "@/entities/recipe";
 import { UserStats } from "@/entities/user-stats";
 
+import { decodeAccessToken } from "@/shared/api/jwt-decode.ts";
 import ClockIcon from "@/shared/assets/icons/alarm-icon.svg?react";
 import UiImage from "@/shared/ui/ui-image/ui-image.tsx";
 import UiTag from "@/shared/ui/ui-tag/ui-tag.tsx";
@@ -21,9 +22,16 @@ const RecipeInfo: FC<Partial<RecipeType>> = ({
   description,
   time,
   categoriesIds,
+  authorId,
+  _id,
 }) => {
   const imagePath = `${import.meta.env.VITE_ASSETS_URL}/${image}`;
   const categories = getRecipeCategories(CATEGORIES_DATA, categoriesIds);
+  const isAuthor = authorId === decodeAccessToken()?.userId;
+
+  if (!_id) {
+    return null;
+  }
 
   return (
     <div className={styles.container}>
@@ -67,7 +75,7 @@ const RecipeInfo: FC<Partial<RecipeType>> = ({
               tag="span"
             >{`${time} минут`}</UiTypography>
           </UiTag>
-          <RecipeInfoActions />
+          <RecipeInfoActions isAuthor={isAuthor} id={_id} />
         </div>
       </div>
     </div>

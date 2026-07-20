@@ -6,12 +6,12 @@ import { getRecipePrimaryCategory, type RecipeType } from "@/entities/recipe";
 export const useRecipeClick = () => {
   const navigate = useNavigate();
 
-  return (recipe: RecipeType, data: Category[]) => {
+  return (recipe: RecipeType, data: Category[], path?: string) => {
     const categories = getRecipePrimaryCategory(recipe, data);
 
     if (categories) {
       navigate(
-        generatePath("/:category/:subcategory/:recipeId", {
+        generatePath(path || "/:category/:subcategory/:recipeId", {
           category: categories.category,
           subcategory: categories.subCategory,
           recipeId: recipe._id,

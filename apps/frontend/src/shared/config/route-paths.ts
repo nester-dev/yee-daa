@@ -9,4 +9,5 @@ export const ROUTE_PATHS = {
   BLOGS: "/blogs",
   PROFILE: "/profile",
   EDIT_DRAFT_RECIPE: "/edit-draft",
+  EDIT_RECIPE: "/edit-recipe",
 };

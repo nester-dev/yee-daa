@@ -1,6 +1,6 @@
 import { type FC } from "react";
 import { type SubmitHandler, useFormContext } from "react-hook-form";
-import { generatePath, useNavigate } from "react-router";
+import { generatePath, useNavigate, useParams } from "react-router";
 
 import {
   type DraftRecipeSchemaType,
@@ -11,13 +11,11 @@ import {
 
 import { UnsavedChangesGuard } from "@/features/unsaved-changes";
 
-import { CATEGORIES_DATA } from "@/entities/category";
 import {
-  getRecipePrimaryCategory,
   type PublishRecipeDto,
   transformToRequestDto,
   useCreateDraftRecipeMutation,
-  usePublishRecipeMutation,
+  useUpdateRecipeMutation,
 } from "@/entities/recipe";
 
 import { HttpStatus } from "@/shared/api/http-status";
@@ -27,19 +25,21 @@ import { showNotification } from "@/shared/lib/show-notification";
 
 type Props = {
   onVariantChange: (variant: RecipeFormVariants) => void;
+  recipeId: string;
 };
 
-const NewRecipeActions: FC<Props> = ({ onVariantChange }) => {
+const EditRecipeButtons: FC<Props> = ({ onVariantChange, recipeId }) => {
   const {
     handleSubmit,
     reset,
     formState: { isDirty, isSubmitting, isSubmitSuccessful },
   } = useFormContext<PublishRecipeSchemaType | DraftRecipeSchemaType>();
-  const navigate = useNavigate();
 
   const hasUnsavedChanges = isDirty && !isSubmitting && !isSubmitSuccessful;
   const [createDraft] = useCreateDraftRecipeMutation();
-  const [publishRecipe] = usePublishRecipeMutation();
+  const [updateRecipe] = useUpdateRecipeMutation();
+  const navigate = useNavigate();
+  const { category, subcategory } = useParams();
 
   const onDraftSubmit: SubmitHandler<
     PublishRecipeSchemaType | DraftRecipeSchemaType
@@ -74,41 +74,19 @@ const NewRecipeActions: FC<Props> = ({ onVariantChange }) => {
   const onPublishSubmit: SubmitHandler<
     PublishRecipeSchemaType | DraftRecipeSchemaType
   > = async (data) => {
-    try {
-      const recipe = await publishRecipe(
-        transformToRequestDto(data) as unknown as PublishRecipeDto,
-      ).unwrap();
-      showNotification({
-        title: "Рецепт успешно опубликован",
-        variant: "success",
-      });
-      const categories = getRecipePrimaryCategory(recipe, CATEGORIES_DATA);
-      if (categories) {
-        navigate(
-          generatePath("/:category/:subcategory/:recipeId", {
-            category: categories.category,
-            subcategory: categories.subCategory,
-            recipeId: recipe._id,
-          }),
-        );
-      }
-    } catch (error) {
-      matchHttpError(error, {
-        [HttpStatus.CONFLICT]: () => {
-          showNotification({
-            title: "Ошибка",
-            text: "Рецепт с таким названием уже существует.",
-            variant: "error",
-          });
-        },
-        default: () => {
-          showNotification({
-            title: "Ошибка сервера",
-            text: "Попробуйте пока сохранить в черновик.",
-            variant: "error",
-          });
-        },
-      });
+    await updateRecipe({
+      id: recipeId,
+      body: transformToRequestDto(data) as unknown as PublishRecipeDto,
+    }).unwrap();
+
+    if (category && subcategory) {
+      navigate(
+        generatePath("/:category/:subcategory/:recipeId", {
+          category: category,
+          subcategory: subcategory,
+          recipeId: recipeId,
+        }),
+      );
     }
   };
 
@@ -116,7 +94,6 @@ const NewRecipeActions: FC<Props> = ({ onVariantChange }) => {
     let isValid = false;
 
     onVariantChange(RecipeFormVariants.DRAFT);
-
     await handleSubmit(
       async (data) => {
         try {
@@ -158,4 +135,4 @@ const NewRecipeActions: FC<Props> = ({ onVariantChange }) => {
   );
 };
 
-export default NewRecipeActions;
+export default EditRecipeButtons;

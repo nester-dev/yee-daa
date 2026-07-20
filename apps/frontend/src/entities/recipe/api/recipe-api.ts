@@ -2,6 +2,7 @@ import { ApiConfig, HttpMethod } from "@/shared/api/api.config.ts";
 import { baseApi } from "@/shared/api/base-api.ts";
 import {
   recipeInvalidateKey,
+  recipesListInvalidateKey,
   userInvalidateKey,
 } from "@/shared/api/invalidate-keys.ts";
 import type { BaseQueryResponse } from "@/shared/api/types.ts";
@@ -24,7 +25,7 @@ export const recipeApi = baseApi.injectEndpoints({
           method: HttpMethod.GET,
           params,
         }),
-        providesTags: [recipeInvalidateKey],
+        providesTags: [recipeInvalidateKey, recipesListInvalidateKey],
         transformResponse: async (
           response: BaseQueryResponse<RecipeType>,
           _,
@@ -61,6 +62,7 @@ export const recipeApi = baseApi.injectEndpoints({
         method: HttpMethod.POST,
         body,
       }),
+      invalidatesTags: () => [userInvalidateKey],
     }),
     updateDraftRecipe: build.mutation<
       void,
@@ -76,13 +78,34 @@ export const recipeApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: () => [userInvalidateKey],
     }),
-    publishRecipe: build.mutation<void, PublishRecipeDto>({
+    updateRecipe: build.mutation<
+      void,
+      {
+        id: string;
+        body: PublishRecipeDto;
+      }
+    >({
+      query: ({ id, body }) => ({
+        url: `${ApiConfig.RECIPE}/${id}`,
+        method: HttpMethod.PATCH,
+        body,
+      }),
+      invalidatesTags: () => [recipeInvalidateKey],
+    }),
+    publishRecipe: build.mutation<RecipeType, PublishRecipeDto>({
       query: (body) => ({
         url: ApiConfig.RECIPE,
         method: HttpMethod.POST,
         body,
       }),
       invalidatesTags: () => [recipeInvalidateKey, userInvalidateKey],
+    }),
+    deleteDraftRecipe: build.mutation<void, string>({
+      query: (id) => ({
+        url: `${ApiConfig.RECIPE_DRAFT}/${id}`,
+        method: HttpMethod.DELETE,
+      }),
+      invalidatesTags: () => [userInvalidateKey],
     }),
   }),
 });
@@ -94,4 +117,6 @@ export const {
   usePublishRecipeMutation,
   useGetRecipesByUserIdQuery,
   useUpdateDraftRecipeMutation,
+  useUpdateRecipeMutation,
+  useDeleteDraftRecipeMutation,
 } = recipeApi;

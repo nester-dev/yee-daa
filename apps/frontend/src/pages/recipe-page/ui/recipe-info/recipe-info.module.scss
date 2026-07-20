@@ -43,6 +43,7 @@
   width: 57%;
   height: 100%;
   row-gap: 12px;
+  overflow: auto;
 
   @include mixins.tabletDevice() {
     width: 100%;
@@ -126,5 +127,10 @@
         font-size: var(--fs-sm);
       }
     }
+  }
+
+  .trash {
+    width: 16px;
+    height: 16px;
   }
 }
