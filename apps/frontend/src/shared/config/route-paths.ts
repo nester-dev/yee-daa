@@ -10,4 +10,5 @@ export const ROUTE_PATHS = {
   PROFILE: "/profile",
   EDIT_DRAFT_RECIPE: "/edit-draft",
   EDIT_RECIPE: "/edit-recipe",
+  SETTINGS: "/profile/settings",
 };

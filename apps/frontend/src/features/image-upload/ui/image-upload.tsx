@@ -42,6 +42,7 @@ const ImageUpload: FC<Props> = ({
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         onSuccess={onUploadSuccess}
+        withCrop={false}
       />
     </>
   );

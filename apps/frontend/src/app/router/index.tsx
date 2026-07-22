@@ -9,6 +9,7 @@ import { HomePage } from "@/pages/home-page";
 import { NewRecipe } from "@/pages/new-recipe";
 import { ProfilePage } from "@/pages/profile-page";
 import { RecipePage } from "@/pages/recipe-page";
+import { SettingsPage } from "@/pages/settings-page";
 import { SignIn } from "@/pages/sign-in";
 import { SignUp } from "@/pages/sign-up";
 import { VerificationPage } from "@/pages/verification-page";
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
           {
             path: ROUTE_PATHS.PROFILE,
             Component: ProfilePage,
+          },
+          {
+            path: ROUTE_PATHS.SETTINGS,
+            Component: SettingsPage,
           },
           {
             path: `${ROUTE_PATHS.EDIT_DRAFT_RECIPE}/:recipeId`,

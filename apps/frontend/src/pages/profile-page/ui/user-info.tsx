@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router";
+
 import { type User, UserCard } from "@/entities/user";
 import { UserStats } from "@/entities/user-stats";
 
 import SettingsIcon from "@/shared/assets/icons/settings-icon.svg?react";
+import { ROUTE_PATHS } from "@/shared/config/route-paths";
 import UiIconButton from "@/shared/ui/ui-icon-button/ui-icon-button";
 
 import styles from "./profile-page.module.scss";
@@ -19,6 +22,12 @@ const UserInfo = ({
   totalBookmarks,
   totalSubscribers,
 }: TProps) => {
+  const navigate = useNavigate();
+
+  const handleSettingsClick = () => {
+    navigate(ROUTE_PATHS.SETTINGS);
+  };
+
   return (
     <div className={styles.info}>
       <UserCard
@@ -37,7 +46,7 @@ const UserInfo = ({
         />
       </UserCard>
 
-      <UiIconButton>
+      <UiIconButton onClick={handleSettingsClick}>
         <SettingsIcon />
       </UiIconButton>
     </div>

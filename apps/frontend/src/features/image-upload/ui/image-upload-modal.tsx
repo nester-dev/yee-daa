@@ -1,29 +1,34 @@
-import { type ChangeEvent, type FC, useEffect, useRef, useState } from "react";
+import { type FC, type RefObject, useRef, useState } from "react";
 
 import { HttpStatus } from "@/shared/api/http-status";
 import { matchHttpError } from "@/shared/api/match-http-error";
 import { showNotification } from "@/shared/lib/show-notification";
 import UiButton from "@/shared/ui/ui-button/ui-button";
-import UiImage from "@/shared/ui/ui-image/ui-image";
+import UiImageUpload, {
+  type UiImageUploadRef,
+} from "@/shared/ui/ui-image-upload/ui-image-upload";
 import UiModal from "@/shared/ui/ui-modal/ui-modal";
 import { UiTypography } from "@/shared/ui/ui-typography";
 
 import { useUploadFileMutation } from "../api/file-api";
 
-import styles from "./image-upload.module.scss";
-
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   onSuccess?: (url: string) => void;
+  withCrop?: boolean;
 };
 
-const ImageUploadModal: FC<Props> = ({ isOpen, onClose, onSuccess }) => {
-  const [file, setFile] = useState<File | null>(null);
+const ImageUploadModal: FC<Props> = ({
+  isOpen,
+  onClose,
+  onSuccess,
+  withCrop = true,
+}) => {
+  const imageUploadRef = useRef<UiImageUploadRef>(null);
   const [preview, setPreview] = useState<string | undefined>(undefined);
 
   const handleClose = () => {
-    setFile(null);
     setPreview(undefined);
     onClose();
   };
@@ -38,10 +43,20 @@ const ImageUploadModal: FC<Props> = ({ isOpen, onClose, onSuccess }) => {
         </UiTypography>
       }
       content={
-        <Content preview={preview} setFile={setFile} setPreview={setPreview} />
+        <UiImageUpload
+          ref={imageUploadRef}
+          preview={preview}
+          setPreview={setPreview}
+          withCrop={withCrop}
+        />
       }
       footer={
-        <Footer file={file} onSuccess={onSuccess} onClose={handleClose} />
+        <Footer
+          hasFile={Boolean(preview)}
+          imageUploadRef={imageUploadRef}
+          onSuccess={onSuccess}
+          onClose={handleClose}
+        />
       }
     />
   );
@@ -49,53 +64,28 @@ const ImageUploadModal: FC<Props> = ({ isOpen, onClose, onSuccess }) => {
 
 export default ImageUploadModal;
 
-type ContentProps = {
-  preview: string | undefined;
-  setFile: (file: File | null) => void;
-  setPreview: (preview: string | undefined) => void;
-};
-
-const Content: FC<ContentProps> = ({ preview, setFile, setPreview }) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (!selectedFile) return;
-
-    setFile(selectedFile);
-
-    const reader = new FileReader();
-    reader.onloadend = () => setPreview(reader.result as string);
-    reader.readAsDataURL(selectedFile);
-  };
-  return (
-    <button
-      className={styles.preview}
-      onClick={() => inputRef.current?.click()}
-    >
-      <UiImage className={styles.image} src={preview} alt="recipe-image" />
-      <input
-        ref={inputRef}
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-      />
-    </button>
-  );
-};
-
 type FooterProps = {
-  file: File | null;
+  hasFile: boolean;
+  imageUploadRef: RefObject<UiImageUploadRef | null>;
   onSuccess?: (url: string) => void;
   onClose: () => void;
 };
 
-const Footer: FC<FooterProps> = ({ file, onSuccess, onClose }) => {
+const Footer: FC<FooterProps> = ({
+  hasFile,
+  imageUploadRef,
+  onSuccess,
+  onClose,
+}) => {
   const [uploadFile, { reset }] = useUploadFileMutation();
 
-  if (!file) return null;
+  if (!hasFile) return null;
 
   const handleUpload = async () => {
+    const file = await imageUploadRef.current?.getUploadFile();
+
+    if (!file) return;
+
     const formData = new FormData();
     formData.append("file", file);
 
