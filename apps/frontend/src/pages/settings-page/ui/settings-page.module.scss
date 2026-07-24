@@ -1,3 +1,44 @@
+@use "@/shared/styles/mixins";
+
 .container {
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  >button {
+    width: max-content;
+    margin-top: 8px;
+  }
+}
+
+.change-avatar {
+  @include mixins.tabletDevice {
+    margin: 0 auto;
+  }
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+
+  &--icon {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    transform: rotate(180deg);
+  }
+
+  &--link {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+.form {
+  @include mixins.mobileDevice {
+    grid-template-columns: 1fr;
+  }
 }

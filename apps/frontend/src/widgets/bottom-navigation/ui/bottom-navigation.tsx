@@ -19,7 +19,9 @@ const BottomNavigation: FC = () => {
   const navigate = useNavigate();
 
   const avatar = data?.photoLink ? (
-    <UserAvatar photo={data.photoLink} />
+    <UserAvatar
+      photo={`${import.meta.env.VITE_ASSETS_URL}/${data?.photoLink}`}
+    />
   ) : (
     <AvatarIcon className={styles.avatar} />
   );

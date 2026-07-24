@@ -1,4 +1,5 @@
 import { type FC, useState } from "react";
+import cn from "clsx";
 
 import { UserAvatar } from "@/entities/user";
 
@@ -11,9 +12,10 @@ import styles from "./change-avatar.module.scss";
 
 type TProps = {
   avatar: string;
+  className?: string;
 };
 
-const ChangeAvatarButton: FC<TProps> = ({ avatar }) => {
+const ChangeAvatarButton: FC<TProps> = ({ avatar, className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const avatarUrl = `${import.meta.env.VITE_ASSETS_URL}/${avatar}`;
 
@@ -21,7 +23,7 @@ const ChangeAvatarButton: FC<TProps> = ({ avatar }) => {
     <>
       <UiButton
         variant="text"
-        className={styles.button}
+        className={cn(styles.button, className)}
         onClick={() => setIsOpen(true)}
       >
         <UserAvatar size="large" photo={avatarUrl} />

@@ -7,7 +7,7 @@ import styles from "./ui-input.module.scss";
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   placeholder?: string;
   error?: boolean | string;
@@ -30,6 +30,7 @@ const UiInput: FC<Props> = ({
   color = "primary",
   variant = "medium",
   containerClasses,
+  disabled,
   ...rest
 }) => {
   return (
@@ -45,12 +46,19 @@ const UiInput: FC<Props> = ({
       <div className={styles["input-group"]}>
         <label className={styles.label}>
           {label && <span>{label}</span>}
-          <div className={cn(styles["input-wrapper"], className)}>
+          <div
+            className={cn(
+              styles["input-wrapper"],
+              disabled && styles["input-wrapper-disabled"],
+              className,
+            )}
+          >
             <input
               name={name}
               onChange={onChange}
               className={styles.input}
               placeholder={placeholder}
+              disabled={disabled}
               {...rest}
             />
             {suffix}

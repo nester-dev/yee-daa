@@ -18,6 +18,10 @@
   @include mixins.laptopDevice {
     height: 32px;
   }
+
+  &-disabled {
+    opacity: 0.4;
+  }
 }
 
 .label {

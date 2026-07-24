@@ -18,6 +18,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const isAboveLaptop = useIsAboveLaptopDevice();
+  const avatarUrl = `${import.meta.env.VITE_ASSETS_URL}/${data?.photoLink}`;
 
   const toggleBurger = () => {
     setIsBurgerOpen((prev) => !prev);
@@ -35,7 +36,7 @@ const Header = () => {
       {!isAboveLaptop && (
         <UserCard
           variant="medium"
-          photo={data?.photoLink || ""}
+          photo={avatarUrl}
           firstName={data?.firstName || ""}
           lastName={data?.lastName || ""}
           login={data?.login || ""}
